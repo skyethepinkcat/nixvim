@@ -100,7 +100,6 @@
 
               following an explanation of our domain-specific application, we will begin. you will have no assigned task. if you understand, your response will begin with "Acknowledged." it will also contain a brief summary of your operational constraints as well as the nature of the project repository.
             '';
-            # system_prompt can be added manually
           };
         };
         inline = {

@@ -5,8 +5,10 @@
 }: {
   plugins.treesitter = {
     enable = true;
-    highlight = true;
-    indent = true;
-    folding = true;
+    settings = {
+      highlight.enable = true;
+      indent.enable = true;
+      folding.enable = true;
+    };
   };
 }

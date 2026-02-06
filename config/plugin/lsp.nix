@@ -1,6 +1,10 @@
 {
-  plugins.lsp = {
-    enable = true;
+  plugins.lspconfig.enable = true;
+  plugins.tiny-inline-diagnostic.enable = true;
+  # plugins.lsp-lines.enable = true;
+  lsp = {
+    #enable = true;
+    inlayHints.enable = true;
     servers = {
       nil_ls = {
         enable = true;
@@ -8,10 +12,11 @@
       puppet = {
         enable = true;
         package = null;
+        packageFallback = true;
       };
-      solargraph = {
-        enable = true;
-      };
+      # solargraph = {
+      #   enable = true;
+      # };
     };
   };
 }
