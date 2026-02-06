@@ -13,7 +13,6 @@
       snacks
     ])
     ++ [
-      ./autocmds.nix
       ./keymap.nix
       ./neovide.nix
       ./plugin/plugins.nix
