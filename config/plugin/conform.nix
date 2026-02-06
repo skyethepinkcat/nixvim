@@ -1,11 +1,11 @@
-{
+{lib, ...}: {
   plugins.conform-nvim = {
     enable = true;
     settings = {
       formatters_by_ft = {
         lua = ["stylua"];
         puppet = ["puppet-lint"];
-        nix = ["alejandra"];
+        nix = lib.mkForce ["alejandra"];
         ruby = ["rubocop"];
       };
       format_on_save = ''

@@ -1,11 +1,23 @@
-{
+{inputs, ...}: {
   # Import all your configuration modules here
-  imports = [
-    ./autocmds.nix
-    ./keymap.nix
-    ./neovide.nix
-    ./plugin/plugins.nix
-  ];
+  imports =
+    (with inputs.nvix.nvixPlugins; [
+      common
+      lualine
+      lsp
+      ai
+      blink-cmp
+      treesitter
+      ux
+      lang
+      snacks
+    ])
+    ++ [
+      ./autocmds.nix
+      ./keymap.nix
+      ./neovide.nix
+      ./plugin/plugins.nix
+    ];
   colorschemes.catppuccin.enable = true;
   globals = {
     mapleader = " ";
