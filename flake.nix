@@ -28,7 +28,7 @@
             modules = [
             import ./config # import the module directly
             nvix.nvixPlugins.default
-            ]
+            ];
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
               # inherit (inputs) foo;
