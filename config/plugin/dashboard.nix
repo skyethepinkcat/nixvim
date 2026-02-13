@@ -1,8 +1,10 @@
-{lib, ...}: {
+{lib, ...}: let
+  inherit (lib.nixvim) utils mkRaw;
+in {
   plugins.snacks.settings.dashboard = {
     sections =
       # lua
-      lib.mkRaw ''
+      mkRaw ''
         {
           sections = {
             { section = "header" },
