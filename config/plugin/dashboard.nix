@@ -3,6 +3,7 @@
 in {
   plugins.snacks.settings.dashboard = {
     sections =
+      lib.mkForce
       # lua
       mkRaw ''
         {
