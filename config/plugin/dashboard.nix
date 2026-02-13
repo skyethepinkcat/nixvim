@@ -2,10 +2,8 @@
   inherit (lib.nixvim) utils mkRaw;
 in {
   plugins.snacks.settings.dashboard = {
-    sections =
-      lib.mkForce
-      # lua
-      mkRaw ''
+    sections = {
+      __raw = lib.mkForce ''
         {
           sections = {
             { section = "header" },
@@ -37,5 +35,6 @@ in {
           },
         }
       '';
+    };
   };
 }
