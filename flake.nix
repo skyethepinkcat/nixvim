@@ -43,6 +43,15 @@
           };
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
+        nixvim-wrapped = inputs.nixpkgs.legacyPackages.${system}.symlinkJoin {
+          name = "nixvim";
+          paths = [ nvim ];
+          buildInputs = [ inputs.nixpkgs.legacyPackages.${system}.makeWrapper ];
+          postBuild = ''
+            rm $out/bin/nvim
+            makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
+          '';
+        };
       in {
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
@@ -50,8 +59,10 @@
         };
 
         packages = {
+          inherit nvim;
           # Lets you run `nix run .` to start nixvim
-          default = nvim;
+          default = nixvim-wrapped;
+          nixvim = nixvim-wrapped;
         };
       };
     };
