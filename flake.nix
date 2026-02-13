@@ -2,9 +2,9 @@
   description = "A Nixvim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs";
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvix = {
@@ -45,8 +45,8 @@
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
         nixvim-wrapped = inputs.nixpkgs.legacyPackages.${system}.symlinkJoin {
           name = "nixvim";
-          paths = [ nvim ];
-          buildInputs = [ inputs.nixpkgs.legacyPackages.${system}.makeWrapper ];
+          paths = [nvim];
+          buildInputs = [inputs.nixpkgs.legacyPackages.${system}.makeWrapper];
           postBuild = ''
             rm $out/bin/nvim
             makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
