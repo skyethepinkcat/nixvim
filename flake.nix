@@ -63,6 +63,9 @@
           # Lets you run `nix run .` to start nixvim
           default = nixvim-wrapped;
           nixvim = nixvim-wrapped;
+          nixvim-print-init = inputs.nixpkgs.legacyPackages.${system}.writeShellScriptBin "nixvim-print-init" ''
+            ${nvim}/bin/nixvim-print-init
+          '';
         };
       };
     };
