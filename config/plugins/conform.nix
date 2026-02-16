@@ -1,13 +1,21 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}:
+{
   plugins.conform-nvim = {
     enable = true;
     settings = {
       formatters_by_ft = {
-        lua = ["stylua"];
-        puppet = ["puppet-lint"];
-        nix = lib.mkForce ["alejandra"];
-        ruby = ["rubocop"];
+        lua = [ "stylua" ];
+        puppet = [ "puppet-lint" ];
+        nix = [ "nixfmt" ];
+        ruby = [ "rubocop" ];
       };
+      formatters.nixfmt.command = lib.getExe pkgs.nixfmt;
+      formatters.rubycop.command = lib.getExe pkgs.rubocop;
+      formatters.lua.command = lib.getExe pkgs.stylua;
       format_on_save = ''
         function(bufnr)
           -- Disable with a global or buffer-local variable

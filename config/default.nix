@@ -1,23 +1,38 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  ...
+}:
+{
   # Import all your configuration modules here
-  imports =
-    (with inputs.nvix.nvixPlugins; [
-      common
-      lualine
-      lsp
-      ai
-      blink-cmp
-      treesitter
-      ux
-      lang
-      snacks
-    ])
-    ++ [
-      ./keymap.nix
-      ./neovide.nix
-      ./plugin/plugins.nix
-    ];
-  colorschemes.catppuccin.enable = true;
+  imports = [
+    ./nvix
+    ./keymap.nix
+    ./neovide.nix
+    ./plugins
+  ];
+
+  colorschemes.catppuccin = {
+    enable = true;
+    settings = {
+      integrations.native_lsp = {
+        enabled = true;
+        underlines = {
+          errors = [ "undercurl" ];
+          hints = [ "undercurl" ];
+          warnings = [ "undercurl" ];
+          information = [ "undercurl" ];
+        };
+      };
+      flavor = "mocha";
+      italic = true;
+      bold = true;
+      dimInactive = false;
+      transparent_background = lib.mkForce false;
+    };
+  };
+
+  nvix.transparent = false;
   globals = {
     mapleader = " ";
     maplocalleader = ",";

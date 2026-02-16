@@ -14,6 +14,9 @@
         package = null;
         packageFallback = true;
       };
+      statix.enable = true;
+      lua_ls.enable = true;
+
       # solargraph = {
       #   enable = true;
       # };

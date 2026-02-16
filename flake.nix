@@ -17,12 +17,13 @@
     };
   };
 
-  outputs = {
-    nixvim,
-    flake-parts,
-    ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    {
+      nixvim,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -30,43 +31,57 @@
         "aarch64-darwin"
       ];
 
-      perSystem = {system, ...}: let
-        nixvimLib = nixvim.lib.${system};
-        nixvim' = nixvim.legacyPackages.${system};
-        nixvimModule = {
-          inherit system; # or alternatively, set `pkgs`
-          module = import ./config; # import the module directly
-          # You can use `extraSpecialArgs` to pass additional arguments to your module files
-          extraSpecialArgs = {
-            inherit inputs;
-            # inherit (inputs) foo;
+      perSystem =
+        { system, ... }:
+        let
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
+          nixvimLib = nixvim.lib.${system};
+          nixvim' = nixvim.legacyPackages.${system};
+          nixvimModule = {
+            inherit system; # or alternatively, set `pkgs`
+            module = import ./config; # import the module directly
+            # You can use `extraSpecialArgs` to pass additional arguments to your module files
+            extraSpecialArgs = {
+              inherit inputs;
+              # inherit (inputs) foo;
+            };
           };
-        };
-        nvim = nixvim'.makeNixvimWithModule nixvimModule;
-        nixvim-wrapped = inputs.nixpkgs.legacyPackages.${system}.symlinkJoin {
-          name = "nixvim";
-          paths = [nvim];
-          buildInputs = [inputs.nixpkgs.legacyPackages.${system}.makeWrapper];
-          postBuild = ''
-            rm $out/bin/nvim
-            makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
-          '';
-        };
-      in {
-        checks = {
-          # Run `nix flake check .` to verify that your config is not broken
-          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-        };
+          nvim = nixvim'.makeNixvimWithModule nixvimModule;
+          nixvim-wrapped = pkgs.symlinkJoin {
+            name = "nixvim";
+            paths = [ nvim ];
+            buildInputs = [ pkgs.makeWrapper ];
+            postBuild = ''
+              rm $out/bin/nvim
+              makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
+            '';
+          };
+        in
+        {
+          checks = {
+            # Run `nix flake check .` to verify that your config is not broken
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          };
 
-        packages = {
-          inherit nvim;
-          # Lets you run `nix run .` to start nixvim
-          default = nixvim-wrapped;
-          nixvim = nixvim-wrapped;
-          nixvim-print-init = inputs.nixpkgs.legacyPackages.${system}.writeShellScriptBin "nixvim-print-init" ''
-            ${nvim}/bin/nixvim-print-init
-          '';
+          packages = {
+            inherit nvim;
+            # Lets you run `nix run .` to start nixvim
+            default = nixvim-wrapped;
+            nixvim = nixvim-wrapped;
+            nixvim-print-init = pkgs.writeShellScriptBin "nixvim-print-init" ''
+              ${nvim}/bin/nixvim-print-init
+            '';
+          };
+
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              nil
+              nixfmt
+              lua-language-server
+            ];
+          };
+
+          formatter = pkgs.nixfmt;
         };
-      };
     };
 }
