@@ -7,11 +7,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvix = {
-      url = "github:niksingh710/nvix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixvim.follows = "nixvim";
-    };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };

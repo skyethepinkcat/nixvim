@@ -5,10 +5,11 @@
     ./explorer.nix
     ./picker.nix
   ];
+  plugins.neoscroll.enable = true;
   plugins.snacks = {
     enable = true;
     settings = {
-      scroll.enabled = true;
+      scroll.enabled = false;
     };
   };
 }
