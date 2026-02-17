@@ -61,7 +61,8 @@
           packages = {
             inherit nvim;
             # Lets you run `nix run .` to start nixvim
-            default = nixvim-wrapped;
+            default = nvim;
+            neovim = nvim;
             nixvim = nixvim-wrapped;
             nixvim-print-init = pkgs.writeShellScriptBin "nixvim-print-init" ''
               ${nvim}/bin/nixvim-print-init
