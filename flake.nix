@@ -37,8 +37,11 @@
           {
             imports = [
               nixvim.homeManagerModules.nixvim
-              ./config
             ];
+            programs.nixvim = {
+              enable = lib.mkDefault true;
+              imports = [ ./config ];
+            };
           };
         default =
           {
@@ -50,8 +53,11 @@
           {
             imports = [
               nixvim.homeManagerModules.nixvim
-              ./config
             ];
+            programs.nixvim = {
+              enable = lib.mkDefault true;
+              imports = [ ./config ];
+            };
           };
       };
 
