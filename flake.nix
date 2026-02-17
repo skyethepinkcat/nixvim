@@ -26,6 +26,21 @@
         "aarch64-darwin"
       ];
 
+      flake.homeManagerModules = {
+        nixvim = {
+          imports = [
+            nixvim.homeManagerModules.nixvim
+            ./config
+          ];
+        };
+        default = {
+          imports = [
+            nixvim.homeManagerModules.nixvim
+            ./config
+          ];
+        };
+      };
+
       perSystem =
         { system, ... }:
         let
