@@ -27,18 +27,32 @@
       ];
 
       flake.homeManagerModules = {
-        nixvim = {
-          imports = [
-            nixvim.homeManagerModules.nixvim
-            ./config
-          ];
-        };
-        default = {
-          imports = [
-            nixvim.homeManagerModules.nixvim
-            ./config
-          ];
-        };
+        nixvim =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          {
+            imports = [
+              nixvim.homeManagerModules.nixvim
+              ./config
+            ];
+          };
+        default =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          {
+            imports = [
+              nixvim.homeManagerModules.nixvim
+              ./config
+            ];
+          };
       };
 
       perSystem =
