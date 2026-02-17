@@ -10,6 +10,7 @@ in
   imports = [
     ./ai
     ./git.nix
+    ./completion.nix
     ./conform.nix
     ./dashboard.nix
     ./dashboard.nix

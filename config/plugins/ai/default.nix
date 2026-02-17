@@ -4,18 +4,12 @@
   ...
 }:
 let
-  inherit (config.nvix.mkKey) mkKeymap mkKeymapWithOpts wKeyObj;
+  inherit (config.nvix.mkKey) mkKeymap wKeyObj;
 in
 {
   plugins = {
     copilot-lua = {
       enable = true;
-      settings = {
-        suggestion = {
-          enabled = true;
-          auto_trigger = true;
-        };
-      };
     };
     codecompanion = {
       enable = true;
