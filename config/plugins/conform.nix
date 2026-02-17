@@ -13,6 +13,8 @@
         nix = [ "nixfmt" ];
         ruby = [ "rubocop" ];
         sh = [ "shfmt" ];
+        zsh = [ "shfmt" ];
+        bash = [ "shfmt" ];
       };
       formatters.nixfmt.command = lib.getExe pkgs.nixfmt;
       formatters.rubycop.command = lib.getExe pkgs.rubocop;
