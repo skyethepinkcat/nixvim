@@ -6,15 +6,10 @@ in
 {
   wKeyList = [
     (wKeyObj [
-      "<leader>."
-      ""
-      "Scratch Buffer"
-    ])
-    (wKeyObj [
       "<leader>:"
       ""
       ""
-      true
+      true # Hidden
     ])
     (wKeyObj [
       "<leader>s"
@@ -94,6 +89,7 @@ in
     (mkKeymap "n" "<leader>s," "<cmd>:lua Snacks.picker.buffers({layout = 'ivy'})<cr>" "Buffers")
     (mkKeymap "n" "<leader>sh" "<cmd>:lua Snacks.picker.help()<cr>" "Help Pages")
     (mkKeymap "n" "<leader>sk" "<cmd>:lua Snacks.picker.keymaps({layout = 'vscode'})<cr>" "Keymaps")
+    (mkKeymap "n" "<leader>bb" "<cmd>:lua Snacks.picker.buffers()<cr>" "Buffers")
 
     (mkKeymap "n" "<leader>su" (
       # lua

@@ -1,8 +1,7 @@
+{ ... }:
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
-  imports = [./snacks];
+  imports = [
+    ./snacks
+    ./lualine.nix
+  ];
 }

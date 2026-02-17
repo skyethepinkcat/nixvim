@@ -10,7 +10,10 @@
     enable = true;
     settings = {
       scroll.enabled = false;
-      indent.enabled = true;
+      indent = {
+        enabled = true;
+      };
+      chunk.enabled = true;
     };
   };
 }

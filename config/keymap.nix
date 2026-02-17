@@ -1,4 +1,8 @@
-{...}: {
+{ config, ... }:
+let
+  inherit (config.nvix.mkKey) wKeyObj;
+in
+{
   keymaps = [
     # Insert mode navigation
     {
@@ -129,7 +133,10 @@
     {
       action = "<cmd>lua require('conform').format({ lsp_fallback = true })<CR>";
       key = "<leader>fm";
-      mode = ["n" "x"];
+      mode = [
+        "n"
+        "x"
+      ];
       options = {
         desc = "general format file";
       };
@@ -164,34 +171,50 @@
     # Buffer mappings
     {
       action = "<cmd>enew<CR>";
-      key = "<leader>b";
+      key = "<leader>bs";
       mode = "n";
       options = {
-        desc = "buffer new";
+        desc = "scratch buffer";
       };
     }
     {
-      action = "<cmd>bnext<CR>";
+      action = "<cmd>tabnext<CR>";
       key = "<tab>";
       mode = "n";
       options = {
-        desc = "buffer goto next";
+        desc = "tab goto next";
       };
     }
     {
-      action = "<cmd>bprevious<CR>";
+      action = "<cmd>tabnew<CR>";
+      key = "<leader>tn";
+      mode = "n";
+      options = {
+        desc = "tab new";
+      };
+    }
+    {
+      action = "<cmd>tabprevious<CR>";
       key = "<S-tab>";
       mode = "n";
       options = {
-        desc = "buffer goto prev";
+        desc = "tab goto prev";
       };
     }
     {
-      action = "<cmd>Bdelete<CR>";
-      key = "<leader>x";
+      action = "<cmd>bdelete<CR>";
+      key = "<leader>bx";
       mode = "n";
       options = {
         desc = "buffer close";
+      };
+    }
+    {
+      action = "<cmd>tabclose<CR>";
+      key = "<leader>x";
+      mode = "n";
+      options = {
+        desc = "tab close";
       };
     }
 
@@ -236,5 +259,13 @@
       key = "q";
       mode = "n";
     }
+
+  ];
+  wKeyList = [
+    (wKeyObj [
+      "<leader>b"
+      ""
+      "Buffers"
+    ])
   ];
 }
