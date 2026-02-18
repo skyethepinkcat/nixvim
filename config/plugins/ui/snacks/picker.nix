@@ -4,6 +4,7 @@ let
   inherit (config.nvix.mkKey) mkKeymap wKeyObj;
 in
 {
+  dependencies.lazygit.enable = true;
   wKeyList = [
     (wKeyObj [
       "<leader>:"
