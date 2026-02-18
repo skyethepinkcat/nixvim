@@ -17,9 +17,10 @@
         bash = [ "shfmt" ];
       };
       formatters.nixfmt.command = lib.getExe pkgs.nixfmt;
-      formatters.rubycop.command = lib.getExe pkgs.rubocop;
-      formatters.lua.command = lib.getExe pkgs.stylua;
+      formatters.rubocop.command = lib.getExe pkgs.rubocop;
+      formatters.stylua.command = lib.getExe pkgs.stylua;
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
+      formatters.puppet-lint.command = lib.getExe pkgs.puppet-lint;
       format_on_save = ''
         function(bufnr)
           -- Disable with a global or buffer-local variable
