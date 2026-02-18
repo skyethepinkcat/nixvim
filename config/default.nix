@@ -15,13 +15,19 @@
   colorschemes.catppuccin = {
     enable = true;
     settings = {
-      integrations.native_lsp = {
-        enabled = true;
-        underlines = {
-          errors = [ "undercurl" ];
-          hints = [ "undercurl" ];
-          warnings = [ "undercurl" ];
-          information = [ "undercurl" ];
+      integrations = {
+        blink_cmp.enabled = true;
+        blink_indent.enabled = true;
+        noice.enabled = true;
+        snacks.enabled = true;
+        native_lsp = {
+          enabled = true;
+          underlines = {
+            errors = [ "undercurl" ];
+            hints = [ "undercurl" ];
+            warnings = [ "undercurl" ];
+            information = [ "undercurl" ];
+          };
         };
       };
       flavor = "mocha";

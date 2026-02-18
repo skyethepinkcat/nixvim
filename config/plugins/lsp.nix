@@ -3,7 +3,6 @@
   plugins.tiny-inline-diagnostic.enable = true;
   # plugins.lsp-lines.enable = true;
   lsp = {
-    #enable = true;
     inlayHints.enable = true;
     servers = {
       nil_ls = {
@@ -17,9 +16,9 @@
       statix.enable = true;
       lua_ls.enable = true;
 
-      # solargraph = {
-      #   enable = true;
-      # };
+      solargraph = {
+        enable = true;
+      };
     };
   };
 }
