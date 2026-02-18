@@ -18,6 +18,7 @@
       integrations = {
         blink_cmp.enabled = true;
         blink_indent.enabled = true;
+        ghost.enabled = true;
         noice.enabled = true;
         snacks.enabled = true;
         native_lsp = {

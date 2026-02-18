@@ -16,7 +16,6 @@ in
             enabled = true;
             show_with_menu = false;
             show_without_selection = true;
-            hl_group = "Comment";
           };
         };
         keymap = {
