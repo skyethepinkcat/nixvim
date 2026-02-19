@@ -15,12 +15,14 @@
         sh = [ "shfmt" ];
         zsh = [ "shfmt" ];
         bash = [ "shfmt" ];
+        rust = [ "rustfmt" ];
       };
       formatters.nixfmt.command = lib.getExe pkgs.nixfmt;
       formatters.rubocop.command = lib.getExe pkgs.rubocop;
       formatters.stylua.command = lib.getExe pkgs.stylua;
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
       formatters.puppet-lint.command = lib.getExe pkgs.puppet-lint;
+      formatters.rustfmt.command = lib.getExe pkgs.rustfmt;
       format_on_save = ''
         function(bufnr)
           -- Disable with a global or buffer-local variable

@@ -63,7 +63,7 @@ in
 
   opts = {
 
-    clipboard = "unnamedplus";
+    #clipboard = "unnamedplus";
     cursorline = true;
     cursorlineopt = "number";
 
@@ -72,7 +72,7 @@ in
 
     expandtab = true;
     shiftwidth = 2;
-    smartindent = true;
+    #smartindent = true;
     tabstop = 2;
     softtabstop = 2;
 
