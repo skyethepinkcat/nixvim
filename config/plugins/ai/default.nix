@@ -10,6 +10,14 @@ in
   plugins = {
     copilot-lua = {
       enable = true;
+      settings = {
+        suggestion = {
+          enabled = false;
+        };
+        filetypes = {
+          markdown = false;
+        };
+      };
     };
     codecompanion = {
       enable = true;
