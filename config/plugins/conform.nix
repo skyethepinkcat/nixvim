@@ -23,19 +23,22 @@
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
       formatters.puppet-lint.command = lib.getExe pkgs.puppet-lint;
       formatters.rustfmt.command = lib.getExe pkgs.rustfmt;
-      format_on_save = ''
-        function(bufnr)
-          -- Disable with a global or buffer-local variable
-          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-            return
+      format_on_save =
+        # lua
+        ''
+          function(bufnr)
+            -- Disable with a global or buffer-local variable
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
+            local bufname = vim.api.nvim_buf_get_name(bufnr)
+            local buftype = vim.api.nvim_buf_get_type(bufnr)
+            if bufname:match "/Puppetfile" or buftype:match "nofile" then
+              return
+            end
+            return { timeout_ms = 500, lsp_format = "fallback" }
           end
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          if bufname:match "/Puppetfile" then
-            return
-          end
-          return { timeout_ms = 500, lsp_format = "fallback" }
-        end
-      '';
+        '';
     };
   };
 }
