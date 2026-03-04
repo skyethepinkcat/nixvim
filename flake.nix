@@ -44,6 +44,7 @@
             ];
             programs.nixvim = {
               enable = lib.mkDefault true;
+              overlays = [ inputs.skyepkgs.overlays.default ];
               imports = [ ./config ];
             };
           };
@@ -60,6 +61,7 @@
             ];
             programs.nixvim = {
               enable = lib.mkDefault true;
+              overlays = [ inputs.skyepkgs.overlays.default ];
               imports = [ ./config ];
             };
           };
