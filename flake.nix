@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     skyepkgs.url = "github:skyethepinkcat/skyepkgs";
-    skyepkgs.inputs.nixpkgs.follows = "nixpkgs";
+    #skyepkgs.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim = {
       url = "github:nix-community/nixvim";
