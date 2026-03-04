@@ -18,6 +18,7 @@
 
   outputs =
     {
+      nixvim,
       flake-parts,
       ...
     }@inputs:
@@ -29,7 +30,7 @@
         "aarch64-darwin"
       ];
 
-      flake.homeModules = rec {
+      flake.homeModules = {
         nixvim =
           {
             config,
@@ -38,7 +39,7 @@
           }:
           {
             imports = [
-              inputs.nixvim.homeModules.nixvim
+              nixvim.homeModules.nixvim
             ];
             programs.nixvim = {
               enable = lib.mkDefault true;
@@ -47,7 +48,23 @@
               ];
             };
           };
-        default = nixvim;
+        default =
+          {
+            config,
+            lib,
+            ...
+          }:
+          {
+            imports = [
+              nixvim.homeModules.nixvim
+            ];
+            programs.nixvim = {
+              enable = lib.mkDefault true;
+              imports = [
+                ./config
+              ];
+            };
+          };
       };
 
       perSystem =
@@ -56,8 +73,8 @@
           pkgs = import inputs.nixpkgs {
             inherit system;
           };
-          nixvimLib = inputs.nixvim.lib.${system};
-          nixvim' = inputs.nixvim.legacyPackages.${system};
+          nixvimLib = nixvim.lib.${system};
+          nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./config; # import the module directly
