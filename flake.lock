@@ -126,11 +126,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772645033,
-        "narHash": "sha256-Z1i68oKo6iLmDzNBuJ114pUSoy99DHp0BeEUAduXTfA=",
+        "lastModified": 1772648958,
+        "narHash": "sha256-4MkD9KJx9LtjRsvOKNXUAJjIbnSf38TacstYR9igiMI=",
         "owner": "skyethepinkcat",
         "repo": "skyepkgs",
-        "rev": "04b0203dfd160e8a0f66021d45721560416a5742",
+        "rev": "02dc38bfee00aae5c20221b9c7259ee98e06e7ea",
         "type": "github"
       },
       "original": {

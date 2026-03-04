@@ -1,4 +1,10 @@
 {
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
+{
   plugins.lspconfig.enable = true;
   plugins.tiny-inline-diagnostic.enable = true;
   # plugins.lsp-lines.enable = true;
@@ -10,8 +16,14 @@
       };
       puppet = {
         enable = true;
-        package = null;
-        packageFallback = true;
+        package = pkgs.puppet-editor-services;
+        config = {
+          cmd = [
+            "puppet-languageserver"
+            "--stdio"
+          ];
+        };
+        packageFallback = false;
       };
       statix.enable = true;
       lua_ls.enable = true;
