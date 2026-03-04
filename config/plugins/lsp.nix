@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  skyepkgs = inputs.skyepkgs.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   plugins.lspconfig.enable = true;
   plugins.tiny-inline-diagnostic.enable = true;
@@ -16,7 +19,7 @@
       };
       puppet = {
         enable = true;
-        package = pkgs.puppet-editor-services;
+        package = skyepkgs.puppet-editor-services;
         config = {
           cmd = [
             "puppet-languageserver"

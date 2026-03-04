@@ -1,9 +1,12 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
-
+let
+  skyepkgs = inputs.skyepkgs.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   plugins.conform-nvim = {
     enable = true;
@@ -26,7 +29,7 @@
       formatters.rubocop.command = lib.getExe pkgs.rubocop;
       formatters.stylua.command = lib.getExe pkgs.stylua;
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
-      formatters.puppet-lint.command = lib.getExe pkgs.openvox-lint;
+      formatters.puppet-lint.command = lib.getExe skyepkgs.openvox-lint;
       formatters.rustfmt.command = lib.getExe pkgs.rustfmt;
       #   format_on_save =
       #     # lua

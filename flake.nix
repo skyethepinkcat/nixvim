@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     skyepkgs.url = "github:skyethepinkcat/skyepkgs";
-    #skyepkgs.inputs.nixpkgs.follows = "nixpkgs";
+    skyepkgs.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -30,12 +30,11 @@
         "aarch64-darwin"
       ];
 
-      flake.homeModules = {
+      flake.homeModules = rec {
         nixvim =
           {
             config,
             lib,
-            pkgs,
             ...
           }:
           {
@@ -44,27 +43,12 @@
             ];
             programs.nixvim = {
               enable = lib.mkDefault true;
-              overlays = [ inputs.skyepkgs.overlays.default ];
-              imports = [ ./config ];
+              imports = [
+                ./config
+              ];
             };
           };
-        default =
-          {
-            config,
-            lib,
-            pkgs,
-            ...
-          }:
-          {
-            imports = [
-              nixvim.homeModules.nixvim
-            ];
-            programs.nixvim = {
-              enable = lib.mkDefault true;
-              overlays = [ inputs.skyepkgs.overlays.default ];
-              imports = [ ./config ];
-            };
-          };
+        default = nixvim;
       };
 
       perSystem =
@@ -72,7 +56,6 @@
         let
           pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [ inputs.skyepkgs.overlays.default ];
           };
           nixvimLib = nixvim.lib.${system};
           nixvim' = nixvim.legacyPackages.${system};
