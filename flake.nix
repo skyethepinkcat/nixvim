@@ -18,7 +18,6 @@
 
   outputs =
     {
-      nixvim,
       flake-parts,
       ...
     }@inputs:
@@ -39,7 +38,7 @@
           }:
           {
             imports = [
-              nixvim.homeModules.nixvim
+              inputs.nixvim.homeModules.nixvim
             ];
             programs.nixvim = {
               enable = lib.mkDefault true;
@@ -57,8 +56,8 @@
           pkgs = import inputs.nixpkgs {
             inherit system;
           };
-          nixvimLib = nixvim.lib.${system};
-          nixvim' = nixvim.legacyPackages.${system};
+          nixvimLib = inputs.nixvim.lib.${system};
+          nixvim' = inputs.nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./config; # import the module directly
