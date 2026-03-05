@@ -44,6 +44,11 @@
             programs.nixvim = {
               enable = lib.mkDefault true;
               imports = [
+                {
+                  _module.args = {
+                    inherit inputs;
+                  };
+                }
                 ./config
               ];
             };
@@ -61,6 +66,11 @@
             programs.nixvim = {
               enable = lib.mkDefault true;
               imports = [
+                {
+                  _module.args = {
+                    inherit inputs;
+                  };
+                }
                 ./config
               ];
             };
