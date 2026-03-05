@@ -133,23 +133,7 @@ in
     ])
   ];
   keymaps = [
-    (mkKeymap "n" "<leader>at" (
-      # lua
-      lib.nixvim.mkRaw ''
-        function()
-          if vim.g.copilot_status == nil then
-            vim.g.copilot_status = "running"
-          end
-          if vim.g.copilot_status == "running" then
-            vim.g.copilot_status = "stopped"
-            vim.cmd("Copilot disable")
-          else
-            vim.g.copilot_status = "running"
-            vim.cmd("Copilot enable")
-          end
-        end
-      ''
-    ) "Toggle Copilot")
+    (mkKeymap "n" "<leader>at" "<cmd>Copilot toggle<cr>" "Toggle Copilot")
     (mkKeymap "n" "<leader>ac" (
       # lua
       lib.nixvim.mkRaw ''
