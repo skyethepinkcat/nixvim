@@ -16,6 +16,13 @@ in
     servers = {
       nil_ls = {
         enable = true;
+        config = {
+          formatting = {
+            command = [
+              "nixfmt"
+            ];
+          };
+        };
       };
       puppet = {
         enable = true;
