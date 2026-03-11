@@ -1,0 +1,33 @@
+{ config, ... }:
+{
+  plugins.which-key = {
+    enable = true;
+    settings = {
+      spec = config.wKeyList;
+      win = {
+        width = {
+          min = 30;
+          max = 120;
+        };
+        height = {
+          min = 4;
+          max = 0.75;
+        };
+        padding = [
+          0
+          1
+        ];
+        col = 1;
+        row = -1;
+        border = "rounded";
+        title = true;
+        title_pos = "left";
+      };
+      layout = {
+        width = {
+          min = 30;
+        };
+      };
+    };
+  };
+}

@@ -7,54 +7,24 @@ let
   inherit (lib.nixvim) mkRaw;
 in
 {
-  imports = [
-    ./ai
-    ./git.nix
-    ./completion.nix
-    ./conform.nix
-    ./dashboard.nix
-    ./dashboard.nix
-    ./explorer.nix
-    ./lsp.nix
-    ./toggleterm.nix
-    ./treesitter.nix
-    ./ui
-  ];
+  imports =
+    (
+      with builtins;
+      with lib;
+      map (fn: ./${fn}) (
+        filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}")) (attrNames (readDir ./.))
+      )
+    )
+    ++ [
+      ./ai
+      ./ui
+    ];
+
   plugins = {
     none-ls = {
       enable = true;
     };
     snacks.enable = true;
     direnv.enable = true;
-    which-key = {
-      enable = true;
-      settings = {
-        spec = config.wKeyList;
-        win = {
-          width = {
-            min = 30;
-            max = 120;
-          };
-          height = {
-            min = 4;
-            max = 0.75;
-          };
-          padding = [
-            0
-            1
-          ];
-          col = 1;
-          row = -1;
-          border = "rounded";
-          title = true;
-          title_pos = "left";
-        };
-        layout = {
-          width = {
-            min = 30;
-          };
-        };
-      };
-    };
   };
 }
