@@ -93,6 +93,7 @@ in
     (mkKeymap "n" "<leader>sh" "<cmd>:lua Snacks.picker.help()<cr>" "Help Pages")
     (mkKeymap "n" "<leader>sk" "<cmd>:lua Snacks.picker.keymaps({layout = 'vscode'})<cr>" "Keymaps")
     (mkKeymap "n" "<leader>bb" "<cmd>:lua Snacks.picker.buffers()<cr>" "Buffers")
+    (mkKeymap "n" "<leader><tab>" "<cmd>:b#<cr>" "Switch to Last Buffer")
 
     (mkKeymap "n" "<leader>su" (
       # lua

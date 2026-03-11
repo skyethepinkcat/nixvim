@@ -267,5 +267,10 @@ in
       ""
       "Buffers"
     ])
+    (wKeyObj [
+      "<leader><tab>"
+      ""
+      "Last Buffer"
+    ])
   ];
 }
