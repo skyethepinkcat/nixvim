@@ -49,6 +49,7 @@ in
     (mkKeymap "n" "<leader>sb" "<cmd>:lua Snacks.picker.lines() <cr>" "Buffer Lines")
     (mkKeymap "n" "<leader>sB" "<cmd>:lua Snacks.picker.grep_buffers() <cr>" "Grep Open Buffers")
     (mkKeymap "n" "<leader>sg" "<cmd>:lua Snacks.picker.grep() <cr>" "Grep")
+    (mkKeymap "n" "<leader>s/" "<cmd>:lua Snacks.picker.grep() <cr>" "Grep")
     (mkKeymap "n" "<leader>sw" "<cmd>:lua Snacks.picker.grep_word() <cr>" "Visual selection or word")
     (mkKeymap "x" "<leader>sw" "<cmd>:lua Snacks.picker.grep_word() <cr>" "Visual selection or word")
     (mkKeymap "n" ''<leader>s"'' "<cmd>:lua Snacks.picker.registers() <cr>" "Registers")
@@ -92,7 +93,7 @@ in
     (mkKeymap "n" "<leader>s," "<cmd>:lua Snacks.picker.buffers({layout = 'ivy'})<cr>" "Buffers")
     (mkKeymap "n" "<leader>sh" "<cmd>:lua Snacks.picker.help()<cr>" "Help Pages")
     (mkKeymap "n" "<leader>sk" "<cmd>:lua Snacks.picker.keymaps({layout = 'vscode'})<cr>" "Keymaps")
-    (mkKeymap "n" "<leader>bb" "<cmd>:lua Snacks.picker.buffers()<cr>" "Buffers")
+    (mkKeymap "n" "<leader>bb" "<cmd>:lua Snacks.picker.buffers({layout = 'ivy'})<cr>" "Buffers")
     (mkKeymap "n" "<leader><tab>" "<cmd>:b#<cr>" "Switch to Last Buffer")
 
     (mkKeymap "n" "<leader>su" (

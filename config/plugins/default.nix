@@ -33,7 +33,7 @@ in
         win = {
           width = {
             min = 30;
-            max = 60;
+            max = 120;
           };
           height = {
             min = 4;

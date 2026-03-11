@@ -12,19 +12,24 @@
         ];
       };
       tabline = {
-        # lualine_a = [
-        #   {
-        #     __unkeyed-1 = "buffers";
-        #     symbols = {
-        #       alternate_file = "";
-        #     };
-        #   }
-        # ];
+         lualine_a = [
+           {
+             __unkeyed-1 = "buffers";
+             symbols = {
+               alternate_file = " ";
+             };
+           }
+         ];
         lualine_b = [ ];
         lualine_c = [ ];
         lualine_x = [ ];
         lualine_y = [ ];
-        lualine_z = [ "tabs" ];
+        lualine_z = [ {
+          __unkeyed-1 = "tabs";
+          mode = 2;
+
+        }
+        ];
       };
     };
   };
