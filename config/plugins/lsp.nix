@@ -40,6 +40,7 @@ in
 
       solargraph = {
         enable = true;
+        packageFallback = true; # Prefer any already installed solargraph
       };
     };
   };
