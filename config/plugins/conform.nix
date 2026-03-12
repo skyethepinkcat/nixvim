@@ -18,6 +18,12 @@ in
           "nf"
           "nixfmt"
         ];
+        ruby = {
+          timeout_ms = 5000; # is real slow rubocop
+          lsp_format = "first";
+          stop_after_first = true;
+          __unkeyed-1 = "rubocop";
+        };
         # ruby = [ "rubocop" ];
         sh = [ "shfmt" ];
         zsh = [ "shfmt" ];
@@ -26,11 +32,10 @@ in
       };
       formatters.nf.command = "nix fmt";
       formatters.nixfmt.command = lib.getExe pkgs.nixfmt;
-      # formatters.rubocop = {
-      #   timeout_ms = 5000;
-      #   command = lib.getExe pkgs.rubocop; # Ruby environments cause weirdness, just use the first available version
-      #   lsp_format = "fallback";
-      # };
+      formatters.rubocop = {
+        timeout_ms = 5000;
+        command = lib.getExe pkgs.rubocop; # Ruby environments cause weirdness, just use the first available version
+      };
       formatters.stylua.command = lib.getExe pkgs.stylua;
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
       formatters.puppet-lint.command = lib.getExe skyepkgs.openvox-lint;
