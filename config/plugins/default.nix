@@ -23,8 +23,8 @@ in
   plugins = {
     none-ls = {
       enable = true;
-      sources.diagnostics.rubocop.enable = true;
-      sources.formatting.rubocop.enable = true;
+      # sources.diagnostics.rubocop.enable = true;
+      # sources.formatting.rubocop.enable = true;
     };
     snacks.enable = true;
     direnv.enable = true;
