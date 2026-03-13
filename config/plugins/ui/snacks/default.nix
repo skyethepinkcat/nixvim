@@ -13,6 +13,9 @@
       indent = {
         enabled = true;
       };
+      picker = {
+        ui_select = true;
+      };
       chunk.enabled = true;
     };
   };

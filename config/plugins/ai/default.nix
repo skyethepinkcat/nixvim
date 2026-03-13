@@ -18,7 +18,7 @@ in
           chat = {
             adapter = {
               name = "copilot";
-              model = "claude-sonnet-4.5";
+               model = "GPT-5.2";
             };
             opts = {
               system_prompt = ''
@@ -134,14 +134,6 @@ in
   ];
   keymaps = [
     (mkKeymap "n" "<leader>at" "<cmd>Copilot toggle<cr>" "Toggle Copilot")
-    (mkKeymap "n" "<leader>ac" (
-      # lua
-      lib.nixvim.mkRaw ''
-        function()
-          vim.cmd("CodeCompanionChat Toggle")
-        end
-      ''
-    ) "CodeCompanion Chat")
+    (mkKeymap "n" "<leader>ac" "<cmd>CodeCompanionChat Toggle<cr>" "CodeCompanion Chat")
   ];
-
 }
