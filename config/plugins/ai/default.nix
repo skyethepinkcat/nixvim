@@ -18,7 +18,7 @@ in
           chat = {
             adapter = {
               name = "copilot";
-               model = "GPT-5.2";
+              model = "GPT-5.1 Codex";
             };
             opts = {
               system_prompt = ''
