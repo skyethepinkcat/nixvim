@@ -74,4 +74,6 @@
     # Save undo history to undo file (in $XDG_STATE_HOME/nvim/undo)
     undofile = true;
   };
+  ai.suggestions = false;
+  ai.enable = true;
 }

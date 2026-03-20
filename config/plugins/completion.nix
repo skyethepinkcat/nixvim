@@ -1,10 +1,10 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.nixvim) mkRaw;
 in
 {
   plugins = {
-    blink-cmp-copilot.enable = true;
+    blink-cmp-copilot.enable = config.ai.suggestions;
     blink-cmp = {
       enable = true;
       settings = {
@@ -31,14 +31,13 @@ in
           ];
         };
         sources = {
-          default = [
+          default = lib.optionals config.ai.suggestions [ "copilot" ] ++ [
             "lsp"
             "path"
             "snippets"
             "buffer"
-            "copilot"
           ];
-          providers = {
+          providers = lib.mkIf config.ai.suggestions {
             copilot = {
               async = true;
               module = "blink-cmp-copilot";
