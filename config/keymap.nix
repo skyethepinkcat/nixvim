@@ -131,7 +131,7 @@ in
     }
     # Format keymaps
     {
-      action = "<cmd>lua require('conform').format({ lsp_fallback = true })<CR>";
+      action = "<cmd>lua vim.lsp.buf.format()<CR>";
       key = "<leader>fm";
       mode = [
         "n"

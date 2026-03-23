@@ -8,9 +8,6 @@ nvim_lsp.config("nixd", {
 			nixpkgs = {
 				expr = "import <nixpkgs> { }",
 			},
-			formatting = {
-				command = { "nixfmt" },
-			},
 			options = {
 				nixvim = {
 					expr = "(builtins.getFlake (toString ./.)).homeModules.nixvim.programs.nixvim.options",
