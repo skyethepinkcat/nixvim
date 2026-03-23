@@ -28,7 +28,7 @@
     lazyKey = key: action: desc: {
       __unkeyed-1 = key;
       __unkeyed-2 = action;
-      desc = desc;
+      inherit desc;
     };
     # For which-key icon generation
     # Accepts a list of strings and returns a list of objects

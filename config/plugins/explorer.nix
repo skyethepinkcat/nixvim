@@ -1,8 +1,10 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.nvix.mkKey) mkKeymap wKeyObj;
-in {
+in
+{
   plugins.snacks.settings = {
     explorer.enabled = true;
   };
-  keymaps = [(mkKeymap "n" "<leader>e" "<cmd>:lua Snacks.explorer()<cr>" "Explorer")];
+  keymaps = [ (mkKeymap "n" "<leader>e" "<cmd>:lua Snacks.explorer()<cr>" "Explorer") ];
 }

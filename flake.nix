@@ -31,7 +31,10 @@
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      imports = [ treefmt-nix.flakeModule ];
+      imports = [
+        treefmt-nix.flakeModule
+        ./flake
+      ];
 
       flake.homeModules = {
         nixvim =

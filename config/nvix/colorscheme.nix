@@ -26,7 +26,7 @@
     enable = false;
     settings = {
       style = "night";
-      transparent = config.nvix.transparent;
+      inherit (config.nvix) transparent;
       styles = {
         floats = if config.nvix.transparent then "transparent" else "dark";
         sidebars = if config.nvix.transparent then "transparent" else "dark";

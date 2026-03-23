@@ -23,6 +23,8 @@ in
           };
           formatting = {
             command = [
+              "nix fmt"
+              "treefmt"
               "nixfmt"
             ];
           };
