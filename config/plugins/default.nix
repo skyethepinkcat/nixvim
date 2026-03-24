@@ -21,23 +21,6 @@ in
     ];
 
   plugins = {
-    none-ls = {
-      enable = true;
-      sources = {
-        diagnostics = {
-          statix.enable = true;
-          rubocop.enable = true;
-          puppet_lint.enable = true;
-        };
-        formatting = {
-          rubocop.enable = true;
-          stylua.enable = true;
-          puppet_lint.enable = true;
-          # nixfmt.enable = true;
-          nix_flake_fmt.enable = true;
-        };
-      };
-    };
     snacks.enable = true;
     direnv.enable = true;
   };

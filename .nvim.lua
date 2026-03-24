@@ -1,12 +1,11 @@
-local nvim_lsp = vim.lsp
-nvim_lsp.config("nixd", {
+vim.lsp.config("nixd", {
 	cmd = { "nixd" },
 	filetypes = { "nix" },
 	root_markers = { "flake.nix", ".git" },
 	settings = {
 		nixd = {
 			nixpkgs = {
-				expr = "import <nixpkgs> { }",
+				expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs {}",
 			},
 			options = {
 				nixvim = {
@@ -16,4 +15,5 @@ nvim_lsp.config("nixd", {
 		},
 	},
 })
-nvim_lsp.enable("nixd")
+vim.lsp.enable("nixd")
+vim.lsp.enable("lua_ls")

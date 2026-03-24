@@ -18,33 +18,24 @@ in
   lsp = {
     inlayHints.enable = true;
     servers = {
-      nixd = {
-        enable = true;
+      lua_ls = {
         config = {
-          nixpkgs = {
-            expr = "import (builtins.getFlake \"nixpkgs\").{ }";
+          diagnostics = {
+            globals = ["vim"];
           };
         };
       };
-
-      puppet = {
-        enable = true;
-        package = skyepkgs.puppet-editor-services;
-        config = {
-          cmd = [
-            "puppet-languageserver"
-            "--stdio"
-          ];
-        };
-        packageFallback = false;
-      };
-      statix.enable = true;
-      lua_ls.enable = true;
-
-      solargraph = {
-        enable = true;
-        packageFallback = true; # Prefer any already installed solargraph
-      };
+      # puppet = {
+      #   enable = true;
+      #   package = skyepkgs.puppet-editor-services;
+      #   config = {
+      #     cmd = [
+      #       "puppet-languageserver"
+      #       "--stdio"
+      #     ];
+      #   };
+      #   packageFallback = false;
+      # };
     };
   };
 }
