@@ -17,25 +17,16 @@ in
 
   lsp = {
     inlayHints.enable = true;
-    servers = {
-      lua_ls = {
-        config = {
-          diagnostics = {
-            globals = ["vim"];
-          };
-        };
-      };
-      # puppet = {
-      #   enable = true;
-      #   package = skyepkgs.puppet-editor-services;
-      #   config = {
-      #     cmd = [
-      #       "puppet-languageserver"
-      #       "--stdio"
-      #     ];
-      #   };
-      #   packageFallback = false;
-      # };
-    };
+    # puppet = {
+    #   enable = true;
+    #   package = skyepkgs.puppet-editor-services;
+    #   config = {
+    #     cmd = [
+    #       "puppet-languageserver"
+    #       "--stdio"
+    #     ];
+    #   };
+    #   packageFallback = false;
+    # };
   };
 }

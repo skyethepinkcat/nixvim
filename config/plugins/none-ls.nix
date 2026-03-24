@@ -6,7 +6,6 @@ in
   plugins = {
     none-ls = {
       enable = true;
-      settings.debug = true;
       sources = {
         diagnostics = {
           statix.enable = true;

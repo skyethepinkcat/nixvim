@@ -5,12 +5,20 @@
 }:
 {
   # Import all your configuration modules here
-  imports = [
-    ./nvix
-    ./keymap.nix
-    ./neovide.nix
-    ./plugins
-  ];
+  imports =
+    (
+      with builtins;
+      with lib;
+      map (fn: ./${fn}) (
+        filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}")) (attrNames (readDir ./.))
+      )
+    )
+    ++ [
+      ./nvix
+      ./keymap.nix
+      ./neovide.nix
+      ./plugins
+    ];
 
   colorschemes.catppuccin = {
     enable = true;

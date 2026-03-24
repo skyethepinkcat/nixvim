@@ -141,27 +141,11 @@ in
         desc = "general format file";
       };
     }
-    {
-      action = "<cmd>FormatEnable<cr>";
-      key = "<leader>Fe";
-      mode = "n";
-      options = {
-        desc = "Enable autoformat-on-save";
-      };
-    }
-    {
-      action = "<cmd>FormatDisable<cr>";
-      key = "<leader>Fd";
-      mode = "n";
-      options = {
-        desc = "Disable autoformat-on-save";
-      };
-    }
 
     # LSP mappings
     {
       action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
-      key = "<leader>ds";
+      key = "<leader>ld";
       mode = "n";
       options = {
         desc = "LSP diagnostic loclist";
