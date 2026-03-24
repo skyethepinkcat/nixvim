@@ -10,6 +10,7 @@ in
         diagnostics = {
           statix.enable = true;
           rubocop.enable = true;
+          yamllint.enable = true;
           puppet_lint = {
             enable = true;
             package = null;
@@ -21,6 +22,7 @@ in
         formatting = {
           rubocop.enable = true;
           stylua.enable = true;
+          yamlfix.enable = true;
           puppet_lint = {
             enable = true;
             package = null;
