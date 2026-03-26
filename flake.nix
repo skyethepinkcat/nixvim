@@ -101,6 +101,14 @@
             };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
+          nvim-trivial = nixvim'.makeNixvimWithModule (nixvimModule // {
+            module = {
+              imports = [
+                nixvimModule.module
+                ./config/trivial.nix
+              ];
+            };
+          });
           nixvim-wrapped = pkgs.symlinkJoin {
             name = "nixvim";
             paths = [ nvim ];
@@ -118,7 +126,7 @@
           };
 
           packages = {
-            inherit nvim;
+            inherit nvim nvim-trivial;
             # Lets you run `nix run .` to start nixvim
             default = nvim;
             neovim = nvim;
@@ -130,6 +138,7 @@
 
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              statix
               nixd
               nixfmt
               lua-language-server
