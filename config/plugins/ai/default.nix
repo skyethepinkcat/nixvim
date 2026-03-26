@@ -18,8 +18,8 @@ in
           interactions = {
             chat = {
               adapter = {
-                name = "copilot";
-                model = "GPT-5.2";
+                name = "claude_code";
+                model = "claude-sonnet-4-6";
               };
               opts = {
                 system_prompt = ''
