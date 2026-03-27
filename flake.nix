@@ -105,7 +105,7 @@
             module = {
               imports = [
                 nixvimModule.module
-                ./config/trivial.nix
+                ./variants/trivial.nix
               ];
             };
           });
