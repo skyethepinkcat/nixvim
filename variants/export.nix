@@ -1,5 +1,10 @@
 { lib, ... }:
 {
+  # Variant used for the portable nvim-config-export package.
+  # Strips all nix-managed tool references so the generated init.lua contains
+  # no /nix/store paths and works on any system with tools in PATH.
+
+  # Skip bundling treesitter parsers — :TSInstall on the target system instead.
   plugins.treesitter.settings.grammarPackages = [ ];
 
   plugins.none-ls.sources = {

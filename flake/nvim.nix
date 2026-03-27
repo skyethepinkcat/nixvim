@@ -4,10 +4,11 @@
   # Consumed by nixvimConfigurations below and importable by other flakes.
   flake.nixvimModules = {
     default = ../config;
-    # Trivial variant layers on top of the default config.
-    trivial.imports = [
+    # Export variant layers on top of the default config, stripping nix-managed
+    # tool paths so the generated config is portable to non-Nix systems.
+    export.imports = [
       ../config
-      ../variants/trivial.nix
+      ../variants/export.nix
     ];
   };
 
@@ -26,9 +27,9 @@
           modules = [ self.nixvimModules.default ];
           extraSpecialArgs = { inherit inputs; };
         };
-        trivial = inputs.nixvim.lib.evalNixvim {
+        export = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [ self.nixvimModules.trivial ];
+          modules = [ self.nixvimModules.export ];
           extraSpecialArgs = { inherit inputs; };
         };
       };
@@ -66,7 +67,7 @@
         #   cp -r result/ ~/.config/nvim
         nvim-config-export =
           let
-            nixvimCfg = config.nixvimConfigurations.default.config;
+            nixvimCfg = config.nixvimConfigurations.export.config;
             inherit (nixvimCfg.build) initSource plugins;
             # Extra plugins added only in the portable export (absent from nixvim config).
             exportExtraPlugins = with pkgs.vimPlugins; [
