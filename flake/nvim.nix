@@ -13,7 +13,12 @@
   };
 
   perSystem =
-    { system, config, pkgs, ... }:
+    {
+      system,
+      config,
+      pkgs,
+      ...
+    }:
     let
       # Alias for the auto-generated default package (set by nixvim.packages.enable).
       nvim = config.packages.default;
@@ -81,9 +86,7 @@
             # propagatedBuildInputs, unlike manually iterating the plugin list.
             packDir = pkgs.vimUtils.packDir {
               nixvim = {
-                start =
-                  map (p: p.plugin) (pkgs.lib.filter (p: !p.optional) plugins)
-                  ++ exportExtraPlugins;
+                start = map (p: p.plugin) (pkgs.lib.filter (p: !p.optional) plugins) ++ exportExtraPlugins;
                 opt = map (p: p.plugin) (pkgs.lib.filter (p: p.optional) plugins);
               };
             };
@@ -95,22 +98,20 @@
               require("mason-lspconfig").setup()
             '';
           in
-          pkgs.runCommand "nvim-config-export"
-            { nativeBuildInputs = [ pkgs.gnused ]; }
-            ''
-              mkdir -p "$out"
-              # Copy the vim-pack-dir derivation (resolving symlinks for portability).
-              cp -rL "${packDir}/pack" "$out/pack"
-              chmod -R u+w "$out/"
+          pkgs.runCommand "nvim-config-export" { nativeBuildInputs = [ pkgs.gnused ]; } ''
+            mkdir -p "$out"
+            # Copy the vim-pack-dir derivation (resolving symlinks for portability).
+            cp -rL "${packDir}/pack" "$out/pack"
+            chmod -R u+w "$out/"
 
-              # Strip /nix/store/... paths from all Lua files (init.lua + plugins).
-              # Plugins patched by nixpkgs may embed store paths for external tools
-              # (fzf, ripgrep, etc.); clearing them lets the target system's PATH win.
-              # Compiled binaries/shared libs with embedded paths are not fixable here.
-              find "$out" -type f -name "*.lua" -exec sed -i 's|"/nix/store/[^"]*"|""|g' {} +
-              sed 's|"/nix/store/[^"]*"|""|g' "${initSource}" > "$out/init.lua"
-              cat ${masonSetup} >> "$out/init.lua"
-            '';
+            # Strip /nix/store/... paths from all Lua files (init.lua + plugins).
+            # Plugins patched by nixpkgs may embed store paths for external tools
+            # (fzf, ripgrep, etc.); clearing them lets the target system's PATH win.
+            # Compiled binaries/shared libs with embedded paths are not fixable here.
+            find "$out" -type f -name "*.lua" -exec sed -i 's|"/nix/store/[^"]*"|""|g' {} +
+            sed 's|"/nix/store/[^"]*"|""|g' "${initSource}" > "$out/init.lua"
+            cat ${masonSetup} >> "$out/init.lua"
+          '';
       };
 
       # `nix develop` — tools for editing this config
