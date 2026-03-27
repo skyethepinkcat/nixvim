@@ -1,5 +1,10 @@
 { lib, ... }:
 {
+  dependencies = {
+    fd.enable = false;
+    ripgrep.enable = false;
+    grep.enable = false;
+  };
   plugins.treesitter.settings.grammarPackages = [ ];
 
   plugins.none-ls.sources = {
