@@ -15,6 +15,11 @@ in
       codecompanion = {
         enable = true;
         settings = {
+          display = {
+            chat = {
+              show_token_count = true;
+            };
+          };
           interactions = {
             chat = {
               adapter = {
