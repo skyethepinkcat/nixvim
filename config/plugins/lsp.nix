@@ -2,31 +2,54 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }:
 let
   inherit (lib.nixvim) mkRaw;
-  skyepkgs = inputs.skyepkgs.packages.${pkgs.stdenv.hostPlatform.system};
+  cfg = config.programs.nixvim.lsp;
 in
 {
-  plugins = {
-    lspconfig.enable = true;
-    tiny-inline-diagnostic.enable = true;
-    lsp-lines.enable = true;
+  config = {
+    plugins = {
+      lspconfig.enable = true;
+      tiny-inline-diagnostic.enable = true;
+      lsp-lines.enable = true;
+    };
+
+    lsp = {
+      inlayHints.enable = true;
+      servers = {
+        nixd = {
+          enable = cfg.full;
+        };
+        lua_ls = {
+          enable = cfg.full;
+        };
+        clangd = {
+          enable = cfg.full;
+        };
+      };
+      # puppet = {
+      #   enable = true;
+      #   package = skyepkgs.puppet-editor-services;
+      #   config = {
+      #     cmd = [
+      #       "puppet-languageserver"
+      #       "--stdio"
+      #     ];
+      #   };
+      #   packageFallback = false;
+      # };
+    };
   };
 
-  lsp = {
-    inlayHints.enable = true;
-    # puppet = {
-    #   enable = true;
-    #   package = skyepkgs.puppet-editor-services;
-    #   config = {
-    #     cmd = [
-    #       "puppet-languageserver"
-    #       "--stdio"
-    #     ];
-    #   };
-    #   packageFallback = false;
-    # };
+  options = {
+    programs.nixvim.lsp.full = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Include LSP Configs";
+    };
   };
+
 }
