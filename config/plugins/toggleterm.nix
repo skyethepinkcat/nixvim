@@ -1,12 +1,21 @@
+{config, ...}:
+  let
+  inherit (config.nvix.mkKey) wKeyObj;
+  in
 {
   plugins.toggleterm = {
     enable = true;
+    lazyLoad.settings = {
+      cmd = "ToggleTerm";
+      keys = [
+        "<leader>tt"
+      ];
+    };
     settings = {
       direction = "float";
       float_opts = {
         border = "curved";
       };
-      open_mapping = "[[<leader>tt]]";
       shade_terminals = true;
       size = ''
         function(term)
@@ -35,5 +44,12 @@
       mode = "t";
       key = "<C-d>";
     }
+  ];
+  wKeyList = [
+    (wKeyObj [
+      "<leader>tt"
+      ""
+      "Toggle Terminal"
+    ])
   ];
 }

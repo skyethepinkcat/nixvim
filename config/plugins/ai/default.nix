@@ -14,6 +14,13 @@ in
       };
       codecompanion = {
         enable = true;
+        lazyLoad.settings = {
+          cmds = [
+            "CodeCompanion"
+            "CodeCompanionChat"
+          ];
+          key = "<leader>ac";
+        };
         settings = {
           display = {
             chat = {

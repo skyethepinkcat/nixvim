@@ -9,7 +9,13 @@ vim.lsp.config("nixd", {
 			},
 			options = {
 				nixvim = {
-					expr = "(builtins.getFlake (toString ./.)).homeModules.nixvim.programs.nixvim.options",
+					expr = "(builtins.getFlake (toString ./.)).nixvimConfigurations.aarch64-darwin.default.options",
+				},
+				flakeparts = {
+					expr = "(builtins.getFlake ./.).debug.options",
+				},
+				flakeparts2 = {
+					expr = "(builtins.getFlake ./.).debug.currentSystem.options",
 				},
 			},
 		},
