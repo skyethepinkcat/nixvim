@@ -6,10 +6,12 @@
     default = ../config;
     # Export variant layers on top of the default config, stripping nix-managed
     # tool paths so the generated config is portable to non-Nix systems.
-    export.imports = [
-      ../config
-      ../variants/export.nix
-    ];
+    export = {
+      config.profiles.export = true;
+      imports = [
+        ../config
+      ];
+    };
   };
 
   perSystem =

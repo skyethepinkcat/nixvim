@@ -9,7 +9,10 @@ in
       sources = {
         diagnostics = {
           statix.enable = true;
-          rubocop.enable = true;
+          rubocop = {
+            enable = true;
+            package = null;
+          };
           yamllint.enable = true;
           puppet_lint = {
             enable = true;
@@ -20,7 +23,10 @@ in
           };
         };
         formatting = {
-          rubocop.enable = true;
+          rubocop = {
+            enable = true;
+            package = null;
+          };
           stylua.enable = true;
           yamlfix.enable = true;
           puppet_lint = {

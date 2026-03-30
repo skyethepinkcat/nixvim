@@ -1,14 +1,7 @@
 {
-  inputs,
-  pkgs,
-  lib,
   config,
   ...
 }:
-let
-  inherit (lib.nixvim) mkRaw;
-  cfg = config.programs.nixvim.lsp;
-in
 {
   config = {
     plugins = {
@@ -21,13 +14,13 @@ in
       inlayHints.enable = true;
       servers = {
         nixd = {
-          enable = cfg.full;
+          enable = config.profiles.full;
         };
         lua_ls = {
-          enable = cfg.full;
+          enable = config.profiles.full;
         };
         clangd = {
-          enable = cfg.full;
+          enable = config.profiles.full;
         };
       };
       # puppet = {
@@ -41,14 +34,6 @@ in
       #   };
       #   packageFallback = false;
       # };
-    };
-  };
-
-  options = {
-    programs.nixvim.lsp.full = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Include LSP Configs";
     };
   };
 

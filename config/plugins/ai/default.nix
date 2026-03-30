@@ -7,7 +7,7 @@ let
   inherit (config.nvix.mkKey) mkKeymap wKeyObj;
 in
 {
-  config = lib.mkIf config.ai.enable {
+  config = lib.mkIf config.profiles.ai {
     plugins = {
       copilot-lua = {
         enable = true;
@@ -145,14 +145,9 @@ in
   };
 
   options = {
-    ai.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable AI plugins and keymaps.";
-    };
     ai.suggestions = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable AI suggestions in completion menu.";
     };
   };
