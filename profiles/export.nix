@@ -22,4 +22,5 @@ lib.mkIf config.profiles.export {
   };
 
   profiles.ai = lib.mkForce false;
+  profiles.lsp.packages = lib.mkForce false;
 }

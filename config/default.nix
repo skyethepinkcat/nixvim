@@ -14,7 +14,6 @@
       )
     )
     ++ [
-      ./profiles
       ./nvix
       ./keymap.nix
       ./neovide.nix
