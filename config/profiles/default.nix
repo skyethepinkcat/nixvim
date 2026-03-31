@@ -13,11 +13,6 @@
 
   options = {
     profiles = {
-      full = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Include LSP Configs and other 'large' packages.";
-      };
       ai = lib.mkOption {
         type = lib.types.bool;
         default = false;

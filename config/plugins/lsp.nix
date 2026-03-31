@@ -14,13 +14,13 @@
       inlayHints.enable = true;
       servers = {
         nixd = {
-          enable = config.profiles.full;
+          enable = true;
         };
         lua_ls = {
-          enable = config.profiles.full;
+          enable = true;
         };
         clangd = {
-          enable = config.profiles.full;
+          enable = true;
         };
       };
       # puppet = {
