@@ -21,7 +21,6 @@ in
     ];
 
   plugins = {
-    snacks.enable = true;
     direnv.enable = true;
   };
 }
