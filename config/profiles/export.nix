@@ -1,5 +1,5 @@
-{ lib, ... }:
-{
+{ lib, config, ... }:
+lib.mkIf config.profiles.export {
   # Variant used for the portable nvim-config-export package.
   # Strips all nix-managed tool references so the generated init.lua contains
   # no /nix/store paths and works on any system with tools in PATH.
@@ -21,5 +21,5 @@
     };
   };
 
-  ai.enable = lib.mkForce false;
+  profiles.ai = lib.mkForce false;
 }

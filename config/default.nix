@@ -14,6 +14,7 @@
       )
     )
     ++ [
+      ./profiles
       ./nvix
       ./keymap.nix
       ./neovide.nix
@@ -51,6 +52,8 @@
   globals = {
     mapleader = " ";
     maplocalleader = ",";
+
+    # These are *disabling* netrw, by telling vim its already loaded.
     loaded_netrw = 1;
     loaded_netrwPlugin = 1;
   };
@@ -82,6 +85,4 @@
     # Save undo history to undo file (in $XDG_STATE_HOME/nvim/undo)
     undofile = true;
   };
-  ai.suggestions = false;
-  ai.enable = true;
 }
