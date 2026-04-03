@@ -93,6 +93,21 @@
         desc = "LSP Type Definition";
       };
     }
+    {
+      action =
+        lib.nixvim.mkRaw
+          # lua
+          ''
+            function ()
+              vim.lsp.buf.references()
+            end
+          '';
+      key = "<leader>lr";
+      mode = "n";
+      options = {
+        desc = "LSP References";
+      };
+    }
   ];
 
 }
