@@ -62,11 +62,12 @@ in
 
   keymaps = [
     (pickerMap "<leader>ff" "find_files" "Find Files")
-    (pickerMap "<leader>sg" "live_grep" "Ripgrep")
+    (pickerMap "<leader>sg" "live_grep" "Search with Grep")
     (pickerMap "<leader>is" "symbols" "Search Icons")
     (pickerMap "<leader>bb" "buffers" "Search Buffers")
     (pickerMap "<leader>ld" "diagnostics" "LSP Diagnostics")
     (pickerMap "<leader>sh" "help_tags" "Search Help")
+    (pickerMap "<leader>sk" "keymaps" "Search Keymaps")
   ];
 
 }

@@ -6,6 +6,9 @@ let
 in
 {
   plugins = {
+    lazygit = {
+      enable = true;
+    };
     git-conflict = {
       enable = true;
       settings.default_mappings = true;
@@ -142,6 +145,13 @@ in
     # Text object
     (mkKeymap "o" "ih" ":<C-U>Gitsigns select_hunk<CR>" "Select Hunk")
     (mkKeymap "x" "ih" ":<C-U>Gitsigns select_hunk<CR>" "Select Hunk")
-
+    (mkKeymap "n" "<leader>gg" "<cmd>LazyGit<cr>" "Open Lazygit")
+    (mkKeymap "t" "<C-:>" ":" "Open Cmdline")
   ];
+  extraConfigLua = lib.mkAfter
+    # lua
+    ''
+      require('telescope').load_extension('lazygit')
+    '';
+
 }

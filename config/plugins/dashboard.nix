@@ -1,9 +1,9 @@
 {
-lib,
+  config,
   ...
 }:
 let
-  inherit (lib.nixvim.telescope) openPicker;
+  inherit (config.lib.telescope) openPicker;
 in
 {
   plugins.dashboard = {

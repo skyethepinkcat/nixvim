@@ -20,16 +20,11 @@
     };
   };
   keymaps = [
-    {
-      action = "<C-\\><C-n>";
-      mode = "t";
-      key = "<esc>";
-    }
-    {
-      action = "<C-\\><C-n>";
-      mode = "t";
-      key = "jk";
-    }
+    # {
+    #   action = "<C-\\><C-n>";
+    #   mode = "t";
+    #   key = "<esc>";
+    # }
     {
       action = "<cmd>ToggleTerm<cr>";
       mode = "t";
