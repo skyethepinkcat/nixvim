@@ -1,25 +1,5 @@
 { self, inputs, ... }:
 {
-  # Reusable nixvim modules exposed as flake outputs.
-  # Consumed by nixvimConfigurations below and importable by other flakes.
-  flake.nixvimModules = {
-    default = {
-      imports = [
-        ../config
-        ../lib
-      ];
-    };
-    # Export variant layers on top of the default config, stripping nix-managed
-    # tool paths so the generated config is portable to non-Nix systems.
-    export = {
-      config.profiles.export = true;
-      imports = [
-        ../config
-        ../lib
-      ];
-    };
-  };
-
   perSystem =
     {
       system,
@@ -32,12 +12,14 @@
       nvim = config.packages.default;
     in
     {
-      # Evaluated nixvim configurations. nixvim.packages/checks.enable (flake.nix)
-      # automatically derives packages.{default,trivial} and checks.{default,trivial}.
+      # Evaluated nixvim configurations. nixvim.packages/checks.enable (settings.nix)
+      # automatically derives packages.{default,export} and checks.{default,export}.
       nixvimConfigurations = {
         default = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [ self.nixvimModules.default ];
+          modules = [
+            self.nixvimModules.default
+          ];
           extraSpecialArgs = { inherit inputs; };
         };
         export = inputs.nixvim.lib.evalNixvim {
