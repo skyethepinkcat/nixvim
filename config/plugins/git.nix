@@ -8,7 +8,7 @@ in
 {
   plugins = {
     lazygit = {
-      enable = false;
+      enable = true;
     };
     git-conflict = {
       enable = true;
@@ -72,36 +72,34 @@ in
     (keyObj {
       mode = "n";
       key = "]h";
-      action =
-        mkRaw
-          # lua
-          ''
-            function ()
-              if vim.wo.diff then
-                vim.cmd.normal ({ ' ]c', bang = true})
-            else
-                require('gitsigns').nav_hunk('next')
-              end
+      action = mkRaw
+        # lua
+        ''
+          function ()
+            if vim.wo.diff then
+              vim.cmd.normal ({ ' ]c', bang = true})
+          else
+              require('gitsigns').nav_hunk('next')
             end
-          '';
+          end
+        '';
       desc = "Next Hunk";
     })
 
     (keyObj {
       mode = "n";
       key = "[h";
-      action =
-        mkRaw
-          # lua
-          ''
-            function()
-              if vim.wo.diff then
-                vim.cmd.normal({'[c', bang = true})
-              else
-                require('gitsigns').nav_hunk('prev')
-              end
+      action = mkRaw
+        # lua
+        ''
+          function()
+            if vim.wo.diff then
+              vim.cmd.normal({'[c', bang = true})
+            else
+              require('gitsigns').nav_hunk('prev')
             end
-          '';
+          end
+        '';
       desc = "Prev Hunk";
     })
 
@@ -129,14 +127,13 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gs";
-      action =
-        mkRaw
-          # lua
-          ''
-            function()
-            require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-            end
-          '';
+      action = mkRaw
+        # lua
+        ''
+          function()
+          require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+          end
+        '';
       desc = "Stage/Unstage Selection";
     })
 
@@ -149,14 +146,13 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gr";
-      action =
-        mkRaw
-          # lua
-          ''
-            function()
-            require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-            end
-          '';
+      action = mkRaw
+        # lua
+        ''
+          function()
+          require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+          end
+        '';
       desc = "Reset Selection";
     })
 
@@ -184,14 +180,13 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gp";
-      action =
-        mkRaw
-          # lua
-          ''
-            function()
-            require('gitsigns').preview_hunk_inline({ vim.fn.line('.'), vim.fn.line('v') })
-            end
-          '';
+      action = mkRaw
+        # lua
+        ''
+          function()
+          require('gitsigns').preview_hunk_inline({ vim.fn.line('.'), vim.fn.line('v') })
+          end
+        '';
       desc = "Preview Selection";
     })
 
@@ -265,45 +260,34 @@ in
       desc = "Select Hunk";
     })
 
-    # (keyObj {
-    #   mode = "n";
-    #   key = "<leader>gg";
-    #   action = "<cmd>LazyGit<cr>";
-    #   desc = "Open Lazygit";
-    # })
+    (keyObj {
+      mode = "n";
+      key = "<leader>gg";
+      action = "<cmd>LazyGit<cr>";
+      desc = "Open Lazygit";
+    })
     (keyObj {
       mode = "t";
       key = "<C-:>";
       action = ":";
       desc = "Open Cmdline";
     })
-    # (keyObj {
-    #   action = "<cmd>LazyGitFilterCurrentFile<cr>";
-    #   key = "<leader>gh";
-    #   desc = "Git File History";
-    # })
-    # (keyObj {
-    #   action = "<cmd>LazyGitFilter<cr>";
-    #   key = "<leader>gH";
-    #   desc = "Git Commit History";
-    # })
     (keyObj {
-      action = mkRaw "function() lazygit:toggle() end";
-      key = "<leader>gg";
-      desc = "Open Lazygit";
+      action = "<cmd>LazyGitFilterCurrentFile<cr>";
+      key = "<leader>gh";
+      desc = "Git File History";
+    })
+    (keyObj {
+      action = "<cmd>LazyGitFilter<cr>";
+      key = "<leader>gH";
+      desc = "Git Project History";
     })
   ];
 
-  extraConfigLua =
+  extraConfigLua = lib.mkAfter
     # lua
     ''
-      local Terminal  = require('toggleterm.terminal').Terminal
-      local lazygit = Terminal:new({
-        cmd = "lazygit",
-        hidden = true,
-        direction = "float";
-        dir = "git_dir";
-      })
+      require('telescope').load_extension('lazygit')
     '';
 
 }

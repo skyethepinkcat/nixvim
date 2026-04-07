@@ -27,7 +27,7 @@ let
   ];
 
   insert = [
-    # (mkKeymap "i" "jk" "<esc>" "Normal Mode")
+    (mkKeymap "i" "jk" "<esc>" "Normal Mode")
     (mkKeymap "i" "<c-s>" "<esc>:w ++p<cr>" "Save file")
     (mkKeymap "i" "<a-j>" "<esc>:m .+1<cr>==gi" "Move Line Down")
     (mkKeymap "i" "<a-k>" "<esc>:m .-2<cr>==gi" "Move Line Up")
@@ -51,8 +51,7 @@ let
 
     (mkKeymap "n" "<c-h>" ":lua require('smart-splits').move_cursor_left()<cr>" "Move Cursor Left")
     (mkKeymap "n" "<c-j>" ":lua require('smart-splits').move_cursor_down()<cr>" "Move Cursor Down")
-    (mkKeymap "n" "<c-k>" ":lua require('smart-splits').move_cursor_up()<cr>" "Move Cursor Up")
-    (mkKeymap "n" "<c-l>" ":lua require('smart-splits').move_cursor_right()<cr>" "Move Cursor Right")
+    (mkKeymap "n" "<c-k>" ":lua require('smart-splits').move_cursor_up()<cr>" "Move Cursor Up") (mkKeymap "n" "<c-l>" ":lua require('smart-splits').move_cursor_right()<cr>" "Move Cursor Right")
     (mkKeymap "n" "<c-\\>" ":lua require('smart-splits').move_cursor_previous()<cr>"
       "Move Cursor Previous"
     )
@@ -281,17 +280,17 @@ in
   extraConfigLua = # lua
     ''
 
-      -- Use black hole register for 'x', 'X', 'c', 'C'
-      vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', 'X', '"_X', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', 'c', '"_c', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', 'C', '"_C', { noremap = true, silent = true })
-
-      -- Visual mode
-      vim.api.nvim_set_keymap('v', 'x', '"_d', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('v', 'X', '"_d', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('v', 'c', '"_c', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('v', 'C', '"_c', { noremap = true, silent = true })
+      -- -- Use black hole register for 'x', 'X', 'c', 'C'
+      -- vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('n', 'X', '"_X', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('n', 'c', '"_c', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('n', 'C', '"_C', { noremap = true, silent = true })
+      --
+      -- -- Visual mode
+      -- vim.api.nvim_set_keymap('v', 'x', '"_d', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('v', 'X', '"_d', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('v', 'c', '"_c', { noremap = true, silent = true })
+      -- vim.api.nvim_set_keymap('v', 'C', '"_c', { noremap = true, silent = true })
 
       -- In visual mode, paste from the clipboard without overwriting it
       vim.api.nvim_set_keymap("v", "p", '"_dP', { noremap = true, silent = true })
