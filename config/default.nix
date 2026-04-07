@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  config,
   ...
 }:
 {
@@ -24,20 +25,15 @@
   colorschemes.catppuccin = {
     enable = true;
     settings = {
+      term_colors = true;
       integrations = {
         blink_cmp.enabled = true;
         blink_indent.enabled = true;
         ghost.enabled = true;
         noice.enabled = true;
-        # snacks.enabled = true;
+        which_key.enabled = true;
         native_lsp = {
           enabled = true;
-          underlines = {
-            errors = [ "undercurl" ];
-            hints = [ "undercurl" ];
-            warnings = [ "undercurl" ];
-            information = [ "undercurl" ];
-          };
         };
       };
       flavor = "mocha";
@@ -85,13 +81,12 @@
     # Save undo history to undo file (in $XDG_STATE_HOME/nvim/undo)
     undofile = true;
   };
-  keymaps = [
-    {
+  keyList = [
+    (config.lib.keys.keyObj {
       action = "<cmd>b#<cr>";
       key = "<leader><tab>";
-      options = {
-        desc = "Last Buffer";
-      };
-    }
+      icon = "";
+      desc = "Last Buffer";
+    })
   ];
 }

@@ -1,19 +1,12 @@
 { config, pkgs, ... }:
 let
-  inherit (config.nvix.mkKey) wKeyObj;
+  inherit (config.lib.keys) keyObj;
 in
 {
 
   plugins.nvim-tree = {
     enable = true;
   };
-  keymaps = [
-    {
-      action = "<cmd>NvimTreeToggle<cr>";
-      key = "<leader>e";
-      mode = "n";
-    }
-  ];
   extraPackagesAfter = with pkgs; [
     trash-cli
   ];
@@ -25,11 +18,12 @@ in
       enable = true;
     };
   };
-  wKeyList = [
-    (wKeyObj [
-      "<leader>e"
-      "󰙅"
-      "Explorer"
-    ])
+  keyList = [
+    (keyObj {
+      action = "<cmd>NvimTreeToggle<cr>";
+      key = "<leader>e";
+      icon = "󰙅";
+      desc = "Explorer";
+    })
   ];
 }

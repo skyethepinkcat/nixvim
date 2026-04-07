@@ -1,3 +1,7 @@
+{ config, ... }:
+let
+  inherit (config.lib.keys) keyObj;
+in
 {
   plugins.toggleterm = {
     enable = true;
@@ -19,16 +23,16 @@
       '';
     };
   };
-  keymaps = [
+  keyList = [
     # {
     #   action = "<C-\\><C-n>";
     #   mode = "t";
     #   key = "<esc>";
     # }
-    {
+    (keyObj {
       action = "<cmd>ToggleTerm<cr>";
       mode = "t";
       key = "<C-d>";
-    }
+    })
   ];
 }

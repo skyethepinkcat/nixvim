@@ -1,4 +1,8 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  inherit (lib.nixvim) mkRaw;
+  inherit (config.lib.keys) keyObj;
+in
 {
   plugins = {
     lspconfig.enable = true;
@@ -32,10 +36,17 @@
     # };
   };
 
-  keymaps = [
-    {
+  keyList = [
+    (keyObj {
+      key = "<leader>l";
+      action = null;
+      icon = "";
+      group = "lsp";
+    })
+
+    (keyObj {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -43,14 +54,11 @@
             end
           '';
       key = "<leader>la";
-      mode = "n";
-      options = {
-        desc = "Code Action";
-      };
-    }
-    {
+      desc = "Code Action";
+    })
+    (keyObj {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -58,14 +66,11 @@
             end
           '';
       key = "<leader>ln";
-      mode = "n";
-      options = {
-        desc = "LSP Rename";
-      };
-    }
-    {
+      desc = "LSP Rename";
+    })
+    (keyObj {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -73,14 +78,11 @@
             end
           '';
       key = "<leader>li";
-      mode = "n";
-      options = {
-        desc = "LSP Implementation";
-      };
-    }
-    {
+      desc = "LSP Implementation";
+    })
+    (keyObj {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -88,14 +90,11 @@
             end
           '';
       key = "<leader>lt";
-      mode = "n";
-      options = {
-        desc = "LSP Type Definition";
-      };
-    }
-    {
+      desc = "LSP Type Definition";
+    })
+    (keyObj {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -103,11 +102,8 @@
             end
           '';
       key = "<leader>lr";
-      mode = "n";
-      options = {
-        desc = "LSP References";
-      };
-    }
+      desc = "LSP References";
+    })
   ];
 
 }

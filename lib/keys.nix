@@ -11,30 +11,21 @@ let
     key:
     (
       {
-        __unkeyed = key.key;
+        __unkeyed_1 = key.key;
+        __unkeyed_2 = key.action;
         inherit (key)
           icon
           desc
           group
           hidden
+          proxy
+          cond
+          remap
+          silent
           ;
       }
       // key.extraWhichOpts
     );
-
-  # Creates a vim keymap from our key object.
-  mkVimKey = key: {
-    inherit (key) key action mode;
-    options = {
-      inherit (key) desc;
-      # Pulled from
-      silent = true;
-      noremap = true;
-      remap = true;
-    }
-    // key.extraVimOpts;
-  };
-  needsWKey = key: (key.icon != null || key.hidden || key.extraWhichOpts != null);
 in
 {
   config = {
@@ -50,6 +41,12 @@ in
           mode ? "n",
           hidden ? false,
           group ? null,
+          proxy ? null,
+          cond ? null,
+          expand ? null,
+          remap ? true,
+          noremap ? true,
+          silent ? true,
           extraVimOpts ? { },
           extraWhichOpts ? { },
         }:
@@ -64,15 +61,17 @@ in
             group
             extraVimOpts
             extraWhichOpts
+            cond
+            proxy
+            expand
+            remap
+            noremap
+            silent
             ;
         };
     };
 
-    # Here we create the actual keymaps.
-    keymaps = map mkVimKey config.keyList;
-
-    # which-key is really only used to set icons, so we filter those that don't need them.
-    wKeyList = map mkwKey (lib.filter needsWKey config.keyList);
+    wKeyList = map mkwKey config.keyList;
 
   };
   options = {

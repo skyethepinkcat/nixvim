@@ -1,9 +1,11 @@
 {
   config,
+  lib,
   ...
 }:
 let
   inherit (config.lib.telescope) openPicker;
+  inherit (lib.nixvim) mkRaw;
 in
 {
   plugins.dashboard = {
@@ -29,7 +31,14 @@ in
             key = "g";
           }
           {
-            action = ":q<cr>";
+            action =
+              mkRaw
+                # lua
+                ''
+                  function()
+                    vim.cmd("q")
+                    end
+                '';
             desc = "Quit";
             group = "Label";
             icon = " ";
@@ -47,7 +56,6 @@ in
         ];
         packages.enable = false;
         mru.cwd_only = true;
-        week_header.enable = true;
       };
     };
   };

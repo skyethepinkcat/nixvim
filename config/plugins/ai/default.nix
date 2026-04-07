@@ -4,7 +4,8 @@
   ...
 }:
 let
-  inherit (config.nvix.mkKey) mkKeymap wKeyObj;
+  inherit (config.nvix.mkKey) wKeyObj;
+  inherit (config.lib.keys) keyObj;
 in
 {
   config = lib.mkIf config.profiles.ai {
@@ -126,21 +127,30 @@ in
 
     };
 
+    # Group-only label — no action, must stay as wKeyList
     wKeyList = [
       (wKeyObj [
         "<leader>a"
         "󰚩"
         "ai"
       ])
-      (wKeyObj [
-        "<leader>ac"
-        "󰭹"
-        "CodeCompanion Chat"
-      ])
     ];
-    keymaps = [
-      (mkKeymap "n" "<leader>at" "<cmd>Copilot toggle<cr>" "Toggle Copilot")
-      (mkKeymap "n" "<leader>ac" "<cmd>CodeCompanionChat Toggle<cr>" "CodeCompanion Chat")
+
+    keyList = [
+      (keyObj {
+        mode = "n";
+        key = "<leader>at";
+        action = "<cmd>Copilot toggle<cr>";
+        desc = "Toggle Copilot";
+      })
+      # Merged with former wKeyList entry for <leader>ac
+      (keyObj {
+        mode = "n";
+        key = "<leader>ac";
+        action = "<cmd>CodeCompanionChat Toggle<cr>";
+        icon = "󰭹";
+        desc = "CodeCompanion Chat";
+      })
     ];
   };
 

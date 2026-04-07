@@ -7,8 +7,6 @@
 let
   inherit (config.lib.telescope) openPicker openPickerWithOptions;
   inherit (config.lib.keys) keyObj;
-
-
 in
 {
   extraPlugins = with pkgs.vimPlugins; [
@@ -105,17 +103,24 @@ in
     })
     (keyObj {
       action = openPicker "symbols";
+      key = "<M-s>";
+      mode = "i";
+    })
+    (keyObj {
+      action = openPicker "symbols";
       desc = "Search Icons";
       key = "<leader>is";
+      icon = "";
     })
     (keyObj {
-      action = openPicker "buffers";
+      action =
+        openPickerWithOptions "buffers"
+          # lua
+          ''
+            require('telescope.themes').get_ivy({})
+          '';
       desc = "Search Buffers";
-      key = "<leader>bb";
-    })
-    (keyObj {
-      action = openPicker "buffers";
-      desc = "Search Buffers";
+      icon = "󱦞";
       key = "<leader>bb";
     })
     (keyObj {
