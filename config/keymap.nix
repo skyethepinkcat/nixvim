@@ -1,6 +1,7 @@
 { config, ... }:
 let
   inherit (config.nvix.mkKey) wKeyObj;
+  inherit (config.lib.keys) keyObj;
 in
 {
   keymaps = [
@@ -256,5 +257,13 @@ in
       ""
       "Last Buffer"
     ])
+  ];
+  keyList = [
+    (keyObj {
+      action = "z=";
+      key = "<leader>cs";
+      icon = "󰓆";
+      desc = "Spelling Suggestions";
+    })
   ];
 }

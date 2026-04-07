@@ -28,6 +28,14 @@ in
             icon_hl = "@variable";
             key = "g";
           }
+          {
+            action = ":q<cr>";
+            desc = "Quit";
+            group = "Label";
+            icon = " ";
+            icon_hl = "@variable";
+            key = "q";
+          }
         ];
         header = [
           "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗"
