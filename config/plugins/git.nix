@@ -1,35 +1,44 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib.nixvim) mkRaw;
   inherit (config.nvix) icons;
   inherit (config.nvix.mkKey) wKeyObj;
   inherit (config.lib.keys) keyObj;
 
-  lazygit_config = lib.toString (pkgs.writeText "config.yaml" (lib.strings.toJSON {
-    gui = {
-      theme = {
-        activeBorderColor = [
-          "#89b4fa"
-          "bold"
-        ];
-        inactiveBorderColor = [ "#a6adc8" ];
-        searchingActiveBorderColor = [ "#f9e2af" ];
-        optionsTextColor = [ "#89b4fa" ];
-        selectedLineBgColor = [ "#313244" ];
-        inactiveViewSelectedLineBgColor = [ "#6c7086" ];
-        cherryPickedCommitFgColor = [ "#89b4fa" ];
-        cherryPickedCommitBgColor = [ "#45475a" ];
-        markedBaseCommitFgColor = [ "#89b4fa" ];
-        markedBaseCommitBgColor = [ "#f9e2af" ];
-        unstagedChangesColor = [ "#f38ba8" ];
-        defaultFgColor = [ "#cdd6f4" ];
-      };
-      authorColors = {
-        "*" = "#b4befe";
-      };
-    };
+  lazygit_config = lib.toString (
+    pkgs.writeText "config.yaml" (
+      lib.strings.toJSON {
+        gui = {
+          theme = {
+            activeBorderColor = [
+              "#89b4fa"
+              "bold"
+            ];
+            inactiveBorderColor = [ "#a6adc8" ];
+            searchingActiveBorderColor = [ "#f9e2af" ];
+            optionsTextColor = [ "#89b4fa" ];
+            selectedLineBgColor = [ "#313244" ];
+            inactiveViewSelectedLineBgColor = [ "#6c7086" ];
+            cherryPickedCommitFgColor = [ "#89b4fa" ];
+            cherryPickedCommitBgColor = [ "#45475a" ];
+            markedBaseCommitFgColor = [ "#89b4fa" ];
+            markedBaseCommitBgColor = [ "#f9e2af" ];
+            unstagedChangesColor = [ "#f38ba8" ];
+            defaultFgColor = [ "#cdd6f4" ];
+          };
+          authorColors = {
+            "*" = "#b4befe";
+          };
+        };
 
-  }));
+      }
+    )
+  );
 in
 {
   plugins = {

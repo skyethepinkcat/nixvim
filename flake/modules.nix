@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   # Reusable nixvim modules exposed as flake outputs.
   # Consumed by nixvimConfigurations in packages.nix and importable by other flakes.
