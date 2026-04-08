@@ -80,6 +80,8 @@
 
     # Save undo history to undo file (in $XDG_STATE_HOME/nvim/undo)
     undofile = true;
+
+    scrolloff = 5;
   };
   keyList = [
     (config.lib.keys.keyObj {

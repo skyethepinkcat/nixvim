@@ -1,14 +1,42 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib.nixvim) mkRaw;
   inherit (config.nvix) icons;
   inherit (config.nvix.mkKey) wKeyObj;
   inherit (config.lib.keys) keyObj;
+
+  lazygit_config = lib.toString (pkgs.writeText "config.yaml" (lib.strings.toJSON {
+    gui = {
+      theme = {
+        activeBorderColor = [
+          "#89b4fa"
+          "bold"
+        ];
+        inactiveBorderColor = [ "#a6adc8" ];
+        searchingActiveBorderColor = [ "#f9e2af" ];
+        optionsTextColor = [ "#89b4fa" ];
+        selectedLineBgColor = [ "#313244" ];
+        inactiveViewSelectedLineBgColor = [ "#6c7086" ];
+        cherryPickedCommitFgColor = [ "#89b4fa" ];
+        cherryPickedCommitBgColor = [ "#45475a" ];
+        markedBaseCommitFgColor = [ "#89b4fa" ];
+        markedBaseCommitBgColor = [ "#f9e2af" ];
+        unstagedChangesColor = [ "#f38ba8" ];
+        defaultFgColor = [ "#cdd6f4" ];
+      };
+      authorColors = {
+        "*" = "#b4befe";
+      };
+    };
+
+  }));
 in
 {
   plugins = {
     lazygit = {
       enable = true;
+      settings.config_file_path = lazygit_config;
+      settings.use_custom_config_file_path = 1;
     };
     git-conflict = {
       enable = true;
@@ -72,34 +100,36 @@ in
     (keyObj {
       mode = "n";
       key = "]h";
-      action = mkRaw
-        # lua
-        ''
-          function ()
-            if vim.wo.diff then
-              vim.cmd.normal ({ ' ]c', bang = true})
-          else
-              require('gitsigns').nav_hunk('next')
+      action =
+        mkRaw
+          # lua
+          ''
+            function ()
+              if vim.wo.diff then
+                vim.cmd.normal ({ ' ]c', bang = true})
+            else
+                require('gitsigns').nav_hunk('next')
+              end
             end
-          end
-        '';
+          '';
       desc = "Next Hunk";
     })
 
     (keyObj {
       mode = "n";
       key = "[h";
-      action = mkRaw
-        # lua
-        ''
-          function()
-            if vim.wo.diff then
-              vim.cmd.normal({'[c', bang = true})
-            else
-              require('gitsigns').nav_hunk('prev')
+      action =
+        mkRaw
+          # lua
+          ''
+            function()
+              if vim.wo.diff then
+                vim.cmd.normal({'[c', bang = true})
+              else
+                require('gitsigns').nav_hunk('prev')
+              end
             end
-          end
-        '';
+          '';
       desc = "Prev Hunk";
     })
 
@@ -127,13 +157,14 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gs";
-      action = mkRaw
-        # lua
-        ''
-          function()
-          require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-          end
-        '';
+      action =
+        mkRaw
+          # lua
+          ''
+            function()
+            require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+            end
+          '';
       desc = "Stage/Unstage Selection";
     })
 
@@ -146,13 +177,14 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gr";
-      action = mkRaw
-        # lua
-        ''
-          function()
-          require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-          end
-        '';
+      action =
+        mkRaw
+          # lua
+          ''
+            function()
+            require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+            end
+          '';
       desc = "Reset Selection";
     })
 
@@ -180,13 +212,14 @@ in
     (keyObj {
       mode = "v";
       key = "<leader>gp";
-      action = mkRaw
-        # lua
-        ''
-          function()
-          require('gitsigns').preview_hunk_inline({ vim.fn.line('.'), vim.fn.line('v') })
-          end
-        '';
+      action =
+        mkRaw
+          # lua
+          ''
+            function()
+            require('gitsigns').preview_hunk_inline({ vim.fn.line('.'), vim.fn.line('v') })
+            end
+          '';
       desc = "Preview Selection";
     })
 
@@ -284,10 +317,11 @@ in
     })
   ];
 
-  extraConfigLua = lib.mkAfter
-    # lua
-    ''
-      require('telescope').load_extension('lazygit')
-    '';
+  extraConfigLua =
+    lib.mkAfter
+      # lua
+      ''
+        require('telescope').load_extension('lazygit')
+      '';
 
 }

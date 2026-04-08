@@ -31,8 +31,7 @@ option that contains a list of ``keyObj``s, which are defined like:
     mode ? "n",
     hidden ? false,
     group ? null,
-    extraVimOpts ? { },
-    extraWhichOpts ? { },
+extraOpts ? {},
 }:
 ```
 

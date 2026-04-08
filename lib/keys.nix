@@ -14,17 +14,22 @@ let
         __unkeyed_1 = key.key;
         __unkeyed_2 = key.action;
         inherit (key)
-          icon
+          key
+          action
           desc
-          group
+          mode
+          icon
           hidden
-          proxy
+          group
           cond
+          proxy
+          expand
           remap
+          noremap
           silent
           ;
       }
-      // key.extraWhichOpts
+      // key.extraOpts
     );
 in
 {
@@ -47,8 +52,7 @@ in
           remap ? true,
           noremap ? true,
           silent ? true,
-          extraVimOpts ? { },
-          extraWhichOpts ? { },
+          extraOpts ? { },
         }:
         {
           inherit
@@ -59,8 +63,7 @@ in
             icon
             hidden
             group
-            extraVimOpts
-            extraWhichOpts
+            extraOpts
             cond
             proxy
             expand

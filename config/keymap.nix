@@ -162,18 +162,14 @@ in
       action = "gcc";
       key = "<leader>/";
       desc = "toggle comment";
-      extraVimOpts = {
-        noremap = false;
-      };
+      noremap = false;
     })
     (keyObj {
       action = "gc";
       key = "<leader>/";
       mode = "v";
       desc = "toggle comment";
-      extraVimOpts = {
-        noremap = false;
-      };
+      noremap = false;
     })
 
     # Semicolon to command mode
