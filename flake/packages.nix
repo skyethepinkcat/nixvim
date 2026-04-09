@@ -20,12 +20,12 @@
           modules = [
             self.nixvimModules.default
           ];
-          extraSpecialArgs = { inherit inputs system; };
+          extraSpecialArgs = { inherit inputs; };
         };
         export = inputs.nixvim.lib.evalNixvim {
           inherit system;
           modules = [ self.nixvimModules.export ];
-          extraSpecialArgs = { inherit inputs system; };
+          extraSpecialArgs = { inherit inputs; };
         };
       };
 

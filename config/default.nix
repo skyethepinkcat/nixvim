@@ -2,13 +2,12 @@
   inputs,
   lib,
   config,
-  system,
+  pkgs,
   ...
 }:
 let
   pkgs-edge = import inputs.nixpkgs-edge {
-    inherit system;
-
+    inherit (pkgs.stdenv.hostPlatform) system;
   };
 in
 {
