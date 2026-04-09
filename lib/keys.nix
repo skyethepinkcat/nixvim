@@ -14,8 +14,6 @@ let
         __unkeyed_1 = key.key;
         __unkeyed_2 = key.action;
         inherit (key)
-          key
-          action
           desc
           mode
           icon
