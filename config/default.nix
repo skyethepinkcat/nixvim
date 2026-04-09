@@ -32,6 +32,10 @@
         ghost.enabled = true;
         noice.enabled = true;
         which_key.enabled = true;
+        mini = {
+          enabled = true;
+          indentscope_color = "";
+        };
         native_lsp = {
           enabled = true;
         };
