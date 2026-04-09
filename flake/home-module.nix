@@ -12,6 +12,7 @@
           # Pass flake inputs to config modules (e.g. for skyepkgs packages).
           { _module.args = { inherit inputs; }; }
           ../config
+          ../lib
         ];
       };
     };
