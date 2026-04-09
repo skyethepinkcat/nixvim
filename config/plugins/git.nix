@@ -47,10 +47,6 @@ in
       settings.config_file_path = lazygit_config;
       settings.use_custom_config_file_path = 1;
     };
-    git-conflict = {
-      enable = true;
-      settings.default_mappings = true;
-    };
     gitsigns = {
       enable = true;
       settings = {

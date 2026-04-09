@@ -73,6 +73,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-edge": {
+      "locked": {
+        "lastModified": 1775747185,
+        "narHash": "sha256-KS/7hLTQ8Ja6GioSJra2T3ug/eyRrxEOv8P3Dwga3OU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fb5f54e05e035f4778d66e8572a4bae7116d7264",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "master",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1774748309,
@@ -145,6 +160,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-edge": "nixpkgs-edge",
         "nixvim": "nixvim",
         "skyepkgs": "skyepkgs",
         "treefmt-nix": "treefmt-nix"

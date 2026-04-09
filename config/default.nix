@@ -2,8 +2,15 @@
   inputs,
   lib,
   config,
+  system,
   ...
 }:
+let
+  pkgs-edge = import inputs.nixpkgs-edge {
+    inherit system;
+
+  };
+in
 {
   # Import all your configuration modules here
   imports =
@@ -95,4 +102,11 @@
       desc = "Last Buffer";
     })
   ];
+  withPython3 = true;
+  withPerl = true;
+  withNodeJs = true;
+  dependencies.tree-sitter = {
+    enable = true;
+    package = pkgs-edge.tree-sitter;
+  };
 }

@@ -22,5 +22,6 @@ in
 
   plugins = {
     direnv.enable = true;
+    notify.enable = true;
   };
 }
