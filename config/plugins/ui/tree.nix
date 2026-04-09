@@ -52,9 +52,6 @@ in
     fd.enable = true;
     ripgrep.enable = true;
     grep.enable = true;
-    tree-sitter = {
-      enable = true;
-    };
   };
   keyList = [
     (keyObj {
