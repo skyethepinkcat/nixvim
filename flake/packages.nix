@@ -1,19 +1,5 @@
 { self, inputs, ... }:
 {
-  # Reusable nixvim modules exposed as flake outputs.
-  # Consumed by nixvimConfigurations below and importable by other flakes.
-  flake.nixvimModules = {
-    default = ../config;
-    # Export variant layers on top of the default config, stripping nix-managed
-    # tool paths so the generated config is portable to non-Nix systems.
-    export = {
-      config.profiles.export = true;
-      imports = [
-        ../config
-      ];
-    };
-  };
-
   perSystem =
     {
       system,
@@ -24,19 +10,33 @@
     let
       # Alias for the auto-generated default package (set by nixvim.packages.enable).
       nvim = config.packages.default;
+      mods = self.nixvimModules;
     in
     {
-      # Evaluated nixvim configurations. nixvim.packages/checks.enable (flake.nix)
-      # automatically derives packages.{default,trivial} and checks.{default,trivial}.
+      # Evaluated nixvim configurations. nixvim.packages/checks.enable (settings.nix)
+      # automatically derives packages.{default,export} and checks.{default,export}.
       nixvimConfigurations = {
         default = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [ self.nixvimModules.default ];
+          modules = with mods; [
+            default
+          ];
+          extraSpecialArgs = { inherit inputs; };
+        };
+        full = inputs.nixvim.lib.evalNixvim {
+          inherit system;
+          modules = with mods; [
+            default
+            full
+          ];
           extraSpecialArgs = { inherit inputs; };
         };
         export = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [ self.nixvimModules.export ];
+          modules = with mods; [
+            default
+            export
+          ];
           extraSpecialArgs = { inherit inputs; };
         };
       };
