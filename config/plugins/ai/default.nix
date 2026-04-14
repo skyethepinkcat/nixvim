@@ -11,7 +11,7 @@ let
 in
 {
   config = lib.mkIf config.profiles.ai {
-    extraConfigLua =
+    extraConfigLuaPre =
       # lua
       ''
         if vim.fn.executable('claude') == 1 then
