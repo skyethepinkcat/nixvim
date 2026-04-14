@@ -4,7 +4,8 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:github.com)",
       "Bash(nix build:*)",
-      "Bash(nix fmt:*)"
+      "Bash(nix fmt:*)",
+      "Bash(nix log:*)"
     ]
   }
 }

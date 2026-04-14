@@ -10,6 +10,7 @@
     let
       # Alias for the auto-generated default package (set by nixvim.packages.enable).
       nvim = config.packages.default;
+      mods = self.nixvimModules;
     in
     {
       # Evaluated nixvim configurations. nixvim.packages/checks.enable (settings.nix)
@@ -17,14 +18,25 @@
       nixvimConfigurations = {
         default = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [
-            self.nixvimModules.default
+          modules = with mods; [
+            default
+          ];
+          extraSpecialArgs = { inherit inputs; };
+        };
+        full = inputs.nixvim.lib.evalNixvim {
+          inherit system;
+          modules = with mods; [
+            default
+            full
           ];
           extraSpecialArgs = { inherit inputs; };
         };
         export = inputs.nixvim.lib.evalNixvim {
           inherit system;
-          modules = [ self.nixvimModules.export ];
+          modules = with mods; [
+            default
+            export
+          ];
           extraSpecialArgs = { inherit inputs; };
         };
       };

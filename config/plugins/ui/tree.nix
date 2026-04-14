@@ -55,7 +55,7 @@ in
   };
   keyList = [
     (keyObj {
-      action = "<cmd>NvimTreeFindFileToggle<cr>";
+      action = "<cmd>NvimTreeFindFile<cr>";
       key = "<leader>e";
       icon = "󰙅";
       desc = "Explorer";
