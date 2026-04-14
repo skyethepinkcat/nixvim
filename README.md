@@ -15,7 +15,7 @@ My personal nixvim config, inspired by nvix but with more options specific to my
 
 ## Usage
 
-```sh
+```
 nix run .          # run default config
 nix run .#nixvim   # same, but binary is called `nixvim` instead of `nvim`
 ```
@@ -72,7 +72,7 @@ inputs.nixvim-config.url = "github:skyethepinkcat/nixvim-config";
 
 Produces a `~/.config/nvim`-compatible directory without any `/nix/store` paths:
 
-```sh
+```
 nix build .#nvim-config-export
 cp -r result/ ~/.config/nvim
 ```
@@ -182,7 +182,7 @@ keyList = [
 
 ## Development
 
-```sh
+```
 nix develop        # shell with nixd, nixfmt, statix, lua-language-server
 nix fmt            # format all nix files
 nix run .          # test config
