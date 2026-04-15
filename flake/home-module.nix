@@ -11,6 +11,7 @@
         imports = [
           # Pass flake inputs to config modules (e.g. for skyepkgs packages).
           { _module.args = { inherit inputs; }; }
+          { nixpkgs.overlays = [ inputs.skyepkgs.overlays.default ]; }
           ../config
           ../lib
         ];
