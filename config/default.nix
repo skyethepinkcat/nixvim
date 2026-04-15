@@ -32,6 +32,7 @@
     loaded_netrwPlugin = 1;
   };
   opts = {
+    background = "dark";
     # Ignore case in search patterns
     ignorecase = true;
 

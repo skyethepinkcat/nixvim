@@ -1,5 +1,5 @@
 {
-  extraConfigLua = ''
+  extraConfigLuaPre = ''
     if vim.g.neovide then
       -- Neovide-specific settings
       vim.g.neovide_theme = "dark";

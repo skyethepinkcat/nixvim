@@ -11,29 +11,29 @@ in
 {
   plugins.dashboard = {
     enable = true;
-    package = pkgs.vimUtils.buildVimPlugin {
-      pname = "dashboard-nvim";
-      version = "0-unstable-2026-04-14";
-      src = pkgs.fetchFromGitHub {
-        owner = "skyethepinkcat";
-        repo = "dashboard-nvim";
-        rev = "0eda18b79813745203a57c1e26a058c2df8b573e";
-        hash = "sha256-ElzyvHxlbn6zoCvbWZseV2DUIIrChkuXNR1BOeWV+QU=";
-      };
-      meta.homepage = "https://github.com/nvimdev/dashboard-nvim/";
-      meta.hydraPlatforms = [ ];
-    };
-    luaConfig.content =
-      # lua
-      ''
-        require("dashboard").setup({
-          config = {
-            project = {
-              shortcut_type = "letter",
-            },
-          },
-        })
-      '';
+    # package = pkgs.vimUtils.buildVimPlugin {
+    #   pname = "dashboard-nvim";
+    #   version = "0-unstable-2026-04-14";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "skyethepinkcat";
+    #     repo = "dashboard-nvim";
+    #     rev = "0eda18b79813745203a57c1e26a058c2df8b573e";
+    #     hash = "sha256-ElzyvHxlbn6zoCvbWZseV2DUIIrChkuXNR1BOeWV+QU=";
+    #   };
+    #   meta.homepage = "https://github.com/nvimdev/dashboard-nvim/";
+    #   meta.hydraPlatforms = [ ];
+    # };
+    # luaConfig.content =
+    #   # lua
+    #   ''
+    #     require("dashboard").setup({
+    #       config = {
+    #         project = {
+    #           shortcut_type = "letter",
+    #         },
+    #       },
+    #     })
+    #   '';
     settings = {
       shortcut_type = "number";
       config = {
