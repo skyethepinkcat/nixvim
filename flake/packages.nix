@@ -76,6 +76,8 @@
           let
             nixvimCfg = config.nixvimConfigurations.export.config;
             inherit (nixvimCfg.build) initSource plugins;
+            # Track the lazygit config as a real Nix path so it enters the build sandbox.
+            lazygitConfig = builtins.storePath nixvimCfg.plugins.lazygit.settings.config_file_path;
             # Extra plugins added only in the portable export (absent from nixvim config).
             exportExtraPlugins = with pkgs.vimPlugins; [
               # Mason is excluded from nixvim (nix manages tools), but useful on non-Nix
@@ -111,7 +113,14 @@
             # (fzf, ripgrep, etc.); clearing them lets the target system's PATH win.
             # Compiled binaries/shared libs with embedded paths are not fixable here.
             find "$out" -type f -name "*.lua" -exec sed -i 's|"/nix/store/[^"]*"|""|g' {} +
-            sed 's|"/nix/store/[^"]*"|""|g' "${initSource}" > "$out/init.lua"
+
+            # Copy lazygit theme config and rewrite its store path to a stdpath reference
+            # so it works on non-Nix systems without needing a separate install step.
+            cp "${lazygitConfig}" "$out/lazygit-config.yaml"
+            sed \
+              -e 's|"${lazygitConfig}"|vim.fn.stdpath("config") .. "/lazygit-config.yaml"|g' \
+              -e 's|"/nix/store/[^"]*"|""|g' \
+              "${initSource}" > "$out/init.lua"
             cat ${masonSetup} >> "$out/init.lua"
           '';
       };

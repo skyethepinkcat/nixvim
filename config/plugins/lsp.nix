@@ -22,6 +22,9 @@ in
       clangd = {
         enable = true;
       };
+      jsonls = {
+        enable = true;
+      };
     };
     # puppet = {
     #   enable = true;

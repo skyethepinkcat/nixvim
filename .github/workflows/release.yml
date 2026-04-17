@@ -19,7 +19,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Build nvim-config-export
-        run: nix build .#nvim-config-export --no-link --print-out-paths > store_path.txt
+        run: nix build .#nvim-config-export --impure --no-link --print-out-paths > store_path.txt
 
       - name: Package as tar.gz
         run: |
