@@ -13,23 +13,12 @@ in
   plugins.dashboard = {
     enable = true;
     package = pkgs.vimPlugins.dashboard;
-    luaConfig.content =
-      # lua
-      ''
-        require("dashboard").setup({
-          config = {
-            project = {
-              shortcut_type = "letter",
-            },
-          },
-        })
-      '';
     settings = {
       shortcut_type = "number";
       config = {
-        # project = {
-        #   shortcut_type = "letter";
-        # };
+        project = {
+          enable = false;
+        };
         shortcut = [
           {
             action = openPicker "find_files";
