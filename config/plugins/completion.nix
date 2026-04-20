@@ -31,7 +31,7 @@ in
           };
         };
         keymap = {
-          preset = "enter";
+          preset = "default";
           # "<Tab>" = [
           #   "show"
           #   "select_next"
