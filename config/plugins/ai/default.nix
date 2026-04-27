@@ -25,7 +25,7 @@ in
       ])
       (wKeyObj [
         "<leader>aX"
-        ""
+        "󰯇"
         "kill sessions"
       ])
     ];
