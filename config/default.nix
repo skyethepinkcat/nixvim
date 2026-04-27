@@ -61,6 +61,7 @@
     undofile = true;
 
     scrolloff = 5;
+
   };
   keyList = [
     (config.lib.keys.keyObj {

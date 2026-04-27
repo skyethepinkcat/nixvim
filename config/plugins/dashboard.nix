@@ -2,11 +2,10 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
-  inherit (config.lib.telescope) openPicker;
+  inherit (config.lib.telescope) openPicker openExtensionPickerWithOptions;
   inherit (lib.nixvim) mkRaw;
 in
 {
@@ -21,7 +20,12 @@ in
         };
         shortcut = [
           {
-            action = openPicker "find_files";
+            action =
+              openExtensionPickerWithOptions "frecency" "frecency"
+                #lua
+                ''
+                  {workspace="CWD"}
+                '';
             desc = "Files";
             group = "Label";
             icon = "󰱼 ";

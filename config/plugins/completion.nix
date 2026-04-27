@@ -11,12 +11,7 @@ in
   extraPlugins = with pkgs.vimPlugins; [
     blink-cmp-conventional-commits
   ];
-  # extraConfigLua =
-  #   # lua
-  #   ''
-  #   '';
   plugins = {
-    # blink-cmp-copilot.enable = config.ai.suggestions;
     blink-cmp = {
       enable = true;
       settings = {
@@ -26,12 +21,12 @@ in
           menu.auto_show = false;
           ghost_text = {
             enabled = true;
-            show_with_menu = false;
+            show_with_menu = true;
             show_without_selection = true;
           };
         };
         keymap = {
-          preset = "enter";
+          preset = "default";
           # "<Tab>" = [
           #   "show"
           #   "select_next"

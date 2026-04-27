@@ -1,27 +1,23 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
-let
-  inherit (lib.nixvim) mkRaw;
-in
 {
-  imports =
-    (
-      with builtins;
-      with lib;
-      map (fn: ./${fn}) (
-        filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}")) (attrNames (readDir ./.))
+  imports = with builtins;
+    with lib;
+    map (fn: ./${fn}) (
+      filter (fn: (fn != "default.nix" && (hasSuffix ".nix" "${fn}" || pathExists ./${fn}/default.nix))) (
+        attrNames (readDir ./.)
       )
-    )
-    ++ [
-      ./ai
-      ./ui
-    ];
+    );
 
   plugins = {
     direnv.enable = true;
     notify.enable = true;
   };
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-sops
+  ];
 }
