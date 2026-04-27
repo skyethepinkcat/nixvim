@@ -61,6 +61,9 @@
     undofile = true;
 
     scrolloff = 5;
+
+    spelllang = "en_us" ;
+    spell = true;
   };
   keyList = [
     (config.lib.keys.keyObj {
