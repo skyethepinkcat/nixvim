@@ -3,7 +3,7 @@
     if vim.g.neovide then
       -- Neovide-specific settings
       vim.g.neovide_theme = "dark";
-      vim.o.guifont = "Menlo,Symbols Nerd Font:h14"
+      vim.o.guifont = "FiraCode Nerd Font,Symbols Nerd Font:h14"
       vim.g.neovide_input_macos_option_key_is_meta = "only_left"
 
       -- Neovide keymaps
