@@ -43,6 +43,8 @@ let
   );
 in
 {
+  exportFiles = [{ source = snippetPkg; name = "snippets/nixvim"; recursive = true; }];
+
   plugins = {
     friendly-snippets.enable = true;
     blink-cmp.settings.sources.providers.snippets.opts.search_paths = [

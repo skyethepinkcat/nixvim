@@ -114,9 +114,13 @@
             find "$out" -type f -name "*.lua" -exec sed -i 's|"/nix/store/[^"]*"|""|g' {} +
 
             # Copy declared exportFiles and rewrite their store paths to stdpath references.
-            ${pkgs.lib.concatMapStringsSep "\n" (f: ''
-              cp "${builtins.storePath f.source}" "$out/${f.name}"
-            '') exportFiles}
+            ${pkgs.lib.concatMapStringsSep "\n" (f:
+              if f.recursive then ''
+                cp -rL "${builtins.storePath f.source}" "$out/${f.name}"
+              '' else ''
+                install -Dm644 "${builtins.storePath f.source}" "$out/${f.name}"
+              ''
+            ) exportFiles}
             sed \
               ${pkgs.lib.concatMapStringsSep " \\\n              " (f:
                 "-e 's|\"${builtins.storePath f.source}\"|vim.fn.stdpath(\"config\") .. \"/${f.name}\"|g'"
