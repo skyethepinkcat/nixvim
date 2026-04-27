@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.lib.telescope) openPicker openPickerWithOptions;
+  inherit (config.lib.telescope) openPicker openPickerWithOptions openExtensionPickerWithOptions;
   inherit (config.lib.keys) keyObj;
 in
 {
@@ -15,6 +15,14 @@ in
   plugins.telescope = {
     enable = true;
     extensions = {
+      frecency = {
+        enable = true;
+        settings = {
+          # https://github.com/nvim-telescope/telescope-frecency.nvim/issues/270
+          db_safe_mode = false;
+          show_filter_column = false;
+        };
+      };
       fzf-native = {
         enable = true;
       };
@@ -63,7 +71,12 @@ in
 
   keyList = [
     (keyObj {
-      action = openPicker "find_files";
+      action =
+        openExtensionPickerWithOptions "frecency" "frecency"
+          #lua
+          ''
+            {workspace="CWD"}
+          '';
       mode = "n";
       key = "<leader>ff";
       icon = "";
