@@ -43,7 +43,13 @@ let
   );
 in
 {
-  exportFiles = [{ source = snippetPkg; name = "snippets/nixvim"; recursive = true; }];
+  exportFiles = [
+    {
+      source = snippetPkg;
+      name = "snippets/nixvim";
+      recursive = true;
+    }
+  ];
 
   plugins = {
     friendly-snippets.enable = true;
