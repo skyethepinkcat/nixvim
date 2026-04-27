@@ -19,9 +19,6 @@ in
       lua_ls = {
         enable = true;
       };
-      clangd = {
-        enable = true;
-      };
       jsonls = {
         enable = true;
       };
