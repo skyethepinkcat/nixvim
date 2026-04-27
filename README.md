@@ -80,6 +80,21 @@ cp -r result/ ~/.config/nvim
 > Tree-sitter parsers are not bundled — run `:TSInstall` on the target machine.
 > LSP servers and formatters must be installed separately (Mason is included).
 
+#### Adding config files to the export
+
+Plugin modules can declare external config files (e.g. lazygit themes) that need to be included in the export via the `exportFiles` option:
+
+```nix
+let
+  myConfig = pkgs.writeText "tool-config.yaml" "...";
+in
+{
+  exportFiles = [{ source = myConfig; name = "tool-config.yaml"; }];
+}
+```
+
+The export builder copies each file to the export root and rewrites its nix store path in `init.lua` to `vim.fn.stdpath("config") .. "/tool-config.yaml"`, so it resolves correctly on non-Nix systems.
+
 ---
 
 ## Profiles

@@ -42,4 +42,15 @@ with lib;
       default = true;
     };
   };
+
+  options.exportFiles = mkOption {
+    description = "Config files to include in the portable export, with store-path-to-stdpath rewrite.";
+    type = types.listOf (types.submodule {
+      options = {
+        source = mkOption { type = types.path; };
+        name = mkOption { type = types.str; };
+      };
+    });
+    default = [ ];
+  };
 }

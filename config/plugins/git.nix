@@ -41,6 +41,8 @@ let
   );
 in
 {
+  exportFiles = [{ source = lazygit_config; name = "lazygit-config.yaml"; }];
+
   plugins = {
     lazygit = {
       enable = true;
