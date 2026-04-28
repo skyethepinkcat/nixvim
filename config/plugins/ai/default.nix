@@ -12,7 +12,35 @@ let
 in
 {
   config = lib.mkIf config.profiles.ai {
-    extraConfigLuaPre = builtins.readFile ./ai.lua;
+    extraConfigLuaPre =
+      (builtins.readFile ./ai.lua)
+      + (
+        if config.ai.default == "opencode" then
+          # lua
+          ''
+            if vim.fn.executable("opencode") == 1 then
+              _ai_last = _opencode_toggle
+            end
+          ''
+        else if config.ai.default == "claude" then
+          # lua
+          ''
+            if vim.fn.executable("claude") == 1 then
+              _ai_last = _claude_toggle
+            end
+          ''
+        else
+          # lua
+          ''
+            if _ai_last == nil then
+              if vim.fn.executable("opencode") == 1 then
+                _ai_last = _opencode_toggle
+              elseif vim.fn.executable("claude") == 1 then
+                _ai_last = _claude_toggle
+              end
+            end
+          ''
+      );
 
     plugins.copilot-lua.enable = true;
 
@@ -90,6 +118,15 @@ in
   };
 
   options = {
+    ai.default = lib.mkOption {
+      type = lib.types.enum [
+        "auto"
+        "opencode"
+        "claude"
+      ];
+      default = "auto";
+      description = "Default AI tool for _ai_last_toggle. 'auto' picks opencode then claude by availability.";
+    };
     ai.suggestions = lib.mkOption {
       type = lib.types.bool;
       default = false;

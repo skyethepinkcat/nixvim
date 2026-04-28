@@ -33,9 +33,6 @@ if vim.fn.executable("opencode") == 1 then
 		end
 	end
 
-	if _ai_last == nil then
-		_ai_last = _opencode_toggle
-	end
 end
 
 if vim.fn.executable("claude") == 1 then
@@ -63,9 +60,6 @@ if vim.fn.executable("claude") == 1 then
 		end
 	end
 
-	if _ai_last == nil then
-		_ai_last = _claude_toggle
-	end
 end
 
 function _ai_last_toggle()
