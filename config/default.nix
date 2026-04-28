@@ -7,20 +7,11 @@
 {
   # Import all your configuration modules here
   imports =
-    (
-      with builtins;
-      with lib;
-      map (fn: ./${fn}) (
-        filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}")) (attrNames (readDir ./.))
-      )
-    )
-    ++ [
-      ./profiles
-      ./nvix
-      ./keymap.nix
-      ./neovide.nix
-      ./plugins
-    ];
+    with builtins;
+    with lib;
+    map (fn: ./${fn}) (
+      filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix) (attrNames (readDir ./.))
+    );
 
   nvix.transparent = false;
   globals = {
@@ -61,6 +52,8 @@
     undofile = true;
 
     scrolloff = 5;
+    list = false;
+
 
   };
   keyList = [
