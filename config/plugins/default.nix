@@ -15,7 +15,7 @@
     );
 
   plugins = {
-    direnv.enable = true;
+    # direnv.enable = true;
     notify.enable = true;
   };
   extraPlugins = with pkgs.vimPlugins; [

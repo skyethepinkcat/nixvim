@@ -11,7 +11,6 @@ in
 {
   plugins.dashboard = {
     enable = true;
-    package = pkgs.vimPlugins.dashboard;
     settings = {
       shortcut_type = "number";
       config = {

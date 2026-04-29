@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     skyepkgs = {
