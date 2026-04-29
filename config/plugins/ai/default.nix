@@ -14,125 +14,126 @@ in
   config =
     let
       notifyDisabled = mkRaw "function() vim.notify('AI Disabled', vim.log.levels.WARN) end";
-      aiKey = key: keyObj {
-        inherit key;
-        action = notifyDisabled;
-        hidden = true;
-        desc = "AI Disabled";
-      };
+      aiKey =
+        key:
+        keyObj {
+          inherit key;
+          action = notifyDisabled;
+          hidden = true;
+          desc = "AI Disabled";
+        };
       letters = lib.strings.stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     in
     lib.mkMerge [
-    (lib.mkIf (!config.profiles.ai) {
-      keyList = [ (aiKey "<leader>a") ]
-        ++ map (c: aiKey "<leader>a${c}") letters;
-    })
-    (lib.mkIf config.profiles.ai {
-    extraConfigLuaPre =
-      (builtins.readFile ./ai.lua)
-      + (
-        if config.ai.default == "opencode" then
-          # lua
-          ''
-            if vim.fn.executable("opencode") == 1 then
-              _ai_last = _opencode_toggle
-            end
-          ''
-        else if config.ai.default == "claude" then
-          # lua
-          ''
-            if vim.fn.executable("claude") == 1 then
-              _ai_last = _claude_toggle
-            end
-          ''
-        else
-          # lua
-          ''
-            if _ai_last == nil then
-              if vim.fn.executable("opencode") == 1 then
-                _ai_last = _opencode_toggle
-              elseif vim.fn.executable("claude") == 1 then
-                _ai_last = _claude_toggle
-              end
-            end
-          ''
-      );
+      (lib.mkIf (!config.profiles.ai) {
+        keyList = [ (aiKey "<leader>a") ] ++ map (c: aiKey "<leader>a${c}") letters;
+      })
+      (lib.mkIf config.profiles.ai {
+        extraConfigLuaPre =
+          (builtins.readFile ./ai.lua)
+          + (
+            if config.ai.default == "opencode" then
+              # lua
+              ''
+                if vim.fn.executable("opencode") == 1 then
+                  _ai_last = _opencode_toggle
+                end
+              ''
+            else if config.ai.default == "claude" then
+              # lua
+              ''
+                if vim.fn.executable("claude") == 1 then
+                  _ai_last = _claude_toggle
+                end
+              ''
+            else
+              # lua
+              ''
+                if _ai_last == nil then
+                  if vim.fn.executable("opencode") == 1 then
+                    _ai_last = _opencode_toggle
+                  elseif vim.fn.executable("claude") == 1 then
+                    _ai_last = _claude_toggle
+                  end
+                end
+              ''
+          );
 
-    plugins.copilot-lua.enable = config.ai.suggestions;
+        plugins.copilot-lua.enable = config.ai.suggestions;
 
-    # Group-only label — no action, must stay as wKeyList
-    wKeyList = [
-      (wKeyObj [
-        "<leader>a"
-        "󰚩"
-        "ai"
-      ])
-      (wKeyObj [
-        "<leader>aX"
-        "󰯇"
-        "kill sessions"
-      ])
+        # Group-only label — no action, must stay as wKeyList
+        wKeyList = [
+          (wKeyObj [
+            "<leader>a"
+            "󰚩"
+            "ai"
+          ])
+          (wKeyObj [
+            "<leader>aX"
+            "󰯇"
+            "kill sessions"
+          ])
+        ];
+
+        keyList = [
+          (keyObj {
+            mode = "n";
+            icon = "󰚩";
+            key = "<leader>aa";
+            action = mkRaw "_ai_last_toggle";
+            desc = "Toggle Last AI";
+          })
+          (keyObj {
+            mode = "n";
+            icon = "";
+            key = "<leader>ao";
+            action = mkRaw "_opencode_toggle";
+            cond = opencodeAvailable;
+            desc = "Toggle Opencode";
+          })
+          (keyObj {
+            mode = "n";
+            key = "<leader>aO";
+            icon = "";
+            action = mkRaw "_opencode_resume_toggle";
+            cond = opencodeAvailable;
+            desc = "Opencode Resume";
+          })
+          (keyObj {
+            mode = "n";
+            key = "<leader>aXo";
+            icon = "";
+            action = mkRaw "_opencode_close_all";
+            cond = opencodeAvailable;
+            desc = "Close All Opencode";
+          })
+          (keyObj {
+            mode = "n";
+            icon = "";
+            key = "<leader>ac";
+            action = mkRaw "_claude_toggle";
+            cond = claudeAvailable;
+            desc = "Toggle Claude";
+          })
+          (keyObj {
+            mode = "n";
+            key = "<leader>aC";
+            icon = "";
+            action = mkRaw "_claude_resume_toggle";
+            cond = claudeAvailable;
+            desc = "Claude Resume";
+          })
+          (keyObj {
+            mode = "n";
+            key = "<leader>aXc";
+            icon = "";
+            action = mkRaw "_claude_close_all";
+            cond = claudeAvailable;
+            desc = "Close All Claude";
+          })
+        ];
+      })
     ];
-
-    keyList = [
-      (keyObj {
-        mode = "n";
-        icon = "󰚩";
-        key = "<leader>aa";
-        action = mkRaw "_ai_last_toggle";
-        desc = "Toggle Last AI";
-      })
-      (keyObj {
-        mode = "n";
-        icon = "";
-        key = "<leader>ao";
-        action = mkRaw "_opencode_toggle";
-        cond = opencodeAvailable;
-        desc = "Toggle Opencode";
-      })
-      (keyObj {
-        mode = "n";
-        key = "<leader>aO";
-        icon = "";
-        action = mkRaw "_opencode_resume_toggle";
-        cond = opencodeAvailable;
-        desc = "Opencode Resume";
-      })
-      (keyObj {
-        mode = "n";
-        key = "<leader>aXo";
-        icon = "";
-        action = mkRaw "_opencode_close_all";
-        cond = opencodeAvailable;
-        desc = "Close All Opencode";
-      })
-      (keyObj {
-        mode = "n";
-        icon = "";
-        key = "<leader>ac";
-        action = mkRaw "_claude_toggle";
-        cond = claudeAvailable;
-        desc = "Toggle Claude";
-      })
-      (keyObj {
-        mode = "n";
-        key = "<leader>aC";
-        icon = "";
-        action = mkRaw "_claude_resume_toggle";
-        cond = claudeAvailable;
-        desc = "Claude Resume";
-      })
-      (keyObj {
-        mode = "n";
-        key = "<leader>aXc";
-        icon = "";
-        action = mkRaw "_claude_close_all";
-        cond = claudeAvailable;
-        desc = "Close All Claude";
-      })
-    ];
-    })
-  ];
 
   options = {
     ai.default = lib.mkOption {

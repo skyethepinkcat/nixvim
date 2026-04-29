@@ -5,7 +5,11 @@
   flake.nixvimModules = {
     default = {
       imports = [
-        { nixpkgs.overlays = [ inputs.skyepkgs.overlays.default ]; }
+        {
+          nixpkgs.overlays = [
+            inputs.skyepkgs.overlays.default
+          ];
+        }
         ../config
         ../lib
       ];
