@@ -34,5 +34,10 @@ in
       mode = "t";
       key = "<C-d>";
     })
+    (keyObj {
+      action = "<cmd>ToggleTerm<cr>";
+      mode = "n";
+      key = "<leader>TT";
+    })
   ];
 }

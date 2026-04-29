@@ -22,6 +22,9 @@
         min_window_height = 40;
       };
     };
+    treesitter-textobjects = {
+      enable = true;
+    };
     # tpope's indent fixes
     sleuth.enable = true;
   };

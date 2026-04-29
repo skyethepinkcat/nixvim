@@ -78,6 +78,11 @@
     };
 
     updatetime = 500; # ms idle before CursorHold fires (affects diagnostics, gitsigns)
+
+    foldmethod = "expr"; # Use expression to generate folds
+    foldexpr = "v:lua.vim.treesitter.foldexpr()"; # Use tree-sitter as fold expression.
+    foldlevel = 99;
+    foldenable = false;
   };
 
   keyList = [

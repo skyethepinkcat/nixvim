@@ -21,6 +21,16 @@ in
       '';
     }
     {
+      event = [ "BufReadPost,FileReadPost" ];
+      pattern = [ "*" ];
+      callback = mkRaw ''
+        function()
+          vim.api.nvim_cmd({ cmd = 'normal zR'}, {})
+        end
+      '';
+    }
+
+    {
       event = [
         "BufEnter"
         "QuitPre"
