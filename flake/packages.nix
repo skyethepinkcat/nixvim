@@ -144,6 +144,7 @@
           nixd
           nixfmt
           lua-language-server
+          just
         ];
       };
     };

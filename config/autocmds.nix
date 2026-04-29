@@ -21,7 +21,7 @@ in
       '';
     }
     {
-      event = [ "BufReadPost,FileReadPost" ];
+      event = [ "BufReadPost" "FileReadPost" ];
       pattern = [ "*" ];
       callback = mkRaw ''
         function()
