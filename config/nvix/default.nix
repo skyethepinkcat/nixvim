@@ -11,7 +11,6 @@ in
     map (fn: ./${fn}) (
       filter (fn: (fn != "default.nix" && !hasSuffix ".md" "${fn}")) (attrNames (readDir ./.))
     );
-  luaLoader.enable = false;
 
   extraConfigLua =
     with icons.diagnostics;
@@ -45,7 +44,7 @@ in
 
 
       vim.opt.whichwrap:append("<>[]hl")
-      vim.opt.listchars:append("space:·")
+      -- vim.opt.listchars:append("space:·")
 
       -- below part set's the Diagnostic icons/colors
       local signs = {
@@ -60,57 +59,6 @@ in
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
     '';
-
-  opts = {
-
-    clipboard = "unnamedplus";
-    cursorline = true;
-    cursorlineopt = "number";
-
-    pumblend = 0;
-    pumheight = 10;
-
-    expandtab = true;
-    shiftwidth = 2;
-    smartindent = true;
-    tabstop = 2;
-    softtabstop = 2;
-
-    ignorecase = true;
-    smartcase = true;
-    mouse = "a";
-    cmdheight = 0;
-
-    number = true;
-    relativenumber = true;
-    numberwidth = 2;
-    ruler = false;
-
-    signcolumn = "yes";
-    splitbelow = true;
-    splitright = true;
-    splitkeep = "screen";
-    termguicolors = true;
-
-    conceallevel = 2;
-
-    undofile = true;
-
-    wrap = false;
-
-    virtualedit = "block";
-    winminwidth = 5;
-    fileencoding = "utf-8";
-    smoothscroll = true;
-    autoread = true;
-    autowrite = true;
-    swapfile = false;
-    fillchars = {
-      eob = " ";
-    };
-
-    updatetime = 500;
-  };
 
   autoCmd = [
     {

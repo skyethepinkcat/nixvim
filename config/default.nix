@@ -10,8 +10,13 @@
     with builtins;
     with lib;
     map (fn: ./${fn}) (
-      filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix) (attrNames (readDir ./.))
+      filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}") || pathExists ./${fn}/default.nix) (
+        attrNames (readDir ./.)
+      )
     );
+
+  # Experimental lualoader, which should improve load times?
+  luaLoader.enable = true;
 
   nvix.transparent = false;
   globals = {
@@ -22,40 +27,59 @@
     loaded_netrw = 1;
     loaded_netrwPlugin = 1;
   };
-  opts = {
-    background = "dark";
-    # Ignore case in search patterns
-    ignorecase = true;
 
-    # Infer casing on word completion
-    infercase = true;
+  opts = rec {
+    clipboard = "unnamedplus"; # sync yank/paste with system clipboard
+    cursorline = true; # highlight current line
+    cursorlineopt = "number"; # only highlight the line number, not the full line
 
-    # Show line numbers
-    number = true;
+    pumblend = 0; # popup menu opacity (0 = opaque)
+    pumheight = 10; # max items shown in popup menu
 
-    # Display line numbers relative to current line
-    relativenumber = true;
+    expandtab = true; # <Tab> inserts spaces
+    smartindent = true; # auto-indent based on syntax
+    shiftwidth = 2; # spaces per indent level (>> / <<)
+    tabstop = shiftwidth; # visual width of a \t character
+    softtabstop = shiftwidth; # spaces inserted/deleted on <Tab>/<BS>
 
-    # Number of spaces to use for indentation
-    shiftwidth = 2;
+    background = "dark"; # hint colorschemes to use dark variants
+    ignorecase = true; # case-insensitive search
+    smartcase = true; # override ignorecase when pattern has uppercase
+    infercase = true; # smarter case matching on word completion
 
-    # Override ignorecase if search pattern contains uppercase characters
-    smartcase = true;
+    number = true; # show absolute line numbers
+    relativenumber = true; # show relative numbers (absolute on cursor line)
 
-    # Number of spaces to represent a <Tab>
-    tabstop = 2;
+    title = true; # set window title to filename
+    undofile = true; # persist undo history across sessions ($XDG_STATE_HOME/nvim/undo)
 
-    # Set window title to the filename
-    title = true;
+    scrolloff = 5; # keep 5 lines visible above/below cursor
+    mouse = "a"; # enable mouse in all modes
+    cmdheight = 0; # hide cmdline when not in use
+    signcolumn = "yes"; # always show sign column (prevents layout shift)
 
-    # Save undo history to undo file (in $XDG_STATE_HOME/nvim/undo)
-    undofile = true;
+    splitbelow = true; # horizontal splits open below
+    splitright = true; # vertical splits open right
+    splitkeep = "screen"; # keep visible text stable when splitting
 
-    scrolloff = 5;
-    list = false;
+    termguicolors = true; # enable 24-bit RGB colors
+    conceallevel = 1; # hide concealed text (e.g. markdown syntax characters)
+    wrap = false; # disable line wrapping
 
+    virtualedit = "block"; # allow cursor past end of line in visual block mode
+    winminwidth = 5; # minimum window width
+    fileencoding = "utf-8"; # file encoding
+    smoothscroll = true; # smooth scrolling with <C-d>/<C-u>
+    autoread = true; # reload file when changed outside vim
+    autowrite = true; # auto-save before commands like :make
+    swapfile = false; # no swap files
+    fillchars = {
+      eob = " "; # hide ~ on empty lines after buffer end
+    };
 
+    updatetime = 500; # ms idle before CursorHold fires (affects diagnostics, gitsigns)
   };
+
   keyList = [
     (config.lib.keys.keyObj {
       action = "<cmd>b#<cr>";

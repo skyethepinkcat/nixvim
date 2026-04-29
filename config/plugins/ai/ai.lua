@@ -32,7 +32,6 @@ if vim.fn.executable("opencode") == 1 then
 			term:close()
 		end
 	end
-
 end
 
 if vim.fn.executable("claude") == 1 then
@@ -59,7 +58,6 @@ if vim.fn.executable("claude") == 1 then
 			term:close()
 		end
 	end
-
 end
 
 function _ai_last_toggle()

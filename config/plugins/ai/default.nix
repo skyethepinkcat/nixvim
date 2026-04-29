@@ -42,7 +42,7 @@ in
           ''
       );
 
-    plugins.copilot-lua.enable = true;
+    plugins.copilot-lua.enable = config.ai.suggestions;
 
     # Group-only label — no action, must stay as wKeyList
     wKeyList = [
