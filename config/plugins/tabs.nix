@@ -10,13 +10,10 @@ in
   extraConfigLua = builtins.readFile ./tabs.lua;
 
   wKeyList = [
-    (wKeyObj [
-      "<leader>t"
-      "󰓩"
-      "Tabs"
-    ])
     {
       __unkeyed_1 = "<leader>t";
+      icon = "󰓩";
+      group = "tabs";
       expand = mkRaw ''
         function()
           local tabs = vim.api.nvim_list_tabpages()
