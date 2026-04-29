@@ -63,7 +63,7 @@ in
           "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║"
           "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
         ];
-        packages.enable = false;
+        packages.enable = true;
         mru.cwd_only = true;
       };
     };
