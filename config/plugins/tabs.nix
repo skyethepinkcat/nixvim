@@ -7,7 +7,7 @@ in
 {
   plugins.scope.enable = true;
 
-  extraConfigLua = builtins.readFile ./tabs.lua;
+  extraConfigLuaPre = builtins.readFile ./tabs.lua;
 
   wKeyList = [
     {
