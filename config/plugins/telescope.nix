@@ -14,6 +14,9 @@ in
   ];
   plugins.telescope = {
     enable = true;
+    enabledExtensions = [
+      "scope"
+    ];
     extensions = {
       frecency = {
         enable = true;

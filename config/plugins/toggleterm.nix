@@ -10,7 +10,7 @@ in
       float_opts = {
         border = "curved";
       };
-      open_mapping = "[[<leader>tt]]";
+      open_mapping = "[[<leader>Tt]]";
       shade_terminals = true;
       size = ''
         function(term)

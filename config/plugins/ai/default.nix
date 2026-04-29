@@ -11,7 +11,23 @@ let
   claudeAvailable = mkRaw "vim.fn.executable('claude') == 1";
 in
 {
-  config = lib.mkIf config.profiles.ai {
+  config =
+    let
+      notifyDisabled = mkRaw "function() vim.notify('AI Disabled', vim.log.levels.WARN) end";
+      aiKey = key: keyObj {
+        inherit key;
+        action = notifyDisabled;
+        hidden = true;
+        desc = "AI Disabled";
+      };
+      letters = lib.strings.stringToCharacters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    in
+    lib.mkMerge [
+    (lib.mkIf (!config.profiles.ai) {
+      keyList = [ (aiKey "<leader>a") ]
+        ++ map (c: aiKey "<leader>a${c}") letters;
+    })
+    (lib.mkIf config.profiles.ai {
     extraConfigLuaPre =
       (builtins.readFile ./ai.lua)
       + (
@@ -115,7 +131,8 @@ in
         desc = "Close All Claude";
       })
     ];
-  };
+    })
+  ];
 
   options = {
     ai.default = lib.mkOption {
