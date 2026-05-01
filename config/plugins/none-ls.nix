@@ -8,6 +8,7 @@ in
       enable = true;
       sources = {
         diagnostics = {
+          stylelint.enable = true;
           statix.enable = true;
           rubocop = {
             enable = true;
@@ -39,6 +40,8 @@ in
             enable = true;
             disableTsServerFormatter = true;
           };
+          stylelint.enable = true; # css
+          tidy.enable = true; # html
         };
       };
     };

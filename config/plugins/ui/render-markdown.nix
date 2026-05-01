@@ -3,9 +3,15 @@
   plugins = {
     markdown-preview = {
       enable = true;
+      lazyLoad = {
+        settings.ft = "markdown";
+      };
     };
     render-markdown = {
       enable = true;
+      lazyLoad = {
+        settings.ft = "markdown";
+      };
       settings = {
         enabled = false;
         completions = {

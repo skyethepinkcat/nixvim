@@ -36,6 +36,12 @@ in
     })
     (keyObj {
       action = "<cmd>ToggleTerm<cr>";
+      mode = "t";
+      key = "<leader>bt";
+      desc = "Terminal Buffer";
+    })
+    (keyObj {
+      action = "<cmd>ToggleTerm<cr>";
       mode = "n";
       key = "<leader>TT";
     })

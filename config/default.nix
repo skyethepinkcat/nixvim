@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 {
@@ -98,6 +97,5 @@
   withNodeJs = true;
   dependencies.tree-sitter = {
     enable = true;
-    package = pkgs.tree-sitter;
   };
 }
