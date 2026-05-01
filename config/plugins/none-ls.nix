@@ -8,7 +8,6 @@ in
       enable = true;
       sources = {
         diagnostics = {
-          stylelint.enable = true;
           statix.enable = true;
           rubocop = {
             enable = true;
@@ -24,6 +23,7 @@ in
           };
         };
         formatting = {
+          biome.enable = true;
           rubocop = {
             enable = true;
             package = null;
@@ -40,8 +40,6 @@ in
             enable = true;
             disableTsServerFormatter = true;
           };
-          stylelint.enable = true; # css
-          tidy.enable = true; # html
         };
       };
     };
