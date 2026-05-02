@@ -39,6 +39,14 @@
           ];
           extraSpecialArgs = { inherit inputs; };
         };
+        scratch = inputs.nixvim.lib.evalNixvim {
+          inherit system;
+          modules = with mods; [
+            scratch
+          ];
+          extraSpecialArgs = { inherit inputs; };
+
+        };
       };
 
       # Extra packages beyond the auto-generated ones.

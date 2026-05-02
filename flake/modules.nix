@@ -17,6 +17,11 @@
     full = {
       profiles.ai = true;
     };
+    scratch = {
+      imports = [
+        ../scratch.nix
+      ];
+    };
     # Export variant layers on top of the default config, stripping nix-managed
     # tool paths so the generated config is portable to non-Nix systems.
     export = {
