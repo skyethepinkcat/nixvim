@@ -6,7 +6,7 @@
   colorschemes.catppuccin = {
     enable = true;
     settings = {
-      # term_colors = true;
+      term_colors = true;
       background.dark = "mocha";
 
       integrations = {
