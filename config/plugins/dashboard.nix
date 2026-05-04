@@ -19,12 +19,7 @@ in
         };
         shortcut = [
           {
-            action =
-              openExtensionPickerWithOptions "frecency" "frecency"
-                #lua
-                ''
-                  {workspace="CWD"}
-                '';
+            action = openPicker "find_files";
             desc = "Files";
             group = "Label";
             icon = "󰱼 ";

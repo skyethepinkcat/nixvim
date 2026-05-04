@@ -18,14 +18,6 @@ in
       "scope"
     ];
     extensions = {
-      frecency = {
-        enable = true;
-        settings = {
-          # https://github.com/nvim-telescope/telescope-frecency.nvim/issues/270
-          db_safe_mode = false;
-          show_filter_column = false;
-        };
-      };
       fzf-native = {
         enable = true;
       };
@@ -74,12 +66,7 @@ in
 
   keyList = [
     (keyObj {
-      action =
-        openExtensionPickerWithOptions "frecency" "frecency"
-          #lua
-          ''
-            {workspace="CWD"}
-          '';
+      action = openPicker "find_files";
       mode = "n";
       key = "<leader>ff";
       icon = "";
