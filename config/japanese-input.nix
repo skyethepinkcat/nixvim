@@ -4,15 +4,16 @@
   config,
   ...
 }:
+let
+  isDarwin = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+  cfg = config.japanese-input;
+in
 {
   # Only works on macos, since it relies on macism
-  config = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") (
+  config = lib.mkIf cfg.enable (
     let
       inherit (lib.nixvim) mkRaw;
       inherit (config.lib.keys) keyObj;
-      command = lib.getExe pkgs.macism;
-      japanese_ime = "com.apple.inputmethod.Kotoeri.RomajiTyping.Japanese";
-      english_ime = "com.apple.keylayout.US";
     in
     {
       autoGroups = {
@@ -27,7 +28,7 @@
               # lua
               ''
                 function()
-                  vim.fn.system({"${command}", "${english_ime}"})
+                  vim.fn.system({"${cfg.command}", "${cfg.englishInputMethod}"})
                 end
               '';
         }
@@ -42,7 +43,7 @@
               # lua
               ''
                 function()
-                  vim.fn.system({"${command}", "${japanese_ime}"})
+                  vim.fn.system({"${cfg.command}", "${cfg.japaneseInputMethod}"})
                   vim.cmd("startinsert")
                 end
               '';
@@ -51,4 +52,25 @@
       ];
     }
   );
+
+  options = {
+    japanese-input = {
+      enable = lib.mkOption {
+        default = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+      };
+      japaneseInputMethod = lib.mkOption {
+        default = lib.optionalString isDarwin "com.apple.inputmethod.Kotoeri.RomajiTyping.Japanese";
+      };
+
+      englishInputMethod = lib.mkOption {
+        default = lib.optionalString isDarwin "com.apple.keylayout.US";
+      };
+
+      command = lib.mkOption {
+        default = lib.optionalString isDarwin (lib.getExe pkgs.macism);
+      };
+
+    };
+
+  };
 }
