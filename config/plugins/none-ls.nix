@@ -69,25 +69,6 @@ in
             };
           };
         };
-        formatting = {
-          biome.enable = true;
-          rubocop = {
-            enable = true;
-            package = null;
-          };
-          stylua.enable = true;
-          yamlfix.enable = true;
-          puppet_lint = {
-            enable = true;
-            package = null;
-          };
-          nixfmt.enable = true;
-          nix_flake_fmt.enable = true;
-          prettier = {
-            enable = true;
-            disableTsServerFormatter = true;
-          };
-        };
       };
     };
   };
