@@ -17,6 +17,8 @@
   plugins = {
     # direnv.enable = true;
     notify.enable = true;
+    # Smart case replacement
+    abolish.enable = true;
   };
   extraPlugins = with pkgs.vimPlugins; [
     nvim-sops
