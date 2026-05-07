@@ -63,7 +63,7 @@
 
     termguicolors = true; # enable 24-bit RGB colors
     conceallevel = 1; # hide concealed text (e.g. markdown syntax characters)
-    wrap = false; # disable line wrapping
+    wrap = true; # enable "soft" line wrapping
 
     virtualedit = "block"; # allow cursor past end of line in visual block mode
     winminwidth = 5; # minimum window width
@@ -82,6 +82,9 @@
     foldexpr = "v:lua.vim.treesitter.foldexpr()"; # Use tree-sitter as fold expression.
     foldlevel = 99;
     foldenable = false;
+
+    textwidth = 80; # Prefer 80 character lines
+    linebreak = true;
   };
 
   keyList = [
