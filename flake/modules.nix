@@ -5,9 +5,11 @@
   flake.nixvimModules = {
     default = {
       imports = [
+        inputs.japanese-input-nvim.nixvimModules.default
         {
           nixpkgs.overlays = [
             inputs.skyepkgs.overlays.default
+
           ];
         }
         ../config

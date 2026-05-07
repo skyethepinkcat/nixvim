@@ -7,9 +7,9 @@
 }:
 {
 
-  imports = [ inputs.japanese-input-nvim.nixvimModules.default ];
+  imports = [ ];
 
-  config.plugins.japanese-input = {
+  plugins.japanese-input = {
     enable = true;
   };
 }
