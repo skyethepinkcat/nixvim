@@ -1,5 +1,5 @@
 { lib, pkgs, ... }:
- {
+{
   extraPlugins = with pkgs.vimPlugins; [
     colortils-nvim
   ];
@@ -24,7 +24,14 @@
   autoCmd = [
     {
       event = "FileType";
-      pattern = [ "html" "css" "scss" "less" "javascript" "php" ];
+      pattern = [
+        "html"
+        "css"
+        "scss"
+        "less"
+        "javascript"
+        "php"
+      ];
       callback =
         lib.nixvim.mkRaw
           # lua
