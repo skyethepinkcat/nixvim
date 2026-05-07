@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 let
   inherit (config.nvix.mkKey) wKeyObj;
   inherit (config.lib.keys) keyObj;
@@ -109,7 +109,14 @@ in
 
     # Format keymaps
     (keyObj {
-      action = "<cmd>lua vim.lsp.buf.format()<CR>";
+      action =
+        lib.nixvim.mkRaw
+          # lua
+          ''
+            function()
+              vim.lsp.buf.format()
+            end
+          '';
       key = "<leader>fm";
       mode = [
         "n"
