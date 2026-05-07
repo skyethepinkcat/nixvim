@@ -13,7 +13,6 @@
         attrNames (readDir ./.)
       )
     );
-
   # Experimental lualoader, which should improve load times?
   luaLoader.enable = true;
 

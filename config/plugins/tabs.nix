@@ -6,6 +6,11 @@ let
 in
 {
   plugins.scope.enable = true;
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "scope.nvim"
+    ];
 
   extraConfigLuaPre = builtins.readFile ./tabs.lua;
 
