@@ -19,10 +19,6 @@
         json = [ "biome" ];
         jsonc = [ "biome" ];
       };
-      # format_on_save = {
-      #   timeout_ms = 3000;
-      #   lsp_fallback = true;
-      # };
       formatters = {
         rubocop = {
           package = null;
