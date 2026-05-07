@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib.nixvim) mkRaw;
 in
@@ -91,4 +91,7 @@ in
       };
     };
   };
+  extraPackagesAfter = with pkgs; [
+    rubocop
+  ];
 }
