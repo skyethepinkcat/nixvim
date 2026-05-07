@@ -19,17 +19,17 @@
         json = [ "biome" ];
         jsonc = [ "biome" ];
       };
-      format_on_save = {
-        timeout_ms = 3000;
-        lsp_fallback = true;
-      };
-    };
-    formatters = {
-      rubocop = {
-        package = null;
-      };
-      puppet_lint = {
-        package = null;
+      # format_on_save = {
+      #   timeout_ms = 3000;
+      #   lsp_fallback = true;
+      # };
+      formatters = {
+        rubocop = {
+          package = null;
+        };
+        puppet_lint = {
+          package = null;
+        };
       };
     };
   };

@@ -57,6 +57,29 @@
         "type": "github"
       }
     },
+    "japanese-input-nvim": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778177365,
+        "narHash": "sha256-r/Bxl92GawfKdLY59tT9IiThYfnjiImxYNcXPxyrpGs=",
+        "owner": "skyethepinkcat",
+        "repo": "japanese-input-nvim",
+        "rev": "656c222eb7c776518b685b63915897b0f22eb83e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "skyethepinkcat",
+        "repo": "japanese-input-nvim",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1777270315,
@@ -144,6 +167,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "japanese-input-nvim": "japanese-input-nvim",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "skyepkgs": "skyepkgs",

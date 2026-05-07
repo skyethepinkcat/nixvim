@@ -17,6 +17,14 @@
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    japanese-input-nvim = {
+      url = "github:skyethepinkcat/japanese-input-nvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
   outputs =

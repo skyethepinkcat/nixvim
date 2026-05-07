@@ -5,22 +5,21 @@ lib.mkIf config.profiles.export {
   # no /nix/store paths and works on any system with tools in PATH.
 
   # Skip bundling treesitter parsers — :TSInstall on the target system instead.
-  plugins.treesitter.settings.grammarPackages = [ ];
-
-  plugins.none-ls.sources = {
-    diagnostics = {
-      statix.package = null;
-      rubocop.package = null;
-      yamllint.package = null;
+  plugins = {
+    treesitter.settings.grammarPackages = [ ];
+    none-ls.sources = {
+      diagnostics = {
+        statix.package = null;
+        rubocop.package = null;
+        yamllint.package = null;
+      };
+      formatting = {
+        rubocop.package = null;
+        stylua.package = null;
+        yamlfix.package = null;
+        nixfmt.package = null;
+      };
     };
-    formatting = {
-      rubocop.package = null;
-      stylua.package = null;
-      yamlfix.package = null;
-      nixfmt.package = null;
-    };
+    # japanese-input.enable = lib.mkForce false;
   };
-
-  profiles.ai = lib.mkForce false;
-  japanese-input.enable = lib.mkForce false;
 }
