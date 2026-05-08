@@ -74,7 +74,7 @@ let
     options = {
       key = mkOption {
         type = str;
-        description = "What to bind to.";
+        description = "What key to bind to.";
         example = "<leader>a";
       };
       action = mkOption {
@@ -82,7 +82,7 @@ let
           str
           rawLua
         ]);
-        description = "Action";
+        description = "The action to be taken.";
       };
       icon = mkOption {
         type = nullOr (oneOf [
