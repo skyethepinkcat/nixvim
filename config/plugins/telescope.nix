@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.lib.telescope) openPicker openPickerWithOptions openExtensionPickerWithOptions;
+  inherit (lib.utils.telescope) openPicker openPickerWithOptions openExtensionPickerWithOptions;
 in
 {
   extraPlugins = with pkgs.vimPlugins; [

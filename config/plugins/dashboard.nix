@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.lib.telescope) openPicker openExtensionPickerWithOptions;
+  inherit (lib.utils.telescope) openPicker openExtensionPickerWithOptions;
   inherit (lib.nixvim) mkRaw;
 in
 {
