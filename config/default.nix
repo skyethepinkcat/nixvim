@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 {
@@ -85,6 +84,8 @@
 
     textwidth = 80; # Prefer 80 character lines
     linebreak = true;
+
+    showmode = false; # Don't show modes in noice statusbar
   };
 
   keyList = [
