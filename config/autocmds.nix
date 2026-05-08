@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, utils, ... }:
 let
   inherit (lib.nixvim) mkRaw;
 in
@@ -15,7 +15,7 @@ in
       mode = "n";
       desc = "test!";
       action =
-        lib.utils.mkFunc
+        utils.mkFunc
           # lua
           ''
             vim.notify("Test!")

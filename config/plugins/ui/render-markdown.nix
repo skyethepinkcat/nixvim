@@ -1,6 +1,6 @@
-{ lib, config, ... }:
+{ lib, config, utils, ... }:
 let
-  inherit (config.lib) mkFunc;
+  inherit (utils) mkFunc;
 in
 {
   plugins = {
