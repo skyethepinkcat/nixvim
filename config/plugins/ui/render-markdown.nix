@@ -1,4 +1,8 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  inherit (config.lib.keys) keyObj;
+  inherit (config.lib) mkFunc;
+in
 {
   plugins = {
     markdown-preview = {
@@ -26,24 +30,31 @@
     };
   };
 
-  autoCmd = [
-    {
-      event = "FileType";
-      pattern = "markdown";
-      callback =
-        lib.nixvim.mkRaw
-          # lua
-          ''
-            function(ev)
-              local opts = function(desc)
-                return { buffer = ev.buf, silent = true, desc = desc }
-              end
-              vim.keymap.set("n", "<LocalLeader>p", "<cmd>RenderMarkdown preview<cr>", opts("Show Markdown Preview"))
-              vim.keymap.set("n", "<LocalLeader>t", "<cmd>RenderMarkdown buf_toggle<cr>", opts("Toggle render mode"))
-              vim.keymap.set("n", "<LocalLeader>+", "<cmd>RenderMarkdown expand<cr>", opts("Expand conceal level"))
-              vim.keymap.set("n", "<LocalLeader>-", "<cmd>RenderMarkdown contract<cr>", opts("Contract conceal level"))
-              vim.keymap.set("n", "<LocalLeader>P", "<cmd>MarkdownPreview<cr>", opts("Show Browser Preview"))
-              vim.keymap.set("n", "<LocalLeader>n", function()
+  ftKeyList = {
+    "markdown" =
+      let
+        renderHelper =
+          key: command: desc:
+          (keyObj {
+            mode = "n";
+            key = "<LocalLeader>${key}";
+            inherit desc;
+            action = command;
+          });
+      in
+      [
+        (renderHelper "p" "preview" "Show Markdown Preview")
+        (renderHelper "t" "buf_toggle" "Toggle render mode")
+        (renderHelper "+" "expand" "Expand conceal level")
+        (renderHelper "-" "contract" "Contract conceal level")
+        {
+          key = "<LocalLeader>n";
+          mode = "n";
+          desc = "Re-number ordered lists";
+          action =
+            mkFunc
+              # lua
+              ''
                 local lines = vim.api.nvim_buf_get_lines(ev.buf, 0, -1, false)
                 local counters = {}
                 local new_lines = {}
@@ -68,9 +79,9 @@
                   end
                 end
                 vim.api.nvim_buf_set_lines(ev.buf, 0, -1, false, new_lines)
-              end, opts("Re-number ordered lists"))
-            end
-          '';
-    }
-  ];
+              '';
+        }
+      ];
+
+  };
 }

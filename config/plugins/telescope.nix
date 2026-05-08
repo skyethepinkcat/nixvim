@@ -105,8 +105,10 @@ in
     })
     (keyObj {
       action = openPicker "symbols";
-      key = "<M-s>";
+      key = "<A-s>";
       mode = "i";
+      desc = "Search Icons";
+      icon = "";
     })
     (keyObj {
       action = openPicker "symbols";

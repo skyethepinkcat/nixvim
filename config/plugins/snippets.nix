@@ -14,6 +14,13 @@ let
         ];
         description = "Imports all nix files in directory";
       };
+      mkRaw = {
+        prefix = "mkRaw";
+        body = [
+          "inherit (lib.nixvim) mkRaw;"
+        ];
+        description = "Inherit mkRaw";
+      };
     };
   };
 

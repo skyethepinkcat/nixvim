@@ -139,6 +139,12 @@ in
       desc = "scratch buffer";
     })
     (keyObj {
+      action = "<cmd>enew | setfiletype lua<CR>";
+      key = "<leader>bl";
+      desc = "lua scratch buffer";
+      icon = "";
+    })
+    (keyObj {
       action = "<cmd>tabnext<CR>";
       key = "<tab>";
       desc = "tab goto next";
@@ -178,24 +184,12 @@ in
       desc = "toggle comment";
       noremap = false;
     })
-
     # Semicolon to command mode
     (keyObj {
       action = ":";
       key = ";";
       desc = "CMD enter command mode";
     })
-
-    # Misc keymaps
-    (keyObj {
-      action = "q";
-      key = "<M-q>";
-    })
-    (keyObj {
-      action = "";
-      key = "q";
-    })
-
     # Spelling
     (keyObj {
       action = "z=";
@@ -203,5 +197,20 @@ in
       icon = "󰓆";
       desc = "Spelling Suggestions";
     })
+  ];
+
+  keymaps = [
+    {
+      action = "q";
+      key = "<A-q>";
+      mode = "n";
+      options.noremap = true;
+    }
+    {
+      action = "<Nop>";
+      key = "q";
+      mode = "n";
+      options.noremap = true;
+    }
   ];
 }

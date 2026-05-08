@@ -186,6 +186,9 @@ keyList = [
 ];
 ```
 
+
+## FileType-local Keybinds
+
 ### Leader keys
 
 | Key | Role |
