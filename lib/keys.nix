@@ -132,7 +132,7 @@ in
     };
 
     ftKeyList = mkOption {
-      type = lib.types.attrs;
+      type = lib.types.attrsOf (lib.types.listOf lib.types.attrs);
       default = { };
       description = "Attrset of filetypes and a corresponding list of keyObjs, which will be loaded when the the corresponding filetype is entered.";
     };
