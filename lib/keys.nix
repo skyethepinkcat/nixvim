@@ -5,6 +5,7 @@
 }:
 let
   inherit (lib) mkOption;
+  tl = lib.nixvim.toLuaObject;
 
   # Creates a which-key object from our key object using the nvix function
   mkwKey =
@@ -29,6 +30,42 @@ let
       }
       // key.extraOpts
     );
+  mkftKeyAutocmd = filetype: keys: {
+    event = "FileType";
+    pattern = [
+      filetype
+    ];
+    callback = lib.nixvim.mkRaw (
+      # lua
+      ''
+        function(ev)
+          local wk = require("which-key")
+      ''
+      + builtins.concatStringsSep "\n" (
+        map (
+          key:
+          # lua
+          ''
+            wk.add(${tl key.key}, ${tl key.action},
+              {
+                mode = ${tl key.mode},
+                desc = ${tl key.desc},
+                buffer = ev.buf,
+                silent = ${tl key.silent},
+                remap = ${tl key.remap},
+                noremap = ${tl key.noremap},
+                icon = ${tl key.icon};
+              })
+          '') keys
+      )
+      +
+        # lua
+        ''
+          end
+        ''
+    );
+
+  };
 in
 {
   config = {
@@ -47,7 +84,7 @@ in
           proxy ? null,
           cond ? null,
           expand ? null,
-          remap ? true,
+          remap ? false,
           noremap ? true,
           silent ? true,
           extraOpts ? { },
@@ -73,6 +110,7 @@ in
     };
 
     wKeyList = map mkwKey config.keyList;
+    autoCmd = builtins.attrValues (builtins.mapAttrs mkftKeyAutocmd config.ftKeyList);
 
   };
   options = {
@@ -93,6 +131,13 @@ in
             })
           ];
         '';
+    };
+
+    ftKeyList = mkOption {
+      type = lib.types.attrs;
+      default = { };
+      description = "Attrset of filetypes and a corresponding list of keyObs,
+      which will be ";
     };
 
     lib.keys.keyObj = mkOption {
