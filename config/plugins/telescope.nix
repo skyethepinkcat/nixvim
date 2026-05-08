@@ -44,7 +44,6 @@ in
           "^.mypy_cache/"
           "^__pycache__/"
           "^output/"
-          "^data/"
           "%.ipynb"
           "^result/"
           "^.direnv"
