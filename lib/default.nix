@@ -1,7 +1,5 @@
-let
-  utils = import ./utils.nix;
-in
+lib:
 {
-  telescope = import ./telescope.nix;
-  inherit (utils) mkFunc;
+  telescope = import ./telescope.nix lib;
+  inherit (import ./utils.nix lib) mkFunc;
 }

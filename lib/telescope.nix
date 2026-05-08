@@ -1,5 +1,6 @@
+lib:
 let
-  mkRaw = v: { __raw = v; };
+  inherit (lib.nixvim) mkRaw;
 in
 {
   openPicker =

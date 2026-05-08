@@ -1,4 +1,0 @@
-{ ... }:
-{
-  flake.lib = import ../lib;
-}
