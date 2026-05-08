@@ -8,7 +8,7 @@ let
     oneOf
     nullOr
     listOf
-  rawLua
+    rawLua
     ;
   tl = lib.nixvim.toLuaObject;
 
@@ -87,7 +87,7 @@ let
       icon = mkOption {
         type = nullOr (oneOf [
           str
-         rawLua
+          rawLua
         ]);
         default = null;
         description = "Which-key icon.";

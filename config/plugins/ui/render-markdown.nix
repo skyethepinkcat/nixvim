@@ -1,4 +1,9 @@
-{ lib, config, utils, ... }:
+{
+  lib,
+  config,
+  utils,
+  ...
+}:
 let
   inherit (utils) mkFunc;
 in
