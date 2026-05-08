@@ -8,6 +8,7 @@ let
     oneOf
     nullOr
     listOf
+  rawLua
     ;
   tl = lib.nixvim.toLuaObject;
 
@@ -79,14 +80,14 @@ let
       action = mkOption {
         type = nullOr (oneOf [
           str
-          attrs
+          rawLua
         ]);
         description = "Action";
       };
       icon = mkOption {
         type = nullOr (oneOf [
           str
-          attrs
+         rawLua
         ]);
         default = null;
         description = "Which-key icon.";
@@ -123,14 +124,15 @@ let
         type = nullOr (oneOf [
           bool
           str
+          rawLua
         ]);
         default = null;
         description = "Condition for which-key to show the keybind.";
       };
       expand = mkOption {
-        type = nullOr attrs;
+        type = nullOr rawLua;
         default = null;
-        description = "Which-key expand function (as lua string or attrs).";
+        description = "Which-key expand function.";
       };
       remap = mkOption {
         type = bool;
