@@ -1,6 +1,5 @@
 { lib, config, ... }:
 let
-  inherit (config.lib.keys) keyObj;
   inherit (config.lib) mkFunc;
 in
 {
@@ -33,14 +32,12 @@ in
   ftKeyList = {
     "markdown" =
       let
-        renderHelper =
-          key: command: desc:
-          (keyObj {
-            mode = "n";
-            key = "<LocalLeader>${key}";
-            inherit desc;
-            action = command;
-          });
+        renderHelper = key: command: desc: {
+          mode = "n";
+          key = "<LocalLeader>${key}";
+          inherit desc;
+          action = command;
+        };
       in
       [
         (renderHelper "p" "preview" "Show Markdown Preview")

@@ -2,10 +2,16 @@
 {
   # Reusable nixvim modules exposed as flake outputs.
   # Consumed by nixvimConfigurations in packages.nix and importable by other flakes.
-  flake.nixvimModules = {
+  flake.nixvimModules = rec {
+    framework = {
+      imports = [
+        ../framework
+      ];
+    };
     default = {
       imports = [
         inputs.japanese-input-nvim.nixvimModules.default
+        framework
         {
           nixpkgs.overlays = [
             inputs.skyepkgs.overlays.default

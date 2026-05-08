@@ -1,8 +1,4 @@
-{ config, ... }:
-let
-  inherit (config.lib.keys) keyObj;
-in
-{
+_: {
   plugins.toggleterm = {
     enable = true;
     settings = {
@@ -29,21 +25,21 @@ in
     #   mode = "t";
     #   key = "<esc>";
     # }
-    (keyObj {
+    {
       action = "<cmd>ToggleTerm<cr>";
       mode = "t";
       key = "<C-d>";
-    })
-    (keyObj {
+    }
+    {
       action = "<cmd>ToggleTerm<cr>";
       mode = "t";
       key = "<leader>bt";
       desc = "Terminal Buffer";
-    })
-    (keyObj {
+    }
+    {
       action = "<cmd>ToggleTerm<cr>";
       mode = "n";
       key = "<leader>TT";
-    })
+    }
   ];
 }

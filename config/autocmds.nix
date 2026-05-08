@@ -18,7 +18,7 @@ in
         config.lib.mkFunc
           # lua
           ''
-          vim.notify("Test!")
+            vim.notify("Test!")
           '';
     }
   ];

@@ -6,7 +6,6 @@
 }:
 let
   inherit (config.lib.telescope) openPicker openPickerWithOptions openExtensionPickerWithOptions;
-  inherit (config.lib.keys) keyObj;
 in
 {
   extraPlugins = with pkgs.vimPlugins; [
@@ -64,14 +63,14 @@ in
   };
 
   keyList = [
-    (keyObj {
+    {
       action = openPicker "find_files";
       mode = "n";
       key = "<leader>ff";
       icon = "";
       desc = "Search Files";
-    })
-    (keyObj {
+    }
+    {
       action =
         openPickerWithOptions "find_files"
           # lua
@@ -79,8 +78,8 @@ in
       key = "<leader>fF";
       icon = "󰈞";
       desc = "Search Hidden Files";
-    })
-    (keyObj {
+    }
+    {
       action =
         openPickerWithOptions "find_files"
           # lua
@@ -88,13 +87,13 @@ in
       key = "<leader>fI";
       icon = "󰈞";
       desc = "Search Ignored Files";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "live_grep";
       key = "<leader>sg";
       desc = "Search with Grep";
-    })
-    (keyObj {
+    }
+    {
       action =
         openPickerWithOptions "live_grep"
           # lua
@@ -102,21 +101,21 @@ in
       key = "<leader>sG";
       desc = "Search Hidden with Grep";
       icon = "󰈞";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "symbols";
       key = "<A-s>";
       mode = "i";
       desc = "Search Icons";
       icon = "";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "symbols";
       desc = "Search Icons";
       key = "<leader>is";
       icon = "";
-    })
-    (keyObj {
+    }
+    {
       action =
         openPickerWithOptions "buffers"
           # lua
@@ -126,21 +125,21 @@ in
       desc = "Search Buffers";
       icon = "󱦞";
       key = "<leader>bb";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "diagnostics";
       desc = "LSP Diagnostics";
       key = "<leader>ld";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "help_tags";
       desc = "Search Help";
       key = "<leader>sh";
-    })
-    (keyObj {
+    }
+    {
       action = openPicker "keymaps";
       desc = "Search Keymaps";
       key = "<leader>sk";
-    })
+    }
   ];
 }

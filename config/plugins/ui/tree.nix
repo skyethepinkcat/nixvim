@@ -4,9 +4,6 @@
   pkgs,
   ...
 }:
-let
-  inherit (config.lib.keys) keyObj;
-in
 {
 
   plugins.nvim-tree = {
@@ -54,11 +51,11 @@ in
     grep.enable = true;
   };
   keyList = [
-    (keyObj {
+    {
       action = "<cmd>NvimTreeFindFile<cr>";
       key = "<leader>e";
       icon = "󰙅";
       desc = "Explorer";
-    })
+    }
   ];
 }

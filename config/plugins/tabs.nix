@@ -1,7 +1,5 @@
 { config, lib, ... }:
 let
-  inherit (config.lib.keys) keyObj;
-  inherit (config.nvix.mkKey) wKeyObj;
   inherit (lib.nixvim) mkRaw;
 in
 {
@@ -38,19 +36,19 @@ in
   ];
 
   keyList = [
-    (keyObj {
+    {
       action = "<cmd>tabnext<cr>";
       key = "<leader>t<tab>";
       icon = "󰓩";
       desc = "next tab";
-    })
-    (keyObj {
+    }
+    {
       action = "<cmd>tabprevious<cr>";
       key = "<leader>t<S-tab>";
       icon = "󰓩";
       desc = "prev tab";
-    })
-    (keyObj {
+    }
+    {
       action = mkRaw ''
         function()
           local pickers = require('telescope.pickers')
@@ -80,8 +78,8 @@ in
       key = "<leader>tt";
       icon = "󰓩";
       desc = "tab picker";
-    })
-    (keyObj {
+    }
+    {
       action = mkRaw ''
         function()
           local pickers = require('telescope.pickers')
@@ -111,6 +109,6 @@ in
       key = "<leader>tm";
       icon = "󰆒";
       desc = "move buf to tab";
-    })
+    }
   ];
 }

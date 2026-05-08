@@ -1,7 +1,6 @@
 { lib, config, ... }:
 let
   inherit (lib.nixvim) mkRaw;
-  inherit (config.lib.keys) keyObj;
 in
 {
   plugins = {
@@ -37,14 +36,14 @@ in
   };
 
   keyList = [
-    (keyObj {
+    {
       key = "<leader>l";
       action = null;
       icon = "";
       group = "lsp";
-    })
+    }
 
-    (keyObj {
+    {
       action =
         mkRaw
           # lua
@@ -55,8 +54,8 @@ in
           '';
       key = "<leader>la";
       desc = "Code Action";
-    })
-    (keyObj {
+    }
+    {
       action =
         mkRaw
           # lua
@@ -67,8 +66,8 @@ in
           '';
       key = "<leader>ln";
       desc = "LSP Rename";
-    })
-    (keyObj {
+    }
+    {
       action =
         mkRaw
           # lua
@@ -79,8 +78,8 @@ in
           '';
       key = "<leader>li";
       desc = "LSP Implementation";
-    })
-    (keyObj {
+    }
+    {
       action =
         mkRaw
           # lua
@@ -91,8 +90,8 @@ in
           '';
       key = "<leader>lt";
       desc = "LSP Type Definition";
-    })
-    (keyObj {
+    }
+    {
       action =
         mkRaw
           # lua
@@ -103,7 +102,7 @@ in
           '';
       key = "<leader>lr";
       desc = "LSP References";
-    })
+    }
   ];
 
 }

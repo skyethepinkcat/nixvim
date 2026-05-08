@@ -13,6 +13,7 @@
         attrNames (readDir ./.)
       )
     );
+
   # Experimental lualoader, which should improve load times?
   luaLoader.enable = true;
 
@@ -87,12 +88,12 @@
   };
 
   keyList = [
-    (config.lib.keys.keyObj {
+    {
       action = "<cmd>b#<cr>";
       key = "<leader><tab>";
       icon = "";
       desc = "Last Buffer";
-    })
+    }
   ];
   withPython3 = true;
   withPerl = true;

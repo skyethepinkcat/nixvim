@@ -1,11 +1,10 @@
 { lib, config, ... }:
 let
-  inherit (config.lib.keys) keyObj;
   inherit (config.lib) mkFunc;
 in
 {
   ftKeyList.lua = [
-    (keyObj {
+    {
       desc = "Source Lua File";
       key = "<localleader>l";
       mode = "n";
@@ -22,6 +21,6 @@ in
               vim.notify(err, vim.log.levels.ERROR)
             end
           '';
-    })
+    }
   ];
 }
