@@ -163,7 +163,7 @@ in
   options = {
 
     keyList = mkOption {
-      type = lib.types.listOf keyObj;
+      type = listOf keyObj;
       default = [ ];
       description = "List of key objects to be converted into which-key and keymap entries.";
       example =
@@ -181,7 +181,7 @@ in
     };
 
     ftKeyList = mkOption {
-      type = lib.types.attrsOf (lib.types.listOf keyObj);
+      type = lib.types.attrsOf (listOf keyObj);
       default = { };
       description = "Attrset of filetypes and a corresponding list of key
       objects, which will be loaded when the the corresponding filetype is entered.";
