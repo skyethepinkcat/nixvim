@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 {
@@ -13,6 +12,7 @@
         attrNames (readDir ./.)
       )
     );
+
   # Experimental lualoader, which should improve load times?
   luaLoader.enable = true;
 
@@ -84,15 +84,17 @@
 
     textwidth = 80; # Prefer 80 character lines
     linebreak = true;
+
+    showmode = false; # Don't show modes in noice statusbar
   };
 
   keyList = [
-    (config.lib.keys.keyObj {
+    {
       action = "<cmd>b#<cr>";
       key = "<leader><tab>";
       icon = "";
       desc = "Last Buffer";
-    })
+    }
   ];
   withPython3 = true;
   withPerl = true;

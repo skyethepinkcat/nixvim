@@ -1,5 +1,7 @@
 { lib, ... }:
-with lib;
+let
+  inherit (lib) mkOption types;
+in
 {
   options.exportFiles = mkOption {
     description = "Config files to include in the portable export, with store-path-to-stdpath rewrite.";

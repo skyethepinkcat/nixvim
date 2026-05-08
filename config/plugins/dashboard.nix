@@ -2,10 +2,11 @@
   config,
   lib,
   pkgs,
+  utils,
   ...
 }:
 let
-  inherit (config.lib.telescope) openPicker openExtensionPickerWithOptions;
+  inherit (utils.telescope) openPicker openExtensionPickerWithOptions;
   inherit (lib.nixvim) mkRaw;
 in
 {

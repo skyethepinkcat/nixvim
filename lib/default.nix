@@ -1,13 +1,4 @@
-{
-  lib,
-  ...
-}:
-
-{
-  imports =
-    with builtins;
-    with lib;
-    map (fn: ./${fn}) (
-      filter (fn: (fn != "default.nix" && !hasSuffix ".md" "${fn}")) (attrNames (readDir ./.))
-    );
+lib: {
+  telescope = import ./telescope.nix lib;
+  inherit (import ./utils.nix lib) mkFunc;
 }
