@@ -15,3 +15,7 @@ updates:
       interval: "weekly"
     assignees:
       - "skyethepinkcat"
+    groups:
+      flake-updates:
+        patterns:
+          - "*"
