@@ -101,7 +101,7 @@
   };
 
   extraConfigLuaPre = lib.mkOrder 0 ''
-    -- If you fucking NVIM_SYSTEM_RPLUGIN_MANIFEST defined outside nvim you
+    -- If you have fucking NVIM_SYSTEM_RPLUGIN_MANIFEST defined outside nvim you
     -- deserve whats about to happen to you.
     if os.getenv("NVIM_SYSTEM_RPLUGIN_MANIFEST") then
       -- This won't actually show up in terminal for some reason, but I can't
