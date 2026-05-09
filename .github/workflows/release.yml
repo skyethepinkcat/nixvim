@@ -27,6 +27,6 @@ jobs:
           tar -czf nvim-config-export.tar.gz -C "$STORE_PATH" .
 
       - name: Upload to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: nvim-config-export.tar.gz
