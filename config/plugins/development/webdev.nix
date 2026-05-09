@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 {
   extraPlugins = with pkgs.vimPlugins; [
     colortils-nvim

@@ -1,4 +1,4 @@
-{ lib, utils, ... }:
+{ lib, ... }:
 let
   inherit (lib.nixvim) mkRaw;
 in
@@ -9,19 +9,6 @@ in
     IndentScopeDisable = { };
   };
 
-  ftKeyList.markdown = [
-    {
-      key = "<localleader>n";
-      mode = "n";
-      desc = "test!";
-      action =
-        utils.mkFunc
-          # lua
-          ''
-            vim.notify("Test!")
-          '';
-    }
-  ];
   autoCmd = [
     {
       event = [ "FileType" ];
@@ -70,5 +57,4 @@ in
       '';
     }
   ];
-
 }

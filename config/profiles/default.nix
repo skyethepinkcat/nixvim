@@ -1,9 +1,5 @@
+{ lib, ... }:
 {
-  lib,
-  ...
-}:
-{
-
   imports =
     with builtins;
     with lib;
@@ -25,5 +21,4 @@
       };
     };
   };
-
 }

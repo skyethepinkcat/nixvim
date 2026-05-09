@@ -41,7 +41,7 @@ in
           mode = "n";
           key = "<LocalLeader>${key}";
           inherit desc;
-          action = command;
+          action = "<cmd>RenderMarkdown ${command}<cr>";
         };
       in
       [
@@ -84,6 +84,5 @@ in
               '';
         }
       ];
-
   };
 }

@@ -15,7 +15,6 @@
         {
           nixpkgs.overlays = [
             inputs.skyepkgs.overlays.default
-
           ];
         }
         ../config

@@ -136,11 +136,22 @@ in
       action = openPicker "help_tags";
       desc = "Search Help";
       key = "<leader>sh";
+      icon = "󰋖";
     }
     {
       action = openPicker "keymaps";
       desc = "Search Keymaps";
       key = "<leader>sk";
+      icon = "󰌌";
+    }
+    {
+      action = openPicker "man_pages";
+      desc = "Search man pages";
+      key = "<leader>sm";
+      icon = {
+        icon = "";
+        hl = "red";
+      };
     }
   ];
 }

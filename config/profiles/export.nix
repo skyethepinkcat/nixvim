@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 lib.mkIf config.profiles.export {
   # Variant used for the portable nvim-config-export package.
   # Strips all nix-managed tool references so the generated init.lua contains

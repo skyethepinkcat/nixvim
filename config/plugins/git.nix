@@ -34,7 +34,6 @@ let
             "*" = "#b4befe";
           };
         };
-
       }
     )
   );
@@ -106,7 +105,6 @@ in
   ];
 
   keyList = [
-
     # Navigation
     {
       mode = "n";
@@ -334,5 +332,4 @@ in
       ''
         require('telescope').load_extension('lazygit')
       '';
-
 }

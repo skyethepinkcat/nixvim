@@ -5,7 +5,6 @@
   ...
 }:
 {
-
   plugins.nvim-tree = {
     enable = true;
     settings.on_attach = lib.nixvim.mkRaw ''

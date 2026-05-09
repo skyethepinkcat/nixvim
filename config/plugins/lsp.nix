@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
   inherit (lib.nixvim) mkRaw;
 in
@@ -104,5 +108,4 @@ in
       desc = "LSP References";
     }
   ];
-
 }

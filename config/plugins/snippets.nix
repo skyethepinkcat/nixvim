@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 let
   snippets = {
     nix = {
@@ -65,5 +69,4 @@ in
       snippetPkg
     ];
   };
-
 }

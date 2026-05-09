@@ -1,4 +1,8 @@
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  ...
+}:
 {
   perSystem =
     {
@@ -45,7 +49,6 @@
             scratch
           ];
           extraSpecialArgs = { inherit inputs; };
-
         };
       };
 

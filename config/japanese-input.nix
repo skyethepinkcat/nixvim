@@ -6,7 +6,6 @@
   ...
 }:
 {
-
   imports = [ ];
 
   plugins.japanese-input = {

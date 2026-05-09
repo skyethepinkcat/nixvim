@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 {
   colorschemes.catppuccin = {
     enable = true;
@@ -33,5 +30,4 @@
     };
   };
   highlight.ColortilsCurrentLine.bg = "#313244";
-
 }

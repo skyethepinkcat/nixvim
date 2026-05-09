@@ -45,7 +45,6 @@ in
           {
             __unkeyed-1 = "tabs";
             mode = 2;
-
           }
         ];
       };

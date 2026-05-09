@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
   inherit (lib) mkOption;
   inherit (lib.types)
@@ -44,7 +48,6 @@ let
           end
         ''
     );
-
   };
 
   mkwKey =
@@ -88,6 +91,7 @@ let
         type = nullOr (oneOf [
           str
           rawLua
+          attrs
         ]);
         default = null;
         description = "Which-key icon.";
@@ -163,7 +167,6 @@ in
     autoCmd = builtins.attrValues (builtins.mapAttrs mkftKeyAutocmd config.ftKeyList);
   };
   options = {
-
     keyList = mkOption {
       type = listOf keyObj;
       default = [ ];
@@ -188,7 +191,5 @@ in
       description = "Attrset of filetypes and a corresponding list of key
       objects, which will be loaded when the the corresponding filetype is entered.";
     };
-
   };
-
 }

@@ -1,4 +1,8 @@
-{ inputs, self, ... }:
+{
+  inputs,
+  self,
+  ...
+}:
 {
   # Home Manager module that enables nixvim with this config.
   # Import as `homeModules.default` in a home-manager flake.

@@ -58,15 +58,16 @@ inputs.nixvim-config.url = "github:skyethepinkcat/nixvim-config";
 
 ## Flake Outputs
 
-| Output | Description |
-|--------|-------------|
-| `packages.default` / `packages.neovim` | Standard neovim build |
-| `packages.nixvim` | Same build, binary renamed to `nixvim` |
-| `packages.nixvim-print-init` | Print the generated `init.lua` |
-| `packages.nvim-config-export` | Portable config for non-Nix systems (see below) |
-| `nixvimModules.default` | Reusable NixOS/home-manager module |
-| `nixvimModules.full` | Module with AI profile enabled |
-| `nixvimModules.export` | Module with nix-managed paths stripped |
+| Output                                 | Description                                     |
+| -------------------------------------- | ----------------------------------------------- |
+| `packages.default` / `packages.neovim` | Standard neovim build                           |
+| `packages.nixvim`                      | Same build, binary renamed to `nixvim`          |
+| `packages.nixvim-print-init`           | Print the generated `init.lua`                  |
+| `packages.nvim-config-export`          | Portable config for non-Nix systems (see below) |
+| `nixvimModules.default`                | Reusable NixOS/home-manager module              |
+| `nixvimModules.framework`              | Stripped down module without configuration.     |
+| `nixvimModules.full`                   | Module with AI profile enabled                  |
+| `nixvimModules.export`                 | Module with nix-managed paths stripped          |
 
 ### Portable Export
 
@@ -101,11 +102,11 @@ The export builder copies each file to the export root and rewrites its nix stor
 
 Profiles are opt-in layers on top of the base config.
 
-| Profile | Flag | Description |
-|---------|------|-------------|
-| `default` | (always on) | Core editor, LSP, completion, UI |
-| `full` | `profiles.ai = true` | Adds Claude CLI integration and Copilot |
-| `export` | `profiles.export = true` | Strips nix store paths for portability |
+| Profile   | Flag                     | Description                             |
+| --------- | ------------------------ | --------------------------------------- |
+| `default` | (always on)              | Core editor, LSP, completion, UI        |
+| `full`    | `profiles.ai = true`     | Adds Claude CLI integration and Copilot |
+| `export`  | `profiles.export = true` | Strips nix store paths for portability  |
 
 To enable a profile when importing as a module, set the flag in your config:
 
@@ -122,6 +123,7 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 ## Plugins
 
 ### UI
+
 - **render-markdown** — in-buffer markdown rendering (off by default, toggle with `<LocalLeader>t`)
 - **markdown-preview** — browser preview via `<LocalLeader>P`
 - **lualine** — statusline
@@ -131,6 +133,7 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 - **which-key** - extensive which-key keybinds
 
 ### Editing
+
 - **treesitter** — syntax / highlighting
 - **blink-cmp** — completion
 - **none-ls** — formatting / linting bridge
@@ -138,15 +141,18 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 - **copilot-lua** — AI inline suggestions (requires `full` profile)
 
 ### Navigation
+
 - **picker** (fzf/telescope) — fuzzy finding
 
 ### Workflow
+
 - **toggleterm** — floating terminal
 - **which-key** — keybinding hints
 - **git** — git integration
 - **config-local** — per-project `.nvim.lua` support
 
 ### AI (`full` profile)
+
 - **Claude CLI** — floating terminal sessions (`<leader>ac`)
   - `<leader>aC` — `claude --continue`
   - `<leader>aV` — `claude --verbose`
@@ -157,20 +163,16 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 
 ## Keybinding System
 
-`keyList` / `keyObj` is a thin wrapper that registers both a keymap and a which-key entry in one call, avoiding duplication.
+`keyList` is a thin wrapper that registers both a keymap and a which-key entry in one call, avoiding duplication.
 
 ```nix
 keyList = [
-  (keyObj {
+  {
     key    = "<leader>tt";
     action = "<cmd>ToggleTerm<cr>";
     icon   = "";
     desc   = "Toggle Terminal";
-    # mode   ? "n"
-    # hidden ? false
-    # group  ? null
-    # extraOpts ? {}
-  })
+  }
 ];
 ```
 
@@ -178,23 +180,22 @@ For group labels only (no action), set action to null:
 
 ```nix
 keyList = [
-  (keyObj {
+  {
     key    = "<leader>t";
     action = null;
     group = "Terminal";
-  })
+  }
 ];
 ```
-
 
 ## FileType-local Keybinds
 
 ### Leader keys
 
-| Key | Role |
-|-----|------|
-| `<Space>` | `<leader>` |
-| `,` | `<LocalLeader>` (buffer-local keymaps) |
+| Key       | Role                                   |
+| --------- | -------------------------------------- |
+| `<Space>` | `<leader>`                             |
+| `,`       | `<LocalLeader>` (buffer-local keymaps) |
 
 ---
 

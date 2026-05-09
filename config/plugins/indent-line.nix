@@ -1,5 +1,4 @@
 _: {
-
   plugins = {
     mini-indentscope = {
       enable = true;
