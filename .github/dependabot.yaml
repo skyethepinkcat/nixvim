@@ -6,9 +6,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-
+    assignees:
+      - "skyethepinkcat"
   - package-ecosystem: "nix"
     directory: "/"
     target-branch: "develop"
     schedule:
       interval: "weekly"
+    assignees:
+      - "skyethepinkcat"
