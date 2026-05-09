@@ -9,5 +9,6 @@ updates:
 
   - package-ecosystem: "nix"
     directory: "/"
+    target-branch: "develop"
     schedule:
       interval: "weekly"
