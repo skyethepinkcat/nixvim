@@ -67,11 +67,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778334610,
-        "narHash": "sha256-di0tO+MbBJAzAevHc+XImUGh1q2QJ4lovnbGeXfQRdA=",
+        "lastModified": 1778334748,
+        "narHash": "sha256-gh2Rd5oHVyVMT/OEaeJHHQ+p2P9CiaTFila6TzG9Cps=",
         "owner": "skyethepinkcat",
         "repo": "japanese-input-nvim",
-        "rev": "87a6f4139547e30798097943c262cdb424cd4d33",
+        "rev": "f78afaa0ec82a02a601ebaaeddcbcecabcb48add",
         "type": "github"
       },
       "original": {
