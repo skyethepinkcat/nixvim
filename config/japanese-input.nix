@@ -6,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf (pkgs.stdenv.hostPlatform == "aarch64-darwin") {
+  config = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") {
     plugins.japanese-input = {
       enable = true;
     };
