@@ -26,6 +26,50 @@ local function get_yaml_top_key()
   return nil
 end
 
+-- If cursor is inside a template(...) or epp(...) call, return the path arg.
+local function get_template_path()
+  local line = vim.fn.getline('.')
+  local col = vim.fn.col('.')
+  local patterns = {
+    [[(template)%s*%(%s*["']([^"']+)["']%s*%)]],
+    [[(epp)%s*%(%s*["']([^"']+)["']%s*%)]],
+  }
+  for _, pat in ipairs(patterns) do
+    local init = 1
+    while true do
+      local s, e, _fn, path = line:find(pat, init)
+      if not s then break end
+      if col >= s and col <= e then return path end
+      init = e + 1
+    end
+  end
+  return nil
+end
+
+-- Get a puppet:// URI under cursor, if any.
+local function get_puppet_uri()
+  local line = vim.fn.getline('.')
+  local col = vim.fn.col('.')
+  if #line == 0 then return nil end
+
+  local function is_uri(c) return c and c:match('[%w_%-%./:]') ~= nil end
+  if not is_uri(line:sub(col, col)) then return nil end
+
+  local s = col
+  while s > 1 and is_uri(line:sub(s - 1, s - 1)) do
+    s = s - 1
+  end
+  local e = col
+  while e <= #line and is_uri(line:sub(e, e)) do
+    e = e + 1
+  end
+  local tok = line:sub(s, e - 1)
+  -- Strip surrounding punctuation
+  tok = tok:gsub('^[%.:/]+', ''):gsub('[%.:/]+$', '')
+  if tok:match('^puppet://') then return tok end
+  return nil
+end
+
 -- Get full puppet identifier (word chars + `::`) under cursor.
 local function get_puppet_ident()
   local line = vim.fn.getline('.')
@@ -60,6 +104,40 @@ local function split_parts(ident)
 end
 
 function M.goto_definition()
+  local root = find_repo_root()
+
+  -- Try template('mod/file.erb') / epp('mod/file.epp') -> modules/mod/templates/file.*
+  local tpl = get_template_path()
+  if tpl then
+    local mod, rest = tpl:match('^([^/]+)/(.+)$')
+    if mod and rest then
+      local target = root .. '/modules/' .. mod .. '/templates/' .. rest
+      vim.cmd('edit ' .. vim.fn.fnameescape(target))
+      if vim.fn.filereadable(target) ~= 1 then
+        vim.notify('puppet: file does not exist yet: ' .. target, vim.log.levels.INFO)
+      end
+      return
+    end
+    vim.notify('puppet: unrecognized template path: ' .. tpl, vim.log.levels.WARN)
+    return
+  end
+
+  -- Try puppet:// URI (e.g. puppet:///modules/foo/bar.conf -> modules/foo/files/bar.conf).
+  local uri = get_puppet_uri()
+  if uri then
+    local module, rest = uri:match('^puppet://[^/]*/modules/([^/]+)/(.+)$')
+    if module and rest then
+      local target = root .. '/modules/' .. module .. '/files/' .. rest
+      vim.cmd('edit ' .. vim.fn.fnameescape(target))
+      if vim.fn.filereadable(target) ~= 1 then
+        vim.notify('puppet: file does not exist yet: ' .. target, vim.log.levels.INFO)
+      end
+      return
+    end
+    vim.notify('puppet: unrecognized URI: ' .. uri, vim.log.levels.WARN)
+    return
+  end
+
   local ident = get_puppet_ident()
   if ident == '' then
     vim.notify('puppet: no identifier under cursor', vim.log.levels.WARN)
@@ -72,7 +150,6 @@ function M.goto_definition()
     return
   end
 
-  local root = find_repo_root()
   local yaml_prefixed = false
 
   if vim.bo.filetype == 'yaml' then
