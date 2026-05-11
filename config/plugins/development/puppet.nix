@@ -10,6 +10,16 @@
           utils.mkFunc
             # lua
             ''
+              require('puppet').preview_definition()
+            '';
+        desc = "preview definition under cursor";
+      }
+      {
+        key = "<LocalLeader>O";
+        action =
+          utils.mkFunc
+            # lua
+            ''
               require('puppet').goto_definition()
             '';
         desc = "open definition under cursor";
@@ -49,6 +59,9 @@
               end
               if not found then return end
               vim.keymap.set("n", "<LocalLeader>o", function()
+                require("puppet").preview_definition()
+              end, { buffer = ev.buf, silent = true, desc = "Puppet: preview definition under cursor" })
+              vim.keymap.set("n", "<LocalLeader>O", function()
                 require("puppet").goto_definition()
               end, { buffer = ev.buf, silent = true, desc = "Puppet: open definition under cursor" })
             end

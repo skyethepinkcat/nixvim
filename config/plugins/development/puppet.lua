@@ -129,54 +129,39 @@ local function split_parts(ident)
 	return parts
 end
 
-function M.goto_definition()
+-- Resolve the file path the cursor points at. Returns (path, err).
+local function resolve_target()
 	local root = find_repo_root()
 
-	-- Try template('mod/file.erb') / epp('mod/file.epp') -> modules/mod/templates/file.*
+	-- template('mod/file.erb') / epp('mod/file.epp') -> modules/mod/templates/file.*
 	local tpl = get_template_path()
 	if tpl then
 		local mod, rest = tpl:match("^([^/]+)/(.+)$")
 		if mod and rest then
-			local target = root .. "/modules/" .. mod .. "/templates/" .. rest
-			vim.cmd("edit " .. vim.fn.fnameescape(target))
-			if vim.fn.filereadable(target) ~= 1 then
-				vim.notify("puppet: file does not exist yet: " .. target, vim.log.levels.INFO)
-			end
-			return
+			return root .. "/modules/" .. mod .. "/templates/" .. rest
 		end
-		vim.notify("puppet: unrecognized template path: " .. tpl, vim.log.levels.WARN)
-		return
+		return nil, "unrecognized template path: " .. tpl
 	end
 
-	-- Try puppet:// URI (e.g. puppet:///modules/foo/bar.conf -> modules/foo/files/bar.conf).
+	-- puppet:///modules/mod/path -> modules/mod/files/path
 	local uri = get_puppet_uri()
 	if uri then
 		local module, rest = uri:match("^puppet://[^/]*/modules/([^/]+)/(.+)$")
 		if module and rest then
-			local target = root .. "/modules/" .. module .. "/files/" .. rest
-			vim.cmd("edit " .. vim.fn.fnameescape(target))
-			if vim.fn.filereadable(target) ~= 1 then
-				vim.notify("puppet: file does not exist yet: " .. target, vim.log.levels.INFO)
-			end
-			return
+			return root .. "/modules/" .. module .. "/files/" .. rest
 		end
-		vim.notify("puppet: unrecognized URI: " .. uri, vim.log.levels.WARN)
-		return
+		return nil, "unrecognized URI: " .. uri
 	end
 
 	local ident = get_puppet_ident()
 	if ident == "" then
-		vim.notify("puppet: no identifier under cursor", vim.log.levels.WARN)
-		return
+		return nil, "no identifier under cursor"
 	end
 
 	local parts = split_parts(ident)
 	if #parts == 0 then
-		vim.notify("puppet: empty identifier", vim.log.levels.WARN)
-		return
+		return nil, "empty identifier"
 	end
-
-	local yaml_prefixed = false
 
 	if vim.bo.filetype == "yaml" then
 		local top = get_yaml_top_key()
@@ -184,32 +169,149 @@ function M.goto_definition()
 		local mod = yaml_map[top]
 		if mod then
 			table.insert(parts, 1, mod)
-			yaml_prefixed = true
 		end
 	end
 
-	local target
 	if #parts == 1 then
-		-- Bare single word: only resolve if modules/<word>/ exists.
 		local mod = parts[1]
 		local mod_dir = root .. "/modules/" .. mod
 		if vim.fn.isdirectory(mod_dir) ~= 1 then
-			vim.notify("puppet: module not found: " .. mod, vim.log.levels.WARN)
-			return
+			return nil, "module not found: " .. mod
 		end
-		target = mod_dir .. "/manifests/init.pp"
-	else
-		local module = parts[1]
-		local subpath = table.concat(parts, "/", 2)
-		target = root .. "/modules/" .. module .. "/manifests/" .. subpath .. ".pp"
+		return mod_dir .. "/manifests/init.pp"
 	end
 
+	local module = parts[1]
+	local subpath = table.concat(parts, "/", 2)
+	return root .. "/modules/" .. module .. "/manifests/" .. subpath .. ".pp"
+end
+
+function M.goto_definition()
+	local target, err = resolve_target()
+	if not target then
+		vim.notify("puppet: " .. err, vim.log.levels.WARN)
+		return
+	end
 	vim.cmd("edit " .. vim.fn.fnameescape(target))
 	if vim.fn.filereadable(target) ~= 1 then
 		vim.notify("puppet: file does not exist yet: " .. target, vim.log.levels.INFO)
 	end
-	-- Suppress unused-var warning
-	_ = yaml_prefixed
+end
+
+-- Keys allowed inside the preview window. Anything else closes it.
+local PREVIEW_NAV = {
+	["j"] = true,
+	["k"] = true,
+	["h"] = true,
+	["l"] = true,
+	["<Down>"] = true,
+	["<Up>"] = true,
+	["<Left>"] = true,
+	["<Right>"] = true,
+	["<C-D>"] = true,
+	["<C-U>"] = true,
+	["<C-F>"] = true,
+	["<C-B>"] = true,
+	["<C-E>"] = true,
+	["<C-Y>"] = true,
+	["G"] = true,
+	["H"] = true,
+	["M"] = true,
+	["L"] = true,
+	["{"] = true,
+	["}"] = true,
+	["0"] = true,
+	["$"] = true,
+	["^"] = true,
+	["w"] = true,
+	["b"] = true,
+	["e"] = true,
+	["W"] = true,
+	["B"] = true,
+	["E"] = true,
+	["n"] = true,
+	["N"] = true,
+}
+
+local function open_preview(path)
+	local buf = vim.fn.bufadd(path)
+	vim.fn.bufload(buf)
+
+	-- Compact float anchored near cursor, flipping anchor near screen edges.
+	local width = math.min(80, math.floor(vim.o.columns * 0.5))
+	local height = math.min(20, math.floor(vim.o.lines * 0.4))
+	local screen_row = vim.fn.winline()
+	local screen_col = vim.fn.wincol()
+	local anchor_v = (screen_row + height + 2 > vim.o.lines) and "S" or "N"
+	local anchor_h = (screen_col + width + 2 > vim.o.columns) and "E" or "W"
+	local anchor = anchor_v .. anchor_h
+	local row = (anchor_v == "N") and 1 or 0
+	local col = (anchor_h == "W") and 1 or 0
+
+	local win = vim.api.nvim_open_win(buf, false, {
+		relative = "cursor",
+		anchor = anchor,
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		style = "minimal",
+		border = "rounded",
+		title = " " .. vim.fn.fnamemodify(path, ":~:.") .. " ",
+		title_pos = "center",
+	})
+
+	local function close()
+		if vim.api.nvim_win_is_valid(win) then
+			vim.api.nvim_win_close(win, true)
+		end
+	end
+
+	vim.schedule(function()
+		while vim.api.nvim_win_is_valid(win) do
+			vim.cmd("redraw")
+			local ok, ch = pcall(vim.fn.getcharstr)
+			if not ok or not ch or ch == "" then
+				break
+			end
+			local key = vim.fn.keytrans(ch)
+			if key == "<CR>" then
+				close()
+				vim.cmd("edit " .. vim.fn.fnameescape(path))
+				return
+			elseif key == "g" then
+				-- Allow `gg`; otherwise close.
+				local ok2, ch2 = pcall(vim.fn.getcharstr)
+				if ok2 and vim.fn.keytrans(ch2) == "g" then
+					vim.api.nvim_win_call(win, function()
+						vim.cmd("normal! gg")
+					end)
+				else
+					break
+				end
+			elseif PREVIEW_NAV[key] then
+				vim.api.nvim_win_call(win, function()
+					vim.cmd("normal! " .. ch)
+				end)
+			else
+				break
+			end
+		end
+		close()
+	end)
+end
+
+function M.preview_definition()
+	local target, err = resolve_target()
+	if not target then
+		vim.notify("puppet: " .. err, vim.log.levels.WARN)
+		return
+	end
+	if vim.fn.filereadable(target) ~= 1 then
+		vim.notify("puppet: file does not exist: " .. target, vim.log.levels.WARN)
+		return
+	end
+	open_preview(target)
 end
 
 return M
