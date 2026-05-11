@@ -24,42 +24,67 @@ in
   ];
 
   keyList = [
-    # Insert mode navigation
+    # Insert/command mode navigation (Emacs-style)
     {
-      action = "<ESC>^i";
-      key = "<C-b>";
-      mode = "i";
+      action = "<Home>";
+      key = "<C-a>";
+      mode = "ic";
       desc = "move beginning of line";
     }
     {
       action = "<End>";
       key = "<C-e>";
-      mode = "i";
+      mode = "ic";
       desc = "move end of line";
     }
     {
       action = "<Left>";
-      key = "<C-h>";
-      mode = "i";
+      key = "<C-b>";
+      mode = "ic";
       desc = "move left";
     }
     {
       action = "<Right>";
-      key = "<C-l>";
-      mode = "i";
+      key = "<C-f>";
+      mode = "ic";
       desc = "move right";
     }
     {
       action = "<Down>";
-      key = "<C-j>";
+      key = "<C-n>";
       mode = "i";
       desc = "move down";
     }
     {
       action = "<Up>";
-      key = "<C-k>";
+      key = "<C-p>";
       mode = "i";
       desc = "move up";
+    }
+    # Word jump (Emacs-style)
+    {
+      action = "<C-o>b";
+      key = "<M-b>";
+      mode = "i";
+      desc = "move word backward";
+    }
+    {
+      action = "<C-o>w";
+      key = "<M-f>";
+      mode = "i";
+      desc = "move word forward";
+    }
+    {
+      action = "<S-Left>";
+      key = "<M-b>";
+      mode = "c";
+      desc = "move word backward";
+    }
+    {
+      action = "<S-Right>";
+      key = "<M-f>";
+      mode = "c";
+      desc = "move word forward";
     }
 
     # Window navigation
