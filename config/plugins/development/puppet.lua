@@ -186,10 +186,18 @@ local function resolve_target()
 	return root .. "/modules/" .. module .. "/manifests/" .. subpath .. ".pp"
 end
 
+local function open_dir(dir)
+	require("nvim-tree.api").tree.find_file({ buf = dir, open = true, focus = true })
+end
+
 function M.goto_definition()
 	local target, err = resolve_target()
 	if not target then
 		vim.notify("puppet: " .. err, vim.log.levels.WARN)
+		return
+	end
+	if vim.fn.isdirectory(target) == 1 then
+		open_dir(target)
 		return
 	end
 	vim.cmd("edit " .. vim.fn.fnameescape(target))
@@ -314,6 +322,10 @@ function M.preview_definition()
 	local target, err = resolve_target()
 	if not target then
 		vim.notify("puppet: " .. err, vim.log.levels.WARN)
+		return
+	end
+	if vim.fn.isdirectory(target) == 1 then
+		open_dir(target)
 		return
 	end
 	if vim.fn.filereadable(target) ~= 1 then
