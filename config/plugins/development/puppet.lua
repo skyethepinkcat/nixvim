@@ -198,39 +198,19 @@ function M.goto_definition()
 	end
 end
 
--- Keys allowed inside the preview window. Anything else closes it.
-local PREVIEW_NAV = {
-	["j"] = true,
-	["k"] = true,
-	["h"] = true,
-	["l"] = true,
-	["<Down>"] = true,
-	["<Up>"] = true,
-	["<Left>"] = true,
-	["<Right>"] = true,
-	["<C-D>"] = true,
-	["<C-U>"] = true,
-	["<C-F>"] = true,
-	["<C-B>"] = true,
-	["<C-E>"] = true,
-	["<C-Y>"] = true,
-	["G"] = true,
-	["H"] = true,
-	["M"] = true,
-	["L"] = true,
-	["{"] = true,
-	["}"] = true,
-	["0"] = true,
-	["$"] = true,
-	["^"] = true,
-	["w"] = true,
-	["b"] = true,
-	["e"] = true,
-	["W"] = true,
-	["B"] = true,
-	["E"] = true,
-	["n"] = true,
-	["N"] = true,
+-- Scroll delta per key: positive = down, negative = up, nil = close.
+-- "half"/"page" are resolved at runtime using window height.
+local SCROLL_KEYS = {
+	["j"] = 1,
+	["k"] = -1,
+	["<Down>"] = 1,
+	["<Up>"] = -1,
+	["<C-E>"] = 1,
+	["<C-Y>"] = -1,
+	["<C-D>"] = "half_down",
+	["<C-U>"] = "half_up",
+	["<C-F>"] = "page_down",
+	["<C-B>"] = "page_up",
 }
 
 local function open_preview(path)
@@ -267,6 +247,27 @@ local function open_preview(path)
 		end
 	end
 
+	local function scroll(delta)
+		vim.api.nvim_win_call(win, function()
+			local view = vim.fn.winsaveview()
+			local line_count = vim.api.nvim_buf_line_count(buf)
+			local max_top = math.max(1, line_count - height + 1)
+			local d = delta
+			if delta == "half_down" then
+				d = math.floor(height / 2)
+			elseif delta == "half_up" then
+				d = -math.floor(height / 2)
+			elseif delta == "page_down" then
+				d = height
+			elseif delta == "page_up" then
+				d = -height
+			end
+			view.topline = math.max(1, math.min(max_top, view.topline + d))
+			view.lnum = view.topline
+			vim.fn.winrestview(view)
+		end)
+	end
+
 	vim.schedule(function()
 		while vim.api.nvim_win_is_valid(win) do
 			vim.cmd("redraw")
@@ -279,20 +280,28 @@ local function open_preview(path)
 				close()
 				vim.cmd("edit " .. vim.fn.fnameescape(path))
 				return
+			elseif key == "G" then
+				vim.api.nvim_win_call(win, function()
+					local view = vim.fn.winsaveview()
+					local line_count = vim.api.nvim_buf_line_count(buf)
+					view.topline = math.max(1, line_count - height + 1)
+					view.lnum = view.topline
+					vim.fn.winrestview(view)
+				end)
 			elseif key == "g" then
-				-- Allow `gg`; otherwise close.
 				local ok2, ch2 = pcall(vim.fn.getcharstr)
 				if ok2 and vim.fn.keytrans(ch2) == "g" then
 					vim.api.nvim_win_call(win, function()
-						vim.cmd("normal! gg")
+						local view = vim.fn.winsaveview()
+						view.topline = 1
+						view.lnum = 1
+						vim.fn.winrestview(view)
 					end)
 				else
 					break
 				end
-			elseif PREVIEW_NAV[key] then
-				vim.api.nvim_win_call(win, function()
-					vim.cmd("normal! " .. ch)
-				end)
+			elseif SCROLL_KEYS[key] then
+				scroll(SCROLL_KEYS[key])
 			else
 				break
 			end
