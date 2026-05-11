@@ -10,7 +10,7 @@
           utils.mkFunc
             # lua
             ''
-            require('puppet').goto_definition()
+              require('puppet').goto_definition()
             '';
         desc = "open definition under cursor";
       }
@@ -21,7 +21,10 @@
   autoCmd = [
     {
       event = "FileType";
-      pattern = [ "yaml" "yml" ];
+      pattern = [
+        "yaml"
+        "yml"
+      ];
       callback =
         lib.nixvim.mkRaw
           # lua
