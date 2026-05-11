@@ -6,9 +6,8 @@
   ...
 }:
 {
-  config = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") {
-    plugins.japanese-input = {
-      enable = true;
-    };
+  imports = [ inputs.japanese-input-nvim.nixvimModules.default ];
+  plugins.japanese-input = {
+    enable = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
   };
 }
