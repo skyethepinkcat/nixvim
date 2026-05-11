@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   options.plugins.chess.enable = lib.mkEnableOption "nvim-chess";
 
