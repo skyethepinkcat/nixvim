@@ -30,6 +30,7 @@
   outputs =
     { flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
       # All .nix files in ./flake/ are auto-imported (see flake/default.nix).
       imports = [ ./flake ];
     };
