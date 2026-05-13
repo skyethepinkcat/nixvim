@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, utils, ... }:
 {
   # Import all your configuration modules here
   imports =
@@ -72,6 +72,8 @@
       eob = " "; # hide ~ on empty lines after buffer end
     };
 
+    colorcolumn = "+1";
+
     updatetime = 500; # ms idle before CursorHold fires (affects diagnostics, gitsigns)
 
     foldmethod = "expr"; # Use expression to generate folds
@@ -79,7 +81,7 @@
     foldlevel = 99;
     foldenable = false;
 
-    textwidth = 80; # Prefer 80 character lines
+    textwidth = 100;
     linebreak = true;
 
     showmode = false; # Don't show modes in noice statusbar
@@ -100,4 +102,20 @@
     enable = true;
   };
 
+  extraConfigLua =
+    # lua
+    ''
+      vim.opt.formatoptions:append(
+        "a" .. -- auto-format paragraphs if something is changed within them
+        "j" .. -- merge comments when joining lines
+        "o" .. -- stay within comments when using "o"
+        "r" .. -- stay within comments when in insert mode
+        "q" .. -- make gq slightly smarter about comments
+        "n" .. -- recognize lists
+        "l" .. -- don't break long lines if they were already long
+        "")
+      vim.opt.formatoptions:remove(
+        "t" -- don't autowrap code, only comments
+      )
+    '';
 }

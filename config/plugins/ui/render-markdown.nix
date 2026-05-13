@@ -85,4 +85,21 @@ in
         }
       ];
   };
+
+  # Set options for text files
+  autoCmd = [
+    {
+      event = [ "FileType" ];
+      pattern = [
+        "markdown"
+        "text"
+      ];
+      callback =
+        utils.mkFunc
+          # lua
+          ''
+            vim.opt.formatoptions:append("t") -- Have neovim handle line wrapping everywhere
+          '';
+    }
+  ];
 }
