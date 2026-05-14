@@ -19,18 +19,17 @@
             function()
               local WIDTH_RATIO = 0.5
               local HEIGHT_RATIO = 0.8
-              local screen_w = vim.opt.columns:get()
-              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-              local window_w = screen_w * WIDTH_RATIO
-              local window_h = screen_h * HEIGHT_RATIO
+              local win_w = vim.api.nvim_win_get_width(0)
+              local win_h = vim.api.nvim_win_get_height(0)
+              local window_w = win_w * WIDTH_RATIO
+              local window_h = win_h * HEIGHT_RATIO
               local window_w_int = math.floor(window_w)
               local window_h_int = math.floor(window_h)
-              local center_x = (screen_w - window_w) / 2
-              local center_y = ((vim.opt.lines:get() - window_h) / 2)
-                               - vim.opt.cmdheight:get()
+              local center_x = (win_w - window_w) / 2
+              local center_y = (win_h - window_h) / 2
               return {
                 border = "rounded",
-                relative = "window",
+                relative = "win",
                 row = center_y,
                 col = center_x,
                 width = window_w_int,
