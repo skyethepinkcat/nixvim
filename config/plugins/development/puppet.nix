@@ -32,6 +32,18 @@
     {
       event = "FileType";
       pattern = [
+        "puppet"
+      ];
+      callback =
+        utils.mkFunc
+          # lua
+          ''
+            vim.opt.commentstring = "# %s";
+          '';
+    }
+    {
+      event = "FileType";
+      pattern = [
         "yaml"
         "yml"
       ];

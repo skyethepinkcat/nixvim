@@ -106,7 +106,7 @@
     # lua
     ''
       vim.opt.formatoptions:append(
-        "a" .. -- auto-format paragraphs if something is changed within them
+        -- "a" .. -- auto-format paragraphs if something is changed within them
         "j" .. -- merge comments when joining lines
         "o" .. -- stay within comments when using "o"
         "r" .. -- stay within comments when in insert mode
@@ -118,4 +118,22 @@
         "t" -- don't autowrap code, only comments
       )
     '';
+
+  autoCmd = [
+    {
+      event = "FileType";
+      pattern = [
+        "puppet"
+        "ruby"
+      ];
+
+      callback =
+        utils.mkFunc
+          # lua
+          ''
+            vim.opt.formatlistpat = [[^\s*\(\d\+[\]:.)}\t ]\|@\w\+\s\)\s*]]
+          '';
+
+    }
+  ];
 }

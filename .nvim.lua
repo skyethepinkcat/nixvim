@@ -9,7 +9,7 @@ vim.lsp.config("nixd", {
 			},
 			options = {
 				nixvim = {
-					expr = "(builtins.getFlake (toString ./.)).homeModules.nixvim.programs.nixvim.options",
+					expr = "(builtins.getFlake (toString ./.)).currentSystem.nixvimConfigurations.default.options",
 				},
 			},
 		},

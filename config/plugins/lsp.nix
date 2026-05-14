@@ -20,6 +20,15 @@ in
         enable = true;
       };
       lua_ls = {
+        config = {
+          Lua = {
+            diagnostics = {
+              # I basically never write lua outside of nvim configs, so there's very little reason
+              # to not just handle this globally
+              globals = [ "vim" ];
+            };
+          };
+        };
         enable = true;
       };
       jsonls = {

@@ -5,41 +5,81 @@
   ...
 }:
 {
+  # lovingly stolen from
+  # https://github.com/MarioCarrion/videos/blob/269956e913b76e6bb4ed790e4b5d25255cb1db4f/2023/01/nvim/lua/plugins/nvim-tree.lua
   plugins.nvim-tree = {
     enable = true;
-    settings.on_attach = lib.nixvim.mkRaw ''
-      function(bufnr)
-        local api = require("nvim-tree.api")
-
-        local function opts(desc)
-          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-        end
-
-        api.config.mappings.default_on_attach(bufnr)
-
-        local function openfolder()
-          local node = api.tree.get_node_under_cursor()
-          if node.nodes ~= nil then
-            api.node.open.edit()
+    settings = {
+      sync_root_with_cwd = true;
+      view = {
+        relativenumber = true;
+        float = {
+          enable = true;
+          open_win_config = lib.nixvim.mkRaw ''
+            function()
+              local WIDTH_RATIO = 0.5
+              local HEIGHT_RATIO = 0.8
+              local screen_w = vim.opt.columns:get()
+              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+              local window_w = screen_w * WIDTH_RATIO
+              local window_h = screen_h * HEIGHT_RATIO
+              local window_w_int = math.floor(window_w)
+              local window_h_int = math.floor(window_h)
+              local center_x = (screen_w - window_w) / 2
+              local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                               - vim.opt.cmdheight:get()
+              return {
+                border = "rounded",
+                relative = "window",
+                row = center_y,
+                col = center_x,
+                width = window_w_int,
+                height = window_h_int,
+              }
+            end
+          '';
+        };
+        width = lib.nixvim.mkRaw ''
+          function()
+            local WIDTH_RATIO = 0.5
+            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
           end
-        end
+        '';
+      };
+      on_attach = lib.nixvim.mkRaw ''
+        function(bufnr)
+          local api = require("nvim-tree.api")
 
-        local function vsplit_preview()
-          local node = api.tree.get_node_under_cursor()
-          if node.nodes ~= nil then
-            api.node.open.edit()
-          else
-            api.node.open.vertical()
+          local function opts(desc)
+            return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
           end
-          api.tree.focus()
-        end
 
-        vim.keymap.set("n", "l", openfolder,          opts("Open/Close Folder"))
-        vim.keymap.set("n", "L", vsplit_preview,        opts("Vsplit Preview"))
-        vim.keymap.set("n", "h", api.node.navigate.parent,        opts("Close"))
-        vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
-      end
-    '';
+          api.config.mappings.default_on_attach(bufnr)
+
+          local function openfolder()
+            local node = api.tree.get_node_under_cursor()
+            if node.nodes ~= nil then
+              api.node.open.edit()
+            end
+          end
+
+          local function vsplit_preview()
+            local node = api.tree.get_node_under_cursor()
+            if node.nodes ~= nil then
+              api.node.open.edit()
+            else
+              api.node.open.vertical()
+            end
+            api.tree.focus()
+          end
+
+          vim.keymap.set("n", "l", openfolder,          opts("Open/Close Folder"))
+          vim.keymap.set("n", "L", vsplit_preview,        opts("Vsplit Preview"))
+          vim.keymap.set("n", "h", api.node.navigate.parent,        opts("Close"))
+          vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
+        end
+      '';
+    };
   };
   extraPackagesAfter = with pkgs; [
     trash-cli
