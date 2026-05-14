@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption;
+  inherit (lib) mkOption types;
   inherit (lib.types)
     str
     bool
@@ -163,8 +163,34 @@ let
 in
 {
   config = {
-    wKeyList = map mkwKey config.keyList;
     autoCmd = builtins.attrValues (builtins.mapAttrs mkftKeyAutocmd config.ftKeyList);
+    plugins.which-key = {
+            enable = true;
+            settings.spec = (map mkwKey config.keyList) ++ config.wKeyList;
+            };
+    extraConfigLua = ''
+      local wk = require('which-key')
+      wk.add({
+    ''
+    + (builtins.concatStringsSep "\n" (
+      map (
+        key:
+        # lua
+        ''
+          {${tl key.key}, ${tl key.action},
+
+              mode = ${tl key.mode},
+              desc = ${tl key.desc},
+              silent = ${tl key.silent},
+              remap = ${tl key.remap},
+              noremap = ${tl key.noremap},
+              icon = ${tl key.icon};
+          },
+        '') config.keyList
+    ))
+    + ''
+      })
+    '';
   };
   options = {
     keyList = mkOption {
@@ -191,5 +217,6 @@ in
       description = "Attrset of filetypes and a corresponding list of key
       objects, which will be loaded when the the corresponding filetype is entered.";
     };
+    wKeyList = mkOption { type = listOf attrs; };
   };
 }

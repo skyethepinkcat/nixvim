@@ -10,6 +10,10 @@
   plugins.nvim-tree = {
     enable = true;
     settings = {
+      actions.open_file.window_picker = {
+        enable = false;
+
+      };
       sync_root_with_cwd = true;
       view = {
         relativenumber = true;
@@ -72,10 +76,12 @@
             api.tree.focus()
           end
 
-          vim.keymap.set("n", "l", openfolder,          opts("Open/Close Folder"))
-          vim.keymap.set("n", "L", vsplit_preview,        opts("Vsplit Preview"))
-          vim.keymap.set("n", "h", api.node.navigate.parent,        opts("Close"))
+          vim.keymap.set("n", "l", openfolder, opts("Open/Close Folder"))
+          vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
+          vim.keymap.set("n", "h", api.node.navigate.parent, opts("Close"))
           vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
+          vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
+          vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
         end
       '';
     };

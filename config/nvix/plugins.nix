@@ -72,11 +72,6 @@ in
       };
     };
     visual-multi.enable = true;
-    which-key = {
-      enable = true;
-      settings.spec = config.wKeyList;
-      settings.preset = "helix";
-    };
   };
   opts = {
     timeout = true;

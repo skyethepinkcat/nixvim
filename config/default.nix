@@ -128,13 +128,11 @@
         "ruby"
       ];
 
-      callback =
-        utils.mkFunc
-          # lua
-          ''
-            vim.opt.formatlistpat = [[^\s*\(\d\+[\]:.)}\t ]\|@\w\+\s\)\s*]]
-          '';
-
+      callback = lib.nixvim.mkRaw ''
+        function()
+          vim.opt.formatlistpat = [[^\s*\(\d\+[\]:.)}\t ]\|@\w\+\s\)\s*]]
+        end
+      '';
     }
   ];
 }

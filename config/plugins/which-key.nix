@@ -3,7 +3,6 @@
   plugins.which-key = {
     enable = true;
     settings = {
-      spec = config.wKeyList;
       win = {
         width = {
           min = 30;
