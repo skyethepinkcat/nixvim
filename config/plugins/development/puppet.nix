@@ -27,6 +27,7 @@ in
 
   ftplugin.puppet = {
     localOpts.commentstring = "# %s";
+    localOpts.textwidth = 140;
   };
 
   # Logic here is WAYYYYYYYY more complicated, so instead we'll just use
