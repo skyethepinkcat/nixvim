@@ -28,45 +28,17 @@ let
     };
   };
 
-  snippetFiles = lib.mapAttrsToList (ft: defs: {
-    name = "${ft}.json";
-    path = pkgs.writeText "${ft}.json" (builtins.toJSON defs);
-  }) snippets;
-
-  packageJson = pkgs.writeText "package.json" (
-    builtins.toJSON {
-      name = "nixvim-snippets";
-      contributes.snippets = lib.mapAttrsToList (ft: _: {
-        language = ft;
-        path = "./${ft}.json";
-      }) snippets;
-    }
-  );
-
-  snippetPkg = pkgs.linkFarm "nixvim-snippets" (
-    [
-      {
-        name = "package.json";
-        path = packageJson;
-      }
-    ]
-    ++ snippetFiles
-  );
 in
 {
-  exportFiles = [
-    {
-      source = snippetPkg;
-      name = "snippets/nixvim";
-      recursive = true;
-    }
-  ];
+  # Convert the snippets hash to extraFiles
+  extraFiles = lib.concatMapAttrs (name: value: {
+    "snippets/${name}.json".text = builtins.toJSON value;
+  }) snippets;
 
   plugins = {
     friendly-snippets.enable = true;
     blink-cmp.settings.sources.providers.snippets.opts.search_paths = [
       (lib.nixvim.mkRaw "vim.fn.stdpath('config') .. '/snippets'")
-      snippetPkg
     ];
   };
 }

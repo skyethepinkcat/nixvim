@@ -86,7 +86,6 @@ in
             package = null;
           };
           nixfmt.enable = true;
-          nix_flake_fmt.enable = true;
           prettier = {
             enable = true;
             disableTsServerFormatter = true;

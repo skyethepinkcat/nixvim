@@ -12,4 +12,8 @@ in
           ${function}
         end
       '';
+
+  getConfigFilePath = filename: mkRaw ''
+    vim.fn.stdpath("config") .. "/${filename}"
+  '' ;
 }
