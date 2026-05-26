@@ -2,7 +2,6 @@
   description = "A Nixvim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -12,11 +11,13 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim/nixos-26.05";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    nixpkgs.follows = "nixvim/nixpkgs";
 
     japanese-input-nvim = {
       url = "github:skyethepinkcat/japanese-input-nvim";
