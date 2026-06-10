@@ -15,7 +15,9 @@ lib.mkIf config.profiles.export {
 
   # Skip bundling treesitter parsers — :TSInstall on the target system instead.
   plugins = {
-    treesitter.settings.grammarPackages = mkForce [ ];
+    japanese-input.enable = mkForce false;
+    treesitter.nixGrammars = mkForce false;
+    blink-cmp.settings.fuzzy.implementation = "lua";
     none-ls.sources = {
       diagnostics = {
         statix.package = null;

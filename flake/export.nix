@@ -87,7 +87,8 @@
           nativeBuildInputs = [ nixvim-config-export ];
         } ''
         mkdir -p $out
-        tar -chzf $out/nvim.tar.gz -C ${nixvim-config-export} .
+        mkdir -p tmp
+        tar -chzf $out/nvim.tar.gz --no-same-permissions -C ${nixvim-config-export} .
 
         '';
       };
