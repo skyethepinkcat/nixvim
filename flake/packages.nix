@@ -66,7 +66,7 @@
 
       # `nix develop` — tools for editing this config
       devShells.default = pkgs.mkShell {
-        pacrkages = with pkgs; [
+        packages = with pkgs; [
           statix
           nixd
           nixfmt

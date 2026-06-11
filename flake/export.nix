@@ -60,7 +60,6 @@
           pkgs.runCommand "nixvim-config-export" { nativeBuildInputs = [ pkgs.gnused ]; } ''
             TMPOUT=.config/nvim
             mkdir -p $TMPOUT
-            mkdir -p $TMPOUT
             # Copy the vim-pack-dir derivation (resolving symlinks for portability).
             cp -rL "${packDir}/pack" "$TMPOUT/pack"
 
@@ -86,7 +85,7 @@
         nixvim-config-export-archive =
           pkgs.runCommand "nixvim-config-export-archive"
             {
-              nativeBuildInputs = [ nixvim-config-export ];
+              buildInputs = [ nixvim-config-export ];
             }
             ''
               mkdir -p $out

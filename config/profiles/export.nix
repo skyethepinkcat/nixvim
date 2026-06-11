@@ -38,7 +38,6 @@ lib.mkIf config.profiles.export {
         vim.fn.stdpath("config") .. "/lazygit.yaml"
       ''
     );
-    # japanese-input.enable = lib.mkForce false;
   };
   extraPlugins = with pkgs.vimPlugins; [
     mason-nvim

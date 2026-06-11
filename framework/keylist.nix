@@ -166,7 +166,6 @@ in
     autoCmd = builtins.attrValues (builtins.mapAttrs mkftKeyAutocmd config.ftKeyList);
     plugins.which-key = {
       enable = true;
-      settings.spec = (map mkwKey config.keyList) ++ config.wKeyList;
     };
     extraConfigLua = ''
       local wk = require('which-key')

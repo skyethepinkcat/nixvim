@@ -90,11 +90,6 @@ in
       "toggles"
     ])
     (wKeyObj [
-      "<leader>T"
-      ""
-      "toggles"
-    ])
-    (wKeyObj [
       "<leader>gh"
       "󰫅"
       "hunks"
