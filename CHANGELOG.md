@@ -4,42 +4,49 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.4] - 2026-04-27
+## [2.0] - 2026-04-27
 
 ### Added
 - Replace codecompanion with Claude CLI integration and migrate completion to blink-cmp
-- Add nixpkgs-edge input for access to bleeding-edge packages
 - Indent lines via indent-blankline
 - Enable lazygit plugin with keymaps restored
-- Migrate keymaps to `keyList`/`wKeyList` helpers via `lib.keys`
+- Migrate keymaps to `keyList`/`ftKeyList` helpers via `framework/keylist.nix`
+- Added a wrapper for `config.files` to specify ftplugins.
 - `NvimTreeQuitFix` autocmd for correct `:bd` and `:q` behavior in nvim-tree
 - nvim-tree `on_attach` keymaps and additional configuration
 - Claude Code Review and Claude PR Assistant GitHub Actions workflows
 - render-markdown plugin with buffer-local keymaps
 - Custom dashboard via skyepkgs overlay (`pkgs.vimPlugins.dashboard`)
-- Snippets support via linkFarm
 - OpenCode AI integration with dual-tool keybinds (opencode + claude) and session tracking
 - Which-key group and icons for AI keybinds
-- Frecency picker
 - jsonls and prettier language servers
 - Lazygit config export
-- `exportFiles` option for exporting config files
+- Added `lib/` to contain functions and `framework/` to contain framework code for
+  clarity.
+- Helper keybinds for Japanese Input on Darwin
+- Tab Keybinds
+- Puppet helper functions
+#### Plugins Added
+- abolish-vim
+- nvim-chess
+-
 
 ### Changed
 - Reorganize `flake.nix` and `flake/` directory for clarity
 - Enable lib on home module
-- Swap claude for opencode as primary AI tool
 - Simplify plugins imports structure
 - Remove clangd LSP
-
+- More or less completely removed snacks
+- nvim-tree now uses a floating window
 ### Fixed
-- Use `pkgs.stdenv.hostPlatform.system` for nixpkgs-edge compatibility
-- Remove broken tree-sitter configuration
 - Incorrectly inherited keymap key and action
 - `extraConfigLua` not applying for AI config
 - Remove `sh` lang tag from code blocks (prevented `#` comment highlighting)
-- CI impure build
 - Dashboard: disable indent scope and project widget
 - Neovide dark theme
+- `data/` is no longer ignored by Telescope
+- Don't show the nvim intro on startup
+
+And lots more!
 
 ## [1.3] - prior release
