@@ -79,8 +79,9 @@
           vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
           vim.keymap.set("n", "h", api.node.navigate.parent, opts("Close"))
           vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
-          vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
-          vim.keymap.set("n", "D", api.fs.remove, opts("Delete"))
+          -- Trash is preferred as the default, but it causes issues with floating windows currently.
+          vim.keymap.set("n", "d", api.fs.trash, opts("Delete"))
+          vim.keymap.set("n", "D", api.fs.remove, opts("Trash"))
         end
       '';
     };
