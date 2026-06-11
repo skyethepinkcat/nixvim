@@ -11,7 +11,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-26.05";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
