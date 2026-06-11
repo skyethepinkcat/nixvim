@@ -1,1 +1,5 @@
 - [ ] Split framework into a seperate module
+- [ ] Puppet treesitter parser breaks when encountering HEREDOCs.
+- [ ] Tab workspaces need more work and possibly reconsideration
+- [ ] Consider dropping neovide support
+- [ ] Deleting an open file from nvim-tree gives an error.

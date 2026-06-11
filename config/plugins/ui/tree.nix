@@ -12,7 +12,6 @@
     settings = {
       actions.open_file.window_picker = {
         enable = false;
-
       };
       sync_root_with_cwd = true;
       view = {
