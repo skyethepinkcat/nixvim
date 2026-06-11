@@ -81,6 +81,16 @@ cp -r result/ ~/.config/nvim
 > Tree-sitter parsers are not bundled — run `:TSInstall` on the target machine.
 > LSP servers and formatters must be installed separately (Mason is included).
 
+
+#### Tar Archive
+
+A build option for a tar archive is also included for convience.
+
+```
+nix build .#nvim-config-export-archive
+tar -xf result/nvim.tar.gz -C ~/.config/nvim
+```
+
 ## Profiles
 
 Profiles are opt-in layers on top of the base config.
@@ -140,7 +150,6 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
   - `<leader>aC` — `claude --continue`
   - `<leader>aV` — `claude --verbose`
   - `<leader>ar` — `claude --resume`
-- **Copilot** — inline suggestions
 
 ---
 
