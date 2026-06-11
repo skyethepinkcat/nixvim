@@ -76,7 +76,7 @@
             # Compiled binaries/shared libs with embedded paths are not fixable here.
             find "$TMPOUT" -type f -exec sed -i 's|"/nix/store/[^"]*"|""|g' {} +
 
-            chmod -R u-w "$TMPOUT/pack"
+            # chmod -R u-w "$TMPOUT/pack"
 
             mkdir -p $out
             cp -r $TMPOUT/. $out

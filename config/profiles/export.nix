@@ -50,4 +50,5 @@ lib.mkIf config.profiles.export {
     require("mason").setup()
     require("mason-lspconfig").setup()
   '';
+  impureRtp = mkForce true;
 }
