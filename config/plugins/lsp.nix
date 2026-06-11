@@ -1,4 +1,11 @@
-{ lib, ... }:
+{
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (lib.nixvim) mkRaw;
+in
 {
   plugins = {
     lspconfig.enable = true;
@@ -13,9 +20,18 @@
         enable = true;
       };
       lua_ls = {
+        config = {
+          Lua = {
+            diagnostics = {
+              # I basically never write lua outside of nvim configs, so there's very little reason
+              # to not just handle this globally
+              globals = [ "vim" ];
+            };
+          };
+        };
         enable = true;
       };
-      clangd = {
+      jsonls = {
         enable = true;
       };
     };
@@ -32,10 +48,17 @@
     # };
   };
 
-  keymaps = [
+  keyList = [
+    {
+      key = "<leader>l";
+      action = null;
+      icon = "";
+      group = "lsp";
+    }
+
     {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -43,14 +66,11 @@
             end
           '';
       key = "<leader>la";
-      mode = "n";
-      options = {
-        desc = "Code Action";
-      };
+      desc = "Code Action";
     }
     {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -58,14 +78,11 @@
             end
           '';
       key = "<leader>ln";
-      mode = "n";
-      options = {
-        desc = "LSP Rename";
-      };
+      desc = "LSP Rename";
     }
     {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -73,14 +90,11 @@
             end
           '';
       key = "<leader>li";
-      mode = "n";
-      options = {
-        desc = "LSP Implementation";
-      };
+      desc = "LSP Implementation";
     }
     {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -88,14 +102,11 @@
             end
           '';
       key = "<leader>lt";
-      mode = "n";
-      options = {
-        desc = "LSP Type Definition";
-      };
+      desc = "LSP Type Definition";
     }
     {
       action =
-        lib.nixvim.mkRaw
+        mkRaw
           # lua
           ''
             function ()
@@ -103,11 +114,7 @@
             end
           '';
       key = "<leader>lr";
-      mode = "n";
-      options = {
-        desc = "LSP References";
-      };
+      desc = "LSP References";
     }
   ];
-
 }

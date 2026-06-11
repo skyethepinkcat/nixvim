@@ -1,8 +1,26 @@
-_: {
+{ lib, ... }:
+let
+  inherit (lib.nixvim) mkRaw;
+in
+{
   plugins.lualine = {
     enable = true;
     settings = {
+      options = {
+        globalstatus = true;
+      };
+
       sections = {
+        lualine_c = [
+          "filename"
+          (mkRaw ''
+            {
+              require("noice").api.status.mode.get,
+              cond = require("noice").api.status.mode.has,
+              color = { fg = "#ff9e64" },
+            }
+          '')
+        ];
         lualine_x = [
           "lsp_status"
           "encoding"
@@ -27,7 +45,6 @@ _: {
           {
             __unkeyed-1 = "tabs";
             mode = 2;
-
           }
         ];
       };

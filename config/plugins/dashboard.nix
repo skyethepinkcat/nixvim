@@ -1,53 +1,67 @@
 {
+  config,
   lib,
   pkgs,
+  utils,
   ...
 }:
+let
+  inherit (utils.telescope) openPicker openExtensionPickerWithOptions;
+  inherit (lib.nixvim) mkRaw;
+in
 {
-  plugins.snacks = {
-    settings.dashboard = {
-      enabled = true;
-      sections = {
-        __raw =
-          lib.mkForce
-            # lua
-            ''
-                {
-                    { section = "header" },
-                    {
-                      pane = 2,
-                      section = "terminal",
-                      cmd = "colorscript -e square",
-                      height = 5,
-                      padding = 1,
-                    },
-                    { section = "keys", gap = 1, padding = 1 },
-                    { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-                    { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-                    {
-                      pane = 2,
-                      icon = " ",
-                      title = "Git Status",
-                      section = "terminal",
-                      enabled = function()
-                        return Snacks.git.get_root() ~= nil
-                        end,
-                      cmd = "git status --short --branch --renames",
-                      height = 5,
-                      padding = 1,
-                      ttl = 5 * 60,
-                      indent = 3,
-                    },
-              }
-            '';
+  plugins.dashboard = {
+    enable = true;
+    settings = {
+      shortcut_type = "number";
+      config = {
+        project = {
+          enable = false;
+        };
+        shortcut = [
+          {
+            action = openPicker "find_files";
+            desc = "Files";
+            group = "Label";
+            icon = "󰱼 ";
+            icon_hl = "@variable";
+            key = "f";
+          }
+          {
+            action = openPicker "live_grep";
+            desc = "Grep";
+            group = "Label";
+            icon = "󱎸 ";
+            icon_hl = "@variable";
+            key = "g";
+          }
+          {
+            action =
+              mkRaw
+                # lua
+                ''
+                  function()
+                    vim.cmd("q")
+                    end
+                '';
+            desc = "Quit";
+            group = "Label";
+            icon = " ";
+            icon_hl = "@variable";
+            key = "q";
+          }
+        ];
+        header = [
+          "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗"
+          "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║"
+          "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║"
+          "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║"
+          "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║"
+          "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
+        ];
+        packages.enable = true;
+        mru.cwd_only = true;
       };
     };
   };
-  extraPackages = with pkgs; [
-    imagemagick
-    ghostscript_headless
-    tectonic
-    mermaid-cli
-    dwt1-shell-color-scripts
-  ]; # for image support
 }

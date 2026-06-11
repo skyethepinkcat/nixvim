@@ -1,254 +1,19 @@
-{ config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
   inherit (config.nvix.mkKey) wKeyObj;
+  inherit (lib) mkOption;
+  tl = lib.nixvim.toLuaObject;
 in
 {
-  keymaps = [
-    # Insert mode navigation
-    {
-      action = "<ESC>^i";
-      key = "<C-b>";
-      mode = "i";
-      options = {
-        desc = "move beginning of line";
-      };
-    }
-    {
-      action = "<End>";
-      key = "<C-e>";
-      mode = "i";
-      options = {
-        desc = "move end of line";
-      };
-    }
-    {
-      action = "<Left>";
-      key = "<C-h>";
-      mode = "i";
-      options = {
-        desc = "move left";
-      };
-    }
-    {
-      action = "<Right>";
-      key = "<C-l>";
-      mode = "i";
-      options = {
-        desc = "move right";
-      };
-    }
-    {
-      action = "<Down>";
-      key = "<C-j>";
-      mode = "i";
-      options = {
-        desc = "move down";
-      };
-    }
-    {
-      action = "<Up>";
-      key = "<C-k>";
-      mode = "i";
-      options = {
-        desc = "move up";
-      };
-    }
-
-    # Window navigation
-    {
-      action = "<C-w>h";
-      key = "<C-h>";
-      mode = "n";
-      options = {
-        desc = "switch window left";
-      };
-    }
-    {
-      action = "<C-w>l";
-      key = "<C-l>";
-      mode = "n";
-      options = {
-        desc = "switch window right";
-      };
-    }
-    {
-      action = "<C-w>j";
-      key = "<C-j>";
-      mode = "n";
-      options = {
-        desc = "switch window down";
-      };
-    }
-    {
-      action = "<C-w>k";
-      key = "<C-k>";
-      mode = "n";
-      options = {
-        desc = "switch window up";
-      };
-    }
-
-    # General mappings
-    {
-      action = "<cmd>noh<CR>";
-      key = "<Esc>";
-      mode = "n";
-      options = {
-        desc = "general clear highlights";
-      };
-    }
-    {
-      action = "<cmd>w<CR>";
-      key = "<C-s>";
-      mode = "n";
-      options = {
-        desc = "general save file";
-      };
-    }
-    {
-      action = "<cmd>%y+<CR>";
-      key = "<C-c>";
-      mode = "n";
-      options = {
-        desc = "general copy whole file";
-      };
-    }
-    {
-      action = "<cmd>set nu!<CR>";
-      key = "<leader>n";
-      mode = "n";
-      options = {
-        desc = "toggle line number";
-      };
-    }
-    {
-      action = "<cmd>set rnu!<CR>";
-      key = "<leader>rn";
-      mode = "n";
-      options = {
-        desc = "toggle relative number";
-      };
-    }
-    # Format keymaps
-    {
-      action = "<cmd>lua vim.lsp.buf.format()<CR>";
-      key = "<leader>fm";
-      mode = [
-        "n"
-        "x"
-      ];
-      options = {
-        desc = "general format file";
-      };
-    }
-
-    # LSP mappings
-    {
-      action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
-      key = "<leader>ld";
-      mode = "n";
-      options = {
-        desc = "LSP diagnostic loclist";
-      };
-    }
-
-    # Buffer mappings
-    {
-      action = "<cmd>enew<CR>";
-      key = "<leader>bs";
-      mode = "n";
-      options = {
-        desc = "scratch buffer";
-      };
-    }
-    {
-      action = "<cmd>tabnext<CR>";
-      key = "<tab>";
-      mode = "n";
-      options = {
-        desc = "tab goto next";
-      };
-    }
-    {
-      action = "<cmd>tabnew<CR>";
-      key = "<leader>tn";
-      mode = "n";
-      options = {
-        desc = "tab new";
-      };
-    }
-    {
-      action = "<cmd>tabprevious<CR>";
-      key = "<S-tab>";
-      mode = "n";
-      options = {
-        desc = "tab goto prev";
-      };
-    }
-    {
-      action = "<cmd>bdelete<CR>";
-      key = "<leader>bx";
-      mode = "n";
-      options = {
-        desc = "buffer close";
-      };
-    }
-    {
-      action = "<cmd>tabclose<CR>";
-      key = "<leader>x";
-      mode = "n";
-      options = {
-        desc = "tab close";
-      };
-    }
-
-    # Comment
-    {
-      action = "gcc";
-      key = "<leader>/";
-      mode = "n";
-      options = {
-        desc = "toggle comment";
-        remap = true;
-      };
-    }
-    {
-      action = "gc";
-      key = "<leader>/";
-      mode = "v";
-      options = {
-        desc = "toggle comment";
-        remap = true;
-      };
-    }
-
-    # Semicolon to command mode
-    {
-      action = ":";
-      key = ";";
-      mode = "n";
-      options = {
-        desc = "CMD enter command mode";
-      };
-    }
-
-    # Misc keymaps
-    {
-      action = "q";
-      key = "<M-q>";
-      mode = "n";
-    }
-    {
-      action = "";
-      key = "q";
-      mode = "n";
-    }
-
-  ];
+  # Group labels only — no action, must stay as wKeyList
   wKeyList = [
     (wKeyObj [
       "<leader>b"
-      ""
+      ""
       "Buffers"
     ])
     (wKeyObj [
@@ -256,5 +21,226 @@ in
       ""
       "Last Buffer"
     ])
+  ];
+
+  keyList = [
+    # Insert/command mode navigation (Emacs-style)
+    {
+      action = "<Home>";
+      key = "<C-a>";
+      mode = "ic";
+      desc = "move beginning of line";
+    }
+    {
+      action = "<End>";
+      key = "<C-e>";
+      mode = "ic";
+      desc = "move end of line";
+    }
+    {
+      action = "<Left>";
+      key = "<C-b>";
+      mode = "ic";
+      desc = "move left";
+    }
+    {
+      action = "<Right>";
+      key = "<C-f>";
+      mode = "ic";
+      desc = "move right";
+    }
+    {
+      action = "<Down>";
+      key = "<C-n>";
+      mode = "i";
+      desc = "move down";
+    }
+    {
+      action = "<Up>";
+      key = "<C-p>";
+      mode = "i";
+      desc = "move up";
+    }
+    # Word jump (Emacs-style)
+    {
+      action = "<C-o>b";
+      key = "<M-b>";
+      mode = "i";
+      desc = "move word backward";
+    }
+    {
+      action = "<C-o>w";
+      key = "<M-f>";
+      mode = "i";
+      desc = "move word forward";
+    }
+    {
+      action = "<S-Left>";
+      key = "<M-b>";
+      mode = "c";
+      desc = "move word backward";
+    }
+    {
+      action = "<S-Right>";
+      key = "<M-f>";
+      mode = "c";
+      desc = "move word forward";
+    }
+
+    # Window navigation
+    {
+      action = "<C-w>h";
+      key = "<C-h>";
+      desc = "switch window left";
+    }
+    {
+      action = "<C-w>l";
+      key = "<C-l>";
+      desc = "switch window right";
+    }
+    {
+      action = "<C-w>j";
+      key = "<C-j>";
+      desc = "switch window down";
+    }
+    {
+      action = "<C-w>k";
+      key = "<C-k>";
+      desc = "switch window up";
+    }
+
+    # General mappings
+    {
+      action = "<cmd>noh<CR>";
+      key = "<Esc>";
+      desc = "Clear highlights";
+    }
+    {
+      action = "<cmd>w<CR>";
+      key = "<C-s>";
+      desc = "Save file";
+    }
+    {
+      action = "<cmd>%y+<CR>";
+      key = "<C-c>";
+      desc = "Copy whole file";
+    }
+    {
+      action = "<cmd>set nu!<CR>";
+      key = "<leader>Tn";
+      desc = "toggle line number";
+    }
+    {
+      action = "<cmd>set rnu!<CR>";
+      key = "<leader>Tr";
+      desc = "toggle relative number";
+    }
+
+    # Format keymaps
+    {
+      action =
+        lib.nixvim.mkRaw
+          # lua
+          ''
+            function()
+              vim.lsp.buf.format()
+            end
+          '';
+      key = "<leader>fm";
+      mode = [
+        "n"
+        "x"
+        "v"
+      ];
+      desc = "general format file";
+    }
+
+    # LSP mappings
+    {
+      action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
+      key = "<leader>ld";
+      desc = "LSP diagnostic loclist";
+    }
+
+    # Buffer mappings
+    {
+      action = "<cmd>enew<CR>";
+      key = "<leader>bs";
+      desc = "scratch buffer";
+    }
+    {
+      action = "<cmd>enew | setfiletype lua<CR>";
+      key = "<leader>bl";
+      desc = "lua scratch buffer";
+      icon = "";
+    }
+    {
+      action = "<cmd>tabnext<CR>";
+      key = "<tab>";
+      desc = "tab goto next";
+    }
+    {
+      action = "<cmd>tabnew<CR>";
+      key = "<leader>tn";
+      desc = "tab new";
+    }
+    {
+      action = "<cmd>tabprevious<CR>";
+      key = "<S-tab>";
+      desc = "tab goto prev";
+    }
+    {
+      action = "<cmd>bdelete<CR>";
+      key = "<leader>bx";
+      desc = "buffer close";
+    }
+    {
+      action = "<cmd>tabclose<CR>";
+      key = "<leader>x";
+      desc = "tab close";
+    }
+
+    # Comment
+    {
+      action = "gcc";
+      key = "<leader>/";
+      desc = "toggle comment";
+      noremap = false;
+    }
+    {
+      action = "gc";
+      key = "<leader>/";
+      mode = "v";
+      desc = "toggle comment";
+      noremap = false;
+    }
+    # Semicolon to command mode
+    {
+      action = ":";
+      key = ";";
+      desc = "CMD enter command mode";
+    }
+    # Spelling
+    {
+      action = "z=";
+      key = "<leader>cs";
+      icon = "󰓆";
+      desc = "Spelling Suggestions";
+    }
+  ];
+
+  keymaps = [
+    {
+      action = "q";
+      key = "<A-q>";
+      mode = "n";
+      options.noremap = true;
+    }
+    {
+      action = "<Nop>";
+      key = "q";
+      mode = "n";
+      options.noremap = true;
+    }
   ];
 }

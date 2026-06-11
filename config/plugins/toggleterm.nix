@@ -1,4 +1,4 @@
-{
+_: {
   plugins.toggleterm = {
     enable = true;
     settings = {
@@ -6,7 +6,7 @@
       float_opts = {
         border = "curved";
       };
-      open_mapping = "[[<leader>tt]]";
+      open_mapping = "[[<leader>Tt]]";
       shade_terminals = true;
       size = ''
         function(term)
@@ -19,21 +19,27 @@
       '';
     };
   };
-  keymaps = [
-    {
-      action = "<C-\\><C-n>";
-      mode = "t";
-      key = "<esc>";
-    }
-    {
-      action = "<C-\\><C-n>";
-      mode = "t";
-      key = "jk";
-    }
+  keyList = [
+    # {
+    #   action = "<C-\\><C-n>";
+    #   mode = "t";
+    #   key = "<esc>";
+    # }
     {
       action = "<cmd>ToggleTerm<cr>";
       mode = "t";
       key = "<C-d>";
+    }
+    {
+      action = "<cmd>ToggleTerm<cr>";
+      mode = "t";
+      key = "<leader>bt";
+      desc = "Terminal Buffer";
+    }
+    {
+      action = "<cmd>ToggleTerm<cr>";
+      mode = "n";
+      key = "<leader>TT";
     }
   ];
 }

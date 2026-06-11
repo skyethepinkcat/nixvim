@@ -1,11 +1,12 @@
-{
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
   perSystem =
-    { pkgs, lib, ... }:
+    {
+      pkgs,
+      lib,
+      ...
+    }:
     {
       treefmt = {
         programs = {

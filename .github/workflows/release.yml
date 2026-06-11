@@ -16,17 +16,22 @@ jobs:
 
       - uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          nix_path: nixpkgs=channel:nixos-26.05
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: skyethepinkcat
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build nvim-config-export
-        run: nix build .#nvim-config-export --no-link --print-out-paths > store_path.txt
+        run: nix build .#nvim-config-export-archive --impure --no-link --print-out-paths > store_path.txt
 
       - name: Package as tar.gz
         run: |
           STORE_PATH=$(cat store_path.txt)
-          tar -czf nvim-config-export.tar.gz -C "$STORE_PATH" .
+          cp $STORE_PATH/nvim.tar.gz nvim.tar.gz
 
       - name: Upload to release
         uses: softprops/action-gh-release@v3
         with:
-          files: nvim-config-export.tar.gz
+          files: nvim.tar.gz

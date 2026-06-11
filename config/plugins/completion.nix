@@ -1,10 +1,17 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (lib.nixvim) mkRaw;
 in
 {
+  extraPlugins = with pkgs.vimPlugins; [
+    blink-cmp-conventional-commits
+  ];
   plugins = {
-    blink-cmp-copilot.enable = config.ai.suggestions;
     blink-cmp = {
       enable = true;
       settings = {
@@ -14,21 +21,21 @@ in
           menu.auto_show = false;
           ghost_text = {
             enabled = true;
-            show_with_menu = false;
+            show_with_menu = true;
             show_without_selection = true;
           };
         };
         keymap = {
-          preset = "enter";
-          "<Tab>" = [
-            "show"
-            "select_next"
-            "fallback"
-          ];
-          "<S-Tab>" = [
-            "select_prev"
-            "fallback"
-          ];
+          preset = "default";
+          # "<Tab>" = [
+          #   "show"
+          #   "select_next"
+          #   "fallback"
+          # ];
+          # "<S-Tab>" = [
+          #   "select_prev"
+          #   "fallback"
+          # ];
         };
         sources = {
           default = lib.optionals config.ai.suggestions [ "copilot" ] ++ [
