@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  utils,
   ...
 }:
 let
@@ -39,17 +40,13 @@ let
   );
 in
 {
-  exportFiles = [
-    {
-      source = lazygit_config;
-      name = "lazygit-config.yaml";
-    }
-  ];
+
+  extraFiles."lazygit.yaml".source = lazygit_config;
 
   plugins = {
     lazygit = {
       enable = true;
-      settings.config_file_path = lazygit_config;
+      settings.config_file_path = config.extraFiles."lazygit.yaml".finalSource;
       settings.use_custom_config_file_path = 1;
     };
     gitsigns = {
