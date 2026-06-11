@@ -24,7 +24,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Build nvim-config-export
-        run: nix build .#nvim-config-export-archive --impure --no-link --print-out-paths > store_path.txt
+        run: nix build .#nixvim-config-export-archive --impure --no-link --print-out-paths > store_path.txt
 
       - name: Package as tar.gz
         run: |
