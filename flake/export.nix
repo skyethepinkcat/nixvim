@@ -83,14 +83,17 @@
             # tar -czf $out/nvim.tar.gz $TMPOUT
           '';
 
-        nixvim-config-export-archive = pkgs.runCommand "nixvim-config-export-archive" {
-          nativeBuildInputs = [ nixvim-config-export ];
-        } ''
-        mkdir -p $out
-        mkdir -p tmp
-        tar -chzf $out/nvim.tar.gz --no-same-permissions -C ${nixvim-config-export} .
+        nixvim-config-export-archive =
+          pkgs.runCommand "nixvim-config-export-archive"
+            {
+              nativeBuildInputs = [ nixvim-config-export ];
+            }
+            ''
+              mkdir -p $out
+              mkdir -p tmp
+              tar -chzf $out/nvim.tar.gz --no-same-permissions -C ${nixvim-config-export} .
 
-        '';
+            '';
       };
     };
 }

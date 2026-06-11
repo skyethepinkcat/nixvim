@@ -3,7 +3,7 @@
 
   config = lib.mkIf (!config.isDocs) {
     files = lib.concatMapAttrs (name: value: {
-      "ftplugin/${name}.lua" = value ;
+      "ftplugin/${name}.lua" = value;
     }) config.ftplugin;
   };
 

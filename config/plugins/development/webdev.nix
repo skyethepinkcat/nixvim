@@ -25,7 +25,6 @@
     require("colortils").setup()
   '';
 
-
   # This should be kept as an autocommand rather than an ftKeyList to avoid needing to repeat for
   # each filetype.
   autoCmd = [

@@ -29,8 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 #### Plugins Added
 - abolish-vim
 - nvim-chess
--
-
+- quite a few more
 ### Changed
 - Reorganize `flake.nix` and `flake/` directory for clarity
 - Enable lib on home module
