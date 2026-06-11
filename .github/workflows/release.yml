@@ -18,6 +18,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-26.05
 
+      - uses: cachix/cachix-action@v14
+        with:
+          name: skyethepinkcat
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
       - name: Build nvim-config-export
         run: nix build .#nvim-config-export-archive --impure --no-link --print-out-paths > store_path.txt
 
