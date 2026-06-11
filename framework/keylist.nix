@@ -50,29 +50,6 @@ let
     );
   };
 
-  mkwKey =
-    key:
-    (
-      {
-        __unkeyed_1 = key.key;
-        __unkeyed_2 = key.action;
-        inherit (key)
-          desc
-          mode
-          icon
-          hidden
-          group
-          cond
-          proxy
-          expand
-          remap
-          noremap
-          silent
-          ;
-      }
-      // key.extraOpts
-    );
-
   keyObj = lib.types.submodule {
     options = {
       key = mkOption {
@@ -217,6 +194,9 @@ in
       description = "Attrset of filetypes and a corresponding list of key
       objects, which will be loaded when the the corresponding filetype is entered.";
     };
-    wKeyList = mkOption { type = listOf attrs; };
+    wKeyList = mkOption {
+      type = listOf attrs;
+      default = [ ];
+    };
   };
 }

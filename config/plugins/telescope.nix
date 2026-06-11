@@ -52,7 +52,7 @@ in
         find_files = {
           selection_caret = " ";
         };
-        live_greps = {
+        live_grep = {
           selection_caret = " ";
         };
         symbols = {
