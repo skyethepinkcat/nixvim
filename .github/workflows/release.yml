@@ -29,4 +29,4 @@ jobs:
       - name: Upload to release
         uses: softprops/action-gh-release@v3
         with:
-          files: nvim-config-export.tar.gz
+          files: nvim.tar.gz
