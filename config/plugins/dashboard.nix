@@ -3,15 +3,18 @@
   lib,
   pkgs,
   utils,
+  inputs,
   ...
 }:
 let
   inherit (utils.telescope) openPicker openExtensionPickerWithOptions;
   inherit (lib.nixvim) mkRaw;
+  spkgs = inputs.skyepkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}";
 in
 {
   plugins.dashboard = {
     enable = true;
+    package = spkgs.vimPlugins.dashboard-nvim;
     settings = {
       shortcut_type = "number";
       config = {
