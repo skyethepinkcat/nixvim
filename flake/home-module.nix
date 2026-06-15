@@ -17,7 +17,10 @@
 
           # Pass flake inputs to config modules (e.g. for skyepkgs packages).
           { _module.args = { inherit inputs; }; }
-          { nixpkgs.useGlobalPackages = true; }
+          {
+            nixpkgs.useGlobalPackages = true;
+            nixpkgs.config = lib.mkForce { };
+          }
         ];
       };
     };
