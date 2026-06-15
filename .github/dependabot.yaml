@@ -10,7 +10,25 @@ updates:
       - "skyethepinkcat"
   - package-ecosystem: "nix"
     directory: "/"
-    target-branch: "develop"
+    target-branch: "main"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "skyethepinkcat"
+    groups:
+      flake-updates:
+        patterns:
+          - "*"
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "skyethepinkcat"
+  - package-ecosystem: "nix"
+    directory: "/"
+    target-branch: "release-26.05"
     schedule:
       interval: "weekly"
     assignees:
