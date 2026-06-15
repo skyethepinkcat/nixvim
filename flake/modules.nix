@@ -7,6 +7,7 @@
       imports = [
         ../framework
       ];
+      config.nixpkgs.source = inputs.nixpkgs;
     };
     default = {
       imports = [

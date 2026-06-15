@@ -12,11 +12,12 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    nixpkgs.follows = "nixvim/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     japanese-input-nvim = {
       url = "github:skyethepinkcat/japanese-input-nvim";
