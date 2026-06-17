@@ -1,10 +1,14 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }:
+let
+  spkgs = inputs.skyepkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}";
+in
 {
-  extraPlugins = with pkgs.vimPlugins; [
+  extraPlugins = with spkgs.vimPlugins; [
     colortils-nvim
   ];
   plugins.colorizer = {

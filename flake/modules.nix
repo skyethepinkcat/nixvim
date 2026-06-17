@@ -7,15 +7,11 @@
       imports = [
         ../framework
       ];
+      config.nixpkgs.source = inputs.nixpkgs;
     };
     default = {
       imports = [
         framework
-        {
-          nixpkgs.overlays = [
-            inputs.skyepkgs.overlays.default
-          ];
-        }
         inputs.japanese-input-nvim.nixvimModules.default
         ../config
       ];
