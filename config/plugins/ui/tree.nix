@@ -86,9 +86,12 @@
       '';
     };
   };
-  extraPackagesAfter = with pkgs; [
-    trash-cli
-  ];
+  extraPackagesAfter = lib.optionals (! pkgs.stdenv.hostPlatform.isDarwin) (
+    with pkgs;
+    [
+      trash-cli
+    ]
+  );
   dependencies = {
     fd.enable = true;
     ripgrep.enable = true;
