@@ -86,7 +86,7 @@
       '';
     };
   };
-  extraPackagesAfter = lib.optionals (! pkgs.stdenv.hostPlatform.isDarwin) (
+  extraPackagesAfter = lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) (
     with pkgs;
     [
       trash-cli

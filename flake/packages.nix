@@ -63,19 +63,5 @@
           ${nvim}/bin/nixvim-print-init
         '';
       };
-
-      # `nix develop` — tools for editing this config
-      devShells.default = pkgs.mkShell {
-        shellHook = ''
-          git config merge.ours.driver true
-        '';
-        packages = with pkgs; [
-          statix
-          nixd
-          nixfmt
-          lua-language-server
-          just
-        ];
-      };
     };
 }
