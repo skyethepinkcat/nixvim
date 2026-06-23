@@ -19,13 +19,6 @@ updates:
       flake-updates:
         patterns:
           - "*"
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    assignees:
-      - "skyethepinkcat"
   - package-ecosystem: "nix"
     directory: "/"
     target-branch: "release-26.05"
