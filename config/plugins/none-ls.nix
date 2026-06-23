@@ -41,9 +41,7 @@ in
                       level = "warning";
                     };
                     document-end = "disable";
-                    document-start = {
-                      level = "warning";
-                    };
+                    document-start = "disable";
                     empty-lines = "enable";
                     empty-values = "disable";
                     float-values = "disable";
@@ -57,9 +55,6 @@ in
                     octal-values = "disable";
                     quoted-strings = "disable";
                     trailing-spaces = "enable";
-                    truthy = {
-                      level = "warning";
-                    };
                   };
                 })
               ];
