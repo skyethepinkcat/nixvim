@@ -13,6 +13,14 @@ let
   lazygit_config = lib.toString (
     pkgs.writeText "config.yaml" (
       lib.strings.toJSON {
+        os = {
+          edit = "nvim --server $NVIM --remote {{filename}}";
+          editAtLine = "nvim --server $NVIM --remote {{filename}} && nvim --server $NVIM --remote-send ':{{line}}<CR>'";
+          editAtLineAndWait = "nvim --server $NVIM --remote-wait {{filename}}";
+          editInTerminal = false;
+          openDirInEditor = false;
+          suspend = false;
+        };
         gui = {
           theme = {
             activeBorderColor = [
