@@ -32,7 +32,7 @@
     pumheight = 10; # max items shown in popup menu
 
     expandtab = true; # <Tab> inserts spaces
-    smartindent = true; # auto-indent based on syntax
+    autoindent = true; # mirror previous line's indent (smartindent disabled: it breaks >> on # comments)
     shiftwidth = 2; # spaces per indent level (>> / <<)
     tabstop = shiftwidth; # visual width of a \t character
     softtabstop = shiftwidth; # spaces inserted/deleted on <Tab>/<BS>
