@@ -14,9 +14,9 @@ let
     pkgs.writeText "config.yaml" (
       lib.strings.toJSON {
         os = {
-          edit = ''nvim --server "$NVIM" --remote "{{filename}}" && nvim --server "$NVIM" --remote-send "<Esc>:lua for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end<CR>"'';
-          editAtLine = ''nvim --server "$NVIM" --remote "{{filename}}" && nvim --server "$NVIM" --remote-send "<Esc>:{{line}}<CR>" && nvim --server "$NVIM" --remote-send "<Esc>:lua for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end<CR>"'';
-          editAtLineAndWait = ''nvim --server "$NVIM" --remote-wait "{{filename}}" && nvim --server "$NVIM" --remote-send "<Esc>:lua for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end<CR>"'';
+          edit = ''nvim --server "$NVIM" --remote-send "<Esc>:lua local f=vim.fn.fnameescape('{{filename}}');for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end;vim.cmd('edit '..f)<CR>"'';
+          editAtLine = ''nvim --server "$NVIM" --remote-send "<Esc>:lua local f=vim.fn.fnameescape('{{filename}}');local l={{line}};for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end;vim.cmd('edit '..f);vim.api.nvim_win_set_cursor(0,{l,0})<CR>"'';
+          editAtLineAndWait = ''nvim --server "$NVIM" --remote-send "<Esc>:lua for _,w in ipairs(vim.api.nvim_list_wins()) do local b=vim.api.nvim_win_get_buf(w);if vim.bo[b].buftype=='terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then vim.api.nvim_win_close(w,true);break end end<CR>" && nvim --server "$NVIM" --remote-wait "{{filename}}"'';
           editInTerminal = false;
           openDirInEditor = false;
           suspend = false;
