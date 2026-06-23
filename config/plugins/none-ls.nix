@@ -55,6 +55,7 @@ in
                     octal-values = "disable";
                     quoted-strings = "disable";
                     trailing-spaces = "enable";
+                    truthy = "disable";
                   };
                 })
               ];
