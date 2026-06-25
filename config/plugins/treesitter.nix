@@ -1,11 +1,26 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }:
+let
+  puppet_grammar = pkgs.tree-sitter.buildGrammar {
+    language = "puppet";
+    version = "1.3.0+rev=personal-fixes";
+    src = pkgs.fetchFromGitHub {
+      owner = "skyethepinkcat";
+      repo = "tree-sitter-puppet";
+      rev = "personal-fixes";
+      hash = "sha256-xi06RST1YtJ6F5uJ19/BQK1gemeo19sRHalBeUwYmVM=";
+    };
+    meta.homepage = "https://github.com/skyethepinkcat/tree-sitter-puppet";
+  };
+in
 {
 
   extraPlugins = [
+    puppet_grammar
     (pkgs.vimUtils.buildVimPlugin {
       name = "my-nix-injections";
       src =
@@ -29,12 +44,14 @@
       enable = true;
       highlight.enable = true;
       indent.enable = true;
-      # Unfortunately treesitter indent totally breaks on HEREDOCs in puppet, so we need to
-      # rely on smartindent, despite its issues.
-      # indent.disable = [ "puppet" ];
       folding.enable = true;
-      grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-      autoLoad = true;
+      grammarPackages =
+        (builtins.filter (
+          plugin: plugin.language != "puppet"
+        ) config.plugins.treesitter.package.allGrammars)
+        ++ [
+          puppet_grammar
+        ];
     };
     treesitter-context = {
       enable = true;
