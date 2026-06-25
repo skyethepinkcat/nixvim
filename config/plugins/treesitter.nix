@@ -27,13 +27,14 @@
   plugins = {
     treesitter = {
       enable = true;
-      settings = {
-        highlight.enable = true;
-        indent.enable = false;
-        folding.enable = true;
-        grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-        autoLoad = true;
-      };
+      highlight.enable = true;
+      indent.enable = true;
+      # Unfortunately treesitter indent totally breaks on HEREDOCs in puppet, so we need to
+      # rely on smartindent, despite its issues.
+      # indent.disable = [ "puppet" ];
+      folding.enable = true;
+      grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+      autoLoad = true;
     };
     treesitter-context = {
       enable = true;

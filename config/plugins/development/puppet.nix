@@ -25,9 +25,10 @@ in
     ];
   };
 
-  ftplugin.puppet = {
-    localOpts.commentstring = "# %s";
-    localOpts.textwidth = 140;
+  ftplugin.puppet.localOpts = {
+    commentstring = "# %s";
+    smartindent = true;
+    textwidth = 140;
   };
 
   # Logic here is WAYYYYYYYY more complicated, so instead we'll just use
@@ -65,6 +66,19 @@ in
           vim.keymap.set("n", "<LocalLeader>O", function()
             require("puppet").goto_definition()
           end, { buffer = ev.buf, silent = true, desc = "Puppet: open definition under cursor" })
+        end
+      '';
+    }
+    # Honestly I think this can probably be handled with ftplugin, but I was having trouble and
+    # just decided to handle it with an autocmd.
+    {
+      event = "FileType";
+      pattern = [
+        "puppet"
+      ];
+      callback = lib.nixvim.mkRaw ''
+        function(args)
+          vim.bo[args.buf].indentexpr = ""
         end
       '';
     }
