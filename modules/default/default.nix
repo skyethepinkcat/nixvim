@@ -17,10 +17,6 @@
   globals = {
     mapleader = " ";
     maplocalleader = ",";
-
-    # These are *disabling* netrw, by telling vim its already loaded.
-    loaded_netrw = 1;
-    loaded_netrwPlugin = 1;
   };
 
   opts = rec {

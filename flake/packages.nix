@@ -23,7 +23,7 @@
       nixvimConfigurations =
         let
           baseModules = {
-            default = inputs.nixvim.lib.evalNixvim {
+            default = {
               inherit system;
               modules = with mods; [
                 default
@@ -33,25 +33,25 @@
               ];
               extraSpecialArgs = { inherit inputs; };
             };
-            full = inputs.nixvim.lib.evalNixvim {
+            full = {
               inherit system;
               modules = with mods; [
                 default
                 ui
                 lsp
-                exta
+                extra
                 ai
               ];
               extraSpecialArgs = { inherit inputs; };
             };
-            scratch = inputs.nixvim.lib.evalNixvim {
+            scratch = {
               inherit system;
               modules = with mods; [
                 scratch
               ];
               extraSpecialArgs = { inherit inputs; };
             };
-            simple = inputs.nixvim.lib.evalNixvim {
+            simple = {
               inherit system;
               modules = with mods; [
                 default
@@ -62,15 +62,18 @@
         in
         # Create additional modules with export set.
         lib.concatMapAttrs (name: value: {
-          "${name}" = value;
-          "${name}-export" = lib.mkMerge [
+          "${name}" = inputs.nixvim.lib.evalNixvim value;
+          "${name}-export" = inputs.nixvim.lib.evalNixvim (
             value
-            (inputs.nixvim.lib.evalNixvim {
-              modules = with mods; [
-                export
-              ];
-            })
-          ];
+            // {
+              modules =
+                with mods;
+                [
+                  export
+                ]
+                ++ value.modules;
+            }
+          );
         }) baseModules;
 
       # Extra packages beyond the auto-generated ones.

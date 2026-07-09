@@ -1,9 +1,6 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, ... }:
 {
-  imports = [
-    inputs.japanese-input-nvim.nixvimModules.default
-  ];
   plugins.japanese-input = {
-    enable = pkgs.stdenv.hostPlatform.isDarwin;
+    enable = lib.mkDefault pkgs.stdenv.hostPlatform.isDarwin;
   };
 }

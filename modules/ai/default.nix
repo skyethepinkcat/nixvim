@@ -43,9 +43,16 @@ in
 
     plugins = {
       copilot-lua.enable = config.ai.suggestions;
-      blink-cmp.sources.default = [
-        "copilot"
-      ];
+      blink-cmp = {
+        sources.default = lib.optional config.ai.suggestions [ "copilot" ];
+        providers = lib.optionalAttrs config.ai.suggestions {
+          copilot = {
+            async = true;
+            module = "blink-cmp-copilot";
+            name = "copilot";
+          };
+        };
+      };
     };
 
     # Group-only label — no action, must stay as wKeyList

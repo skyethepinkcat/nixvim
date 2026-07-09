@@ -2,6 +2,7 @@
   pkgs,
   lib,
   utils,
+  config,
   ...
 }:
 let
@@ -13,7 +14,7 @@ in
   ];
   plugins.telescope = {
     enable = true;
-    enabledExtensions = [
+    enabledExtensions = lib.optionals config.plugins.scope.enable [
       "scope"
     ];
     extensions = {

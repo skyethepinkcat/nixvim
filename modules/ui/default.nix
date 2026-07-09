@@ -6,4 +6,8 @@
     map (fn: ./${fn}) (
       filter (fn: (fn != "default.nix" && hasSuffix ".nix" "${fn}")) (attrNames (readDir ./.))
     );
+  plugins = {
+    noice.enable = true;
+    notify.enable = true;
+  };
 }

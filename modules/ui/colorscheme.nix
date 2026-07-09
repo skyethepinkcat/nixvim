@@ -8,8 +8,16 @@ in
     settings = {
       term_colors = true;
       background.dark = "mocha";
-
       integrations = {
+        integrations.native_lsp = {
+          enabled = true;
+          underlines = {
+            errors = [ "undercurl" ];
+            hints = [ "undercurl" ];
+            warnings = [ "undercurl" ];
+            information = [ "undercurl" ];
+          };
+        };
         blink_cmp.enabled = isEnabled "blink-cmp";
         dashboard = isEnabled "dashboard";
         # blink_indent.enabled = true;

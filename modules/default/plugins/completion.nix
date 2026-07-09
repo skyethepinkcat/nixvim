@@ -38,24 +38,14 @@ in
           # ];
         };
         sources = {
-          default = lib.optionals config.ai.suggestions [ "copilot" ] ++ [
+          default = [
             "lsp"
             "path"
             "snippets"
             "buffer"
           ];
-          providers = lib.mkIf config.ai.suggestions {
-            copilot = {
-              async = true;
-              module = "blink-cmp-copilot";
-              name = "copilot";
-            };
-          };
         };
       };
-    };
-    noice = {
-      enable = true;
     };
   };
 }
