@@ -1,4 +1,4 @@
-{ config, ... }:
+_:
 {
   plugins.which-key = {
     enable = true;

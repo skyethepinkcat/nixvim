@@ -9,6 +9,7 @@
       system,
       config,
       pkgs,
+      lib,
       ...
     }:
     let
@@ -19,30 +20,58 @@
     {
       # Evaluated nixvim configurations. nixvim.packages/checks.enable (settings.nix)
       # automatically derives packages.{default,export} and checks.{default,export}.
-      nixvimConfigurations = {
-        default = inputs.nixvim.lib.evalNixvim {
-          inherit system;
-          modules = with mods; [
-            default
+      nixvimConfigurations =
+        let
+          baseModules = {
+            default = inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = with mods; [
+                default
+                ui
+                lsp
+                extra
+              ];
+              extraSpecialArgs = { inherit inputs; };
+            };
+            full = inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = with mods; [
+                default
+                ui
+                lsp
+                exta
+                ai
+              ];
+              extraSpecialArgs = { inherit inputs; };
+            };
+            scratch = inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = with mods; [
+                scratch
+              ];
+              extraSpecialArgs = { inherit inputs; };
+            };
+            simple = inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = with mods; [
+                default
+              ];
+              extraSpecialArgs = { inherit inputs; };
+            };
+          };
+        in
+        # Create additional modules with export set.
+        lib.concatMapAttrs (name: value: {
+          "${name}" = value;
+          "${name}-export" = lib.mkMerge [
+            value
+            (inputs.nixvim.lib.evalNixvim {
+              modules = with mods; [
+                export
+              ];
+            })
           ];
-          extraSpecialArgs = { inherit inputs; };
-        };
-        full = inputs.nixvim.lib.evalNixvim {
-          inherit system;
-          modules = with mods; [
-            default
-            full
-          ];
-          extraSpecialArgs = { inherit inputs; };
-        };
-        scratch = inputs.nixvim.lib.evalNixvim {
-          inherit system;
-          modules = with mods; [
-            scratch
-          ];
-          extraSpecialArgs = { inherit inputs; };
-        };
-      };
+        }) baseModules;
 
       # Extra packages beyond the auto-generated ones.
       packages = {

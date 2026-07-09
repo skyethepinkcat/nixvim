@@ -1,4 +1,7 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  isEnabled = plugin: config.plugins."${plugin}".enable;
+in
 {
   colorschemes.catppuccin = {
     enable = true;
@@ -7,15 +10,15 @@
       background.dark = "mocha";
 
       integrations = {
-        blink_cmp.enabled = true;
-        dashboard = true;
-        blink_indent.enabled = true;
+        blink_cmp.enabled = isEnabled "blink-cmp";
+        dashboard = isEnabled "dashboard";
+        # blink_indent.enabled = true;
         ghost.enabled = true;
-        noice.enabled = true;
-        which_key.enabled = true;
+        noice.enabled = isEnabled "noice";
+        which_key.enabled = isEnabled "which-key";
         nvim_surround = true;
         mini = {
-          enabled = true;
+          enabled = isEnabled "mini-indentscope";
           indentscope_color = "";
         };
         native_lsp = {
