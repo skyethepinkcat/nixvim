@@ -10,7 +10,10 @@ let
     with builtins;
     with lib;
     genAttrs (attrNames (readDir ../modules)) (module: {
-      imports = [ ../framework ../modules/${module} inputs.japanese-input-nvim.nixvimModules.default];
+      imports = [
+        ../framework
+        ../modules/${module}
+      ];
       config.nixpkgs.source = inputs.nixpkgs;
     });
 in
