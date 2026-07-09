@@ -1,4 +1,4 @@
-{ lib, utils, ... }:
+{ lib, utils, pkgs, ... }:
 {
   # Import all your configuration modules here
   imports =
@@ -130,5 +130,8 @@
         end
       '';
     }
+  ];
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-sops
   ];
 }
