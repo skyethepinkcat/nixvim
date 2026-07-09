@@ -85,7 +85,7 @@
           }) config.nixvimConfigurations;
           archiveExports = lib.concatMapAttrs (name: value: {
 
-            "${name}-export-archive" =
+            "${name}-archive" =
               pkgs.runCommand "nixvim-config-export-archive"
                 {
                   nativeBuildInputs = [ value ];
