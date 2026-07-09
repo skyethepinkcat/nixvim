@@ -9,7 +9,7 @@ in
       term_colors = true;
       background.dark = "mocha";
       integrations = {
-        integrations.native_lsp = {
+        native_lsp = {
           enabled = true;
           underlines = {
             errors = [ "undercurl" ];
@@ -28,9 +28,6 @@ in
         mini = {
           enabled = isEnabled "mini-indentscope";
           indentscope_color = "";
-        };
-        native_lsp = {
-          enabled = true;
         };
       };
       flavor = "mocha";

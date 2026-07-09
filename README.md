@@ -75,8 +75,6 @@ inputs.nixvim-config.url = "github:skyethepinkcat/nixvim-config";
 | `nixvimConfigurations.full`    | Default configuration with AI enabled.               |
 | `nixvimConfigurations.simple`  | Simplified module with UI and extras stripped.       |
 | `nixvimConfigurations.scratch` | Configuration with only framework code. For testing. |
-| `nixvimModules.framework`      | Shared framework code without any configuration.     |
-| `nixvimModules.export`         | Module with nix-managed paths stripped               |
 
 ### Packages
 
