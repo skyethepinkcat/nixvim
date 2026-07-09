@@ -118,7 +118,6 @@
       vim.opt.formatoptions:remove(
         "t" -- don't autowrap code, only comments
       )
-      vim.opt.shortmess:append("I") -- Disables default intro message
     '';
 
   autoCmd = [

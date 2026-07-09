@@ -11,6 +11,7 @@ in
 {
   extraPlugins = with pkgs.vimPlugins; [
     telescope-symbols-nvim
+    plenary-nvim
   ];
   plugins.telescope = {
     enable = true;
