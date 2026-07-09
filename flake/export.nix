@@ -18,15 +18,6 @@
     {
       # Evaluated nixvim configurations. nixvim.packages/checks.enable (settings.nix)
       # automatically derives packages.{default,export} and checks.{default,export}.
-      nixvimConfigurations.export = inputs.nixvim.lib.evalNixvim {
-        inherit system;
-        modules = with mods; [
-          default
-          export
-        ];
-        extraSpecialArgs = { inherit inputs; };
-      };
-
       # Extra packages beyond the auto-generated ones.
       packages =
         let
@@ -45,7 +36,12 @@
               #   nix build .#nvim-config-export
               #   cp -r result/ ~/.config/nvim
               let
-                nixvimCfg = value;
+                nixvimCfg =
+                  (value.extendModules {
+                    modules = [
+                      mods.export
+                    ];
+                  }).config;
                 inherit (nixvimCfg.build) initFile plugins extraFiles;
 
                 # Build a proper vim pack directory using the same mechanism nixvim uses
@@ -86,7 +82,7 @@
                 # tar -czf $out/nvim.tar.gz $TMPOUT
               '';
 
-          }) self.nixvimConfigurations;
+          }) config.nixvimConfigurations;
           archiveExports = lib.concatMapAttrs (name: value: {
 
             "${name}-export-archive" =

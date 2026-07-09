@@ -1,4 +1,9 @@
-{ lib, utils, pkgs, ... }:
+{
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 {
   # Import all your configuration modules here
   imports =

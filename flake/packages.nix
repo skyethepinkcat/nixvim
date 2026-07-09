@@ -63,17 +63,6 @@
         # Create additional modules with export set.
         lib.concatMapAttrs (name: value: {
           "${name}" = inputs.nixvim.lib.evalNixvim value;
-          "${name}-export" = inputs.nixvim.lib.evalNixvim (
-            value
-            // {
-              modules =
-                with mods;
-                [
-                  export
-                ]
-                ++ value.modules;
-            }
-          );
         }) baseModules;
 
       # Extra packages beyond the auto-generated ones.

@@ -43,7 +43,7 @@ in
 
     plugins = {
       copilot-lua.enable = config.ai.suggestions;
-      blink-cmp = {
+      blink-cmp.settings = {
         sources.default = lib.optional config.ai.suggestions [ "copilot" ];
         providers = lib.optionalAttrs config.ai.suggestions {
           copilot = {
