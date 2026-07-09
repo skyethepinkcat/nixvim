@@ -64,52 +64,54 @@
         }) baseModules;
 
       # Extra packages beyond the auto-generated ones.
-      packages = lib.map (
-        name:
-        let
-          nvim = config.packages.${name};
-        in
-        {
-          # Wrapper that exposes the binary as `nixvim` instead of `nvim`.
-          "${name}-nixvim" = pkgs.symlinkJoin {
-            name = "nixvim";
-            paths = [ nvim ];
-            buildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              rm $out/bin/nvim
-              makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
+      packages = lib.mergeAttrsList (
+        lib.map (
+          name:
+          let
+            nvim = config.packages.${name};
+          in
+          {
+            # Wrapper that exposes the binary as `nixvim` instead of `nvim`.
+            "${name}-nixvim" = pkgs.symlinkJoin {
+              name = "nixvim";
+              paths = [ nvim ];
+              buildInputs = [ pkgs.makeWrapper ];
+              postBuild = ''
+                rm $out/bin/nvim
+                makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
+              '';
+            };
+            "nixvim-${name}" = pkgs.symlinkJoin {
+              name = "nixvim-${name}";
+              paths = [ nvim ];
+              buildInputs = [ pkgs.makeWrapper ];
+              postBuild = ''
+                rm $out/bin/nvim
+                makeWrapper ${nvim}/bin/nvim $out/bin/nixvim-${name}
+              '';
+            };
+            # Prints the generated init.lua: `nix run .#nixvim-print-init`
+            "${name}-print-init" = pkgs.writeShellScriptBin "nixvim-print-init" ''
+              ${nvim}/bin/nixvim-print-init
             '';
-          };
-          "nixvim-${name}" = pkgs.symlinkJoin {
-            name = "nixvim-${name}";
-            paths = [ nvim ];
-            buildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              rm $out/bin/nvim
-              makeWrapper ${nvim}/bin/nvim $out/bin/nixvim-${name}
+          }
+          // lib.optionalAttrs (name == "default") {
+            # Wrapper that exposes the binary as `nixvim` instead of `nvim`.
+            "nixvim" = pkgs.symlinkJoin {
+              name = "nixvim";
+              paths = [ nvim ];
+              buildInputs = [ pkgs.makeWrapper ];
+              postBuild = ''
+                rm $out/bin/nvim
+                makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
+              '';
+            };
+            # Prints the generated init.lua: `nix run .#nixvim-print-init`
+            "nixvim-print-init" = pkgs.writeShellScriptBin "nixvim-print-init" ''
+              ${nvim}/bin/nixvim-print-init
             '';
-          };
-          # Prints the generated init.lua: `nix run .#nixvim-print-init`
-          "${name}-print-init" = pkgs.writeShellScriptBin "nixvim-print-init" ''
-            ${nvim}/bin/nixvim-print-init
-          '';
-        }
-        // lib.optionalAttrs (name == "default") {
-          # Wrapper that exposes the binary as `nixvim` instead of `nvim`.
-          "nixvim" = pkgs.symlinkJoin {
-            name = "nixvim";
-            paths = [ nvim ];
-            buildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              rm $out/bin/nvim
-              makeWrapper ${nvim}/bin/nvim $out/bin/nixvim
-            '';
-          };
-          # Prints the generated init.lua: `nix run .#nixvim-print-init`
-          "nixvim-print-init" = pkgs.writeShellScriptBin "nixvim-print-init" ''
-            ${nvim}/bin/nixvim-print-init
-          '';
-        }
-      ) (builtins.attrNames baseModules);
+          }
+        ) (builtins.attrNames baseModules)
+      );
     };
 }
