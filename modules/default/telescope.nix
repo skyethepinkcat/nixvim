@@ -2,6 +2,7 @@
   pkgs,
   lib,
   utils,
+  config,
   ...
 }:
 let
@@ -10,10 +11,11 @@ in
 {
   extraPlugins = with pkgs.vimPlugins; [
     telescope-symbols-nvim
+    plenary-nvim
   ];
   plugins.telescope = {
     enable = true;
-    enabledExtensions = [
+    enabledExtensions = lib.optionals config.plugins.scope.enable [
       "scope"
     ];
     extensions = {

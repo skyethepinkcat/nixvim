@@ -1,4 +1,9 @@
-{ lib, utils, ... }:
+{
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 {
   # Import all your configuration modules here
   imports =
@@ -17,10 +22,6 @@
   globals = {
     mapleader = " ";
     maplocalleader = ",";
-
-    # These are *disabling* netrw, by telling vim its already loaded.
-    loaded_netrw = 1;
-    loaded_netrwPlugin = 1;
   };
 
   opts = rec {
@@ -117,7 +118,6 @@
       vim.opt.formatoptions:remove(
         "t" -- don't autowrap code, only comments
       )
-      vim.opt.shortmess:append("I") -- Disables default intro message
     '';
 
   autoCmd = [
@@ -134,5 +134,8 @@
         end
       '';
     }
+  ];
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-sops
   ];
 }

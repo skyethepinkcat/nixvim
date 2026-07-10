@@ -2,4 +2,4 @@
 result
 init.lua
 .claude
-scratch.nix
+modules/scratch/*

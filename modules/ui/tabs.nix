@@ -41,6 +41,26 @@ in
 
   keyList = [
     {
+      action = "<cmd>tabnext<CR>";
+      key = "<tab>";
+      desc = "tab goto next";
+    }
+    {
+      action = "<cmd>tabnew<CR>";
+      key = "<leader>tn";
+      desc = "tab new";
+    }
+    {
+      action = "<cmd>tabprevious<CR>";
+      key = "<S-tab>";
+      desc = "tab goto prev";
+    }
+    {
+      action = "<cmd>tabclose<CR>";
+      key = "<leader>x";
+      desc = "tab close";
+    }
+    {
       action = "<cmd>tabnext<cr>";
       key = "<leader>t<tab>";
       icon = "󰓩";

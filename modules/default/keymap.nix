@@ -5,8 +5,6 @@
 }:
 let
   inherit (config.nvix.mkKey) wKeyObj;
-  inherit (lib) mkOption;
-  tl = lib.nixvim.toLuaObject;
 in
 {
   # Group labels only — no action, must stay as wKeyList
@@ -155,13 +153,6 @@ in
       desc = "general format file";
     }
 
-    # LSP mappings
-    {
-      action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
-      key = "<leader>ld";
-      desc = "LSP diagnostic loclist";
-    }
-
     # Buffer mappings
     {
       action = "<cmd>enew<CR>";
@@ -175,31 +166,10 @@ in
       icon = "";
     }
     {
-      action = "<cmd>tabnext<CR>";
-      key = "<tab>";
-      desc = "tab goto next";
-    }
-    {
-      action = "<cmd>tabnew<CR>";
-      key = "<leader>tn";
-      desc = "tab new";
-    }
-    {
-      action = "<cmd>tabprevious<CR>";
-      key = "<S-tab>";
-      desc = "tab goto prev";
-    }
-    {
       action = "<cmd>bdelete<CR>";
       key = "<leader>bx";
       desc = "buffer close";
     }
-    {
-      action = "<cmd>tabclose<CR>";
-      key = "<leader>x";
-      desc = "tab close";
-    }
-
     # Comment
     {
       action = "gcc";
