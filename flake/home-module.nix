@@ -14,6 +14,10 @@
         enable = lib.mkDefault true;
         imports = [
           self.nixvimModules.default
+          self.nixvimModules.ai
+          self.nixvimModules.extra
+          self.nixvimModules.lsp
+          self.nixvimModules.ui
 
           # Pass flake inputs to config modules (e.g. for skyepkgs packages).
           { _module.args = { inherit inputs; }; }

@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   ...
 }:
 let
@@ -116,5 +115,12 @@ in
       key = "<leader>lr";
       desc = "LSP References";
     }
+    # LSP mappings
+    {
+      action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
+      key = "<leader>ld";
+      desc = "LSP diagnostic loclist";
+    }
+
   ];
 }

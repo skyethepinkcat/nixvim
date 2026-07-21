@@ -67,4 +67,9 @@ in
       };
     };
   };
+  extraConfigLua =
+    #lua
+    ''
+      vim.opt.shortmess:append("I") -- Disables default intro message
+    '';
 }

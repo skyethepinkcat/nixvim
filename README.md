@@ -17,7 +17,6 @@ My personal nixvim config, inspired by nvix but with more options specific to my
 
 ```
 nix run .          # run default config
-nix run .#nixvim   # same, but binary is called `nixvim` instead of `nvim`
 ```
 
 ### Standalone
@@ -54,64 +53,67 @@ inputs.nixvim-config.url = "github:skyethepinkcat/nixvim-config";
 }
 ```
 
----
-
 ## Flake Outputs
 
-| Output                                 | Description                                     |
-| -------------------------------------- | ----------------------------------------------- |
-| `packages.default` / `packages.neovim` | Standard neovim build                           |
-| `packages.nixvim`                      | Same build, binary renamed to `nixvim`          |
-| `packages.nixvim-print-init`           | Print the generated `init.lua`                  |
-| `packages.nvim-config-export`          | Portable config for non-Nix systems (see below) |
-| `nixvimModules.default`                | Reusable NixOS/home-manager module              |
-| `nixvimModules.framework`              | Stripped down module without configuration.     |
-| `nixvimModules.full`                   | Module with AI profile enabled                  |
-| `nixvimModules.export`                 | Module with nix-managed paths stripped          |
+### Modules
+
+| Output                  | Description                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| `nixvimModules.ai`      | AI Configuration for Claude and Opencode, as well as copilot suggestions.           |
+| `nixvimModules.default` | Basic neovim configuration with additional plugins like which-key, treesitter, etc. |
+| `nixvimModules.export`  | Removes nix-native configuration options.                                           |
+| `nixvimModules.extra`   | Mostly silly or very computer-specific stuff.                                       |
+| `nixvimModules.ui`      | UI things, including noice, lualine, tabs via scope, nvim-tree, and notify.         |
+| `nixvimModules.lsp`     | My LSP settings using native lsp and none-ls.                                       |
+| `nixvimModules.scratch` | Used for testing, basic module with only the framework included.                    |
+
+### Configurations
+
+| Output                         | Description                                          |
+| ------------------------------ | ---------------------------------------------------- |
+| `nixvimConfigurations.default` | Basic configuration with everything but AI enabled.  |
+| `nixvimConfigurations.full`    | Default configuration with AI enabled.               |
+| `nixvimConfigurations.simple`  | Simplified module with UI and extras stripped.       |
+| `nixvimConfigurations.scratch` | Configuration with only framework code. For testing. |
+
+### Packages
+
+A package exists for each configuration under its name.
+
+#### Wrapped Binaries
+
+For convience, wrapped binaries are also provided for each configuration under
+`nixvim-<name>` and `<name>-nixvim` (the first will name the binary `nixvim-<configuration>`,
+the second will name the binary `nixvim`)
 
 ### Portable Export
 
-Produces a `~/.config/nvim`-compatible directory without any `/nix/store` paths:
+Each configuration can also be exported for non-nix systems by producting a `~/.config/nvim`-compatible directory without any `/nix/store` paths:
 
 ```
-nix build .#nvim-config-export
+nix build .#simple-export
 cp -r result/ ~/.config/nvim
 ```
 
-> Tree-sitter parsers are not bundled — run `:TSInstall` on the target machine.
+> Tree-sitter parsers are not bundled, you will need to run `:TSInstall` on the target machine.
 > LSP servers and formatters must be installed separately (Mason is included).
-
 
 #### Tar Archive
 
 A build option for a tar archive is also included for convience.
 
 ```
-nix build .#nvim-config-export-archive
+nix build .#simple-export-archive
 tar -xf result/nvim.tar.gz -C ~/.config/nvim
 ```
 
-## Profiles
+### Print Init
 
-Profiles are opt-in layers on top of the base config.
+Each configuration also exposes a print-init package for easy access:
 
-| Profile   | Flag                     | Description                             |
-| --------- | ------------------------ | --------------------------------------- |
-| `default` | (always on)              | Core editor, LSP, completion, UI        |
-| `full`    | `profiles.ai = true`     | Adds Claude CLI integration and Copilot |
-| `export`  | `profiles.export = true` | Strips nix store paths for portability  |
-
-To enable a profile when importing as a module, set the flag in your config:
-
-```nix
-# home-manager example with AI profile
-imports = [ inputs.nixvim-config.homeModules.default ];
-programs.nixvim.profiles.ai = true;
 ```
-
-Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = true` already set.
-
----
+nix run .#simple-print-init
+```
 
 ## Plugins
 
@@ -131,7 +133,7 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 - **blink-cmp** — completion
 - **none-ls** — formatting / linting bridge
 - **LSP** — language server support
-- **copilot-lua** — AI inline suggestions (requires `full` profile)
+- **copilot-lua** — AI inline suggestions
 
 ### Navigation
 
@@ -144,12 +146,13 @@ Or use the pre-composed `nixvimModules.full` output which has `profiles.ai = tru
 - **git** — git integration
 - **config-local** — per-project `.nvim.lua` support
 
-### AI (`full` profile)
+### AI
 
 - **Claude CLI** — floating terminal sessions (`<leader>ac`)
-  - `<leader>aC` — `claude --continue`
-  - `<leader>aV` — `claude --verbose`
-  - `<leader>ar` — `claude --resume`
+  - `<leader>aC` - `claude --continue`
+  - `<leader>ar` - `claude --resume`
+- **Opencode** - floating terminal sessions ( `<leader>ao` )
+  - `<leader>aO` - `opencode --continue`
 
 ---
 

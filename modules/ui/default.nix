@@ -8,4 +8,8 @@
         attrNames (readDir ./.)
       )
     );
+  plugins = {
+    noice.enable = true;
+    notify.enable = true;
+  };
 }
