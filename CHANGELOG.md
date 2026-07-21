@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [2.1] - TBD
+## [2.1] - 2027-07-21
 
 ### Added
 
@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Additional `justfile` dev commands
 - Run CI build on macOS and Ubuntu ARM
 - `gitattributes`: prevent `flake.lock` merge conflicts
-- Follow nixpkgs `stable` on release branch, `unstable` on main
+- Follow nixpkgs `stable` releases on ``release-26.05`` branch, `unstable` on main
 
 ### Changed
 
@@ -30,9 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Release workflow: use new job outputs
 - GitHub Actions permissions (restricted back to read, then scoped for Claude PR creation)
-- lazygit: close floating buffer before opening file in editor
 - Dependabot config: fix malformed YAML and incorrect branch targets
-- Exports not working correctly / incorrect naming
 - Force nixvim to follow nixpkgs
 - Remove `trash-cli` on Darwin
 
