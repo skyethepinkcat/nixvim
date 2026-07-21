@@ -41,9 +41,23 @@ jobs:
           STORE_PATH=$(cat simple_store_path.txt)
           cp $STORE_PATH/nvim.tar.gz simple.tar.gz
 
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          awk -v ver="$VERSION" '
+            /^## \[/ {
+              if (found) exit
+              if (index($0, "[" ver "]") > 0) { found=1; next }
+            }
+            found { print }
+          ' CHANGELOG.md > release_notes.md
+          # trim leading/trailing blank lines
+          sed -i -e '/./,$!d' -e ':a' -e '/^\n*$/{$d;N;ba' -e '}' release_notes.md
+
       - name: Upload to release
         uses: softprops/action-gh-release@v3
         with:
           draft: true
+          body_path: release_notes.md
           files: >
             *.tar.gz
