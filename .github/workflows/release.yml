@@ -23,15 +23,27 @@ jobs:
           name: skyethepinkcat
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Build
+        run: nix build . --no-link
+
       - name: Build nvim-config-export
-        run: nix build .#nixvim-config-export-archive --impure --no-link --print-out-paths > store_path.txt
+        run: nix build .#default-export-archive --impure --no-link --print-out-paths > store_path.txt
+      - name: Build simple-config-export
+        run: nix build .#simple-export-archive --impure --no-link --print-out-paths > simple_store_path.txt
 
       - name: Package as tar.gz
         run: |
           STORE_PATH=$(cat store_path.txt)
           cp $STORE_PATH/nvim.tar.gz nvim.tar.gz
 
+      - name: Package simple as tar.gz
+        run: |
+          STORE_PATH=$(cat simple_store_path.txt)
+          cp $STORE_PATH/nvim.tar.gz simple.tar.gz
+
       - name: Upload to release
         uses: softprops/action-gh-release@v3
         with:
-          files: nvim.tar.gz
+          files:
+            - nvim.tar.gz
+            - simple.tar.gz
