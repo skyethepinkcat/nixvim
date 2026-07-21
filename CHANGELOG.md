@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.1] - TBD
+
+### Added
+
+- Puppet custom tree-sitter grammar and indentation support
+- Extend bash indent queries for `if` blocks (treesitter)
+- Renpy plugin
+- Link `CLAUDE.md` into the repo
+- Additional `justfile` dev commands
+- Run CI build on macOS and Ubuntu ARM
+- `gitattributes`: prevent `flake.lock` merge conflicts
+- Follow nixpkgs `stable` on release branch, `unstable` on main
+
+### Changed
+
+- Major module/export restructuring: modules now produce their own package outputs,
+  exports handled solely as packages (`flake/export.nix`, `flake/packages.nix`)
+- Simplify `config/` directory layout into `modules/{default,ui,ai,extra,scratch}`
+- lazygit: use `nvim-remote` instead of inline Lua functions for file-edit integration
+- home-module: use global packages, enforce empty config
+- skyepkgs: don't rely on overlays
+
+### Fixed
+
+- Release workflow: use new job outputs
+- GitHub Actions permissions (restricted back to read, then scoped for Claude PR creation)
+- lazygit: close floating buffer before opening file in editor
+- Dependabot config: fix malformed YAML and incorrect branch targets
+- Exports not working correctly / incorrect naming
+- Force nixvim to follow nixpkgs
+- Remove `trash-cli` on Darwin
+
 ## [2.0] - 2026-06-11
 
 ### Added
