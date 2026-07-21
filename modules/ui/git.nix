@@ -14,12 +14,7 @@ let
     pkgs.writeText "config.yaml" (
       lib.strings.toJSON {
         os = {
-          edit = ''nvim --server "$NVIM" --remote-send "<Esc>:lua lazygit_edit('{{filename}}')<CR>"'';
-          editAtLine = ''nvim --server "$NVIM" --remote-send "<Esc>:lua lazygit_edit('{{filename}}', {{line}})<CR>"'';
-          editAtLineAndWait = ''nvim --server "$NVIM" --remote-send "<Esc>:lua lazygit_close_float()<CR>" && nvim --server "$NVIM" --remote-wait "{{filename}}"'';
-          editInTerminal = false;
-          openDirInEditor = false;
-          suspend = false;
+          editPreset = "nvim-remote";
         };
         gui = {
           theme = {
@@ -54,8 +49,10 @@ in
   plugins = {
     lazygit = {
       enable = true;
-      settings.config_file_path = config.extraFiles."lazygit.yaml".finalSource;
-      settings.use_custom_config_file_path = 1;
+      settings = {
+        config_file_path = config.extraFiles."lazygit.yaml".finalSource;
+        use_custom_config_file_path = 1;
+      };
     };
     gitsigns = {
       enable = true;
@@ -326,28 +323,4 @@ in
     }
   ];
 
-  extraConfigLua =
-    lib.mkAfter
-      # lua
-      ''
-        require('telescope').load_extension('lazygit')
-
-        function lazygit_close_float()
-          for _, w in ipairs(vim.api.nvim_list_wins()) do
-            local b = vim.api.nvim_win_get_buf(w)
-            if vim.bo[b].buftype == 'terminal' and vim.api.nvim_buf_get_name(b):match('lazygit') then
-              vim.api.nvim_win_close(w, true)
-              break
-            end
-          end
-        end
-
-        function lazygit_edit(file, line)
-          lazygit_close_float()
-          vim.cmd('edit ' .. vim.fn.fnameescape(file))
-          if line then
-            vim.api.nvim_win_set_cursor(0, { line, 0 })
-          end
-        end
-      '';
 }
