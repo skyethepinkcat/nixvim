@@ -96,4 +96,9 @@ in
       '';
     }
   ];
+
+  ftplugin.markdown.localOpts = {
+    formatexpr = "";
+    textwidth = 100;
+  };
 }
