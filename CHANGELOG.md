@@ -8,9 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Puppet custom tree-sitter grammar and indentation support
-- Extend bash indent queries for `if` blocks (treesitter)
-- Renpy plugin
+- puppet: custom tree-sitter grammar and indentation support
+- bash: Extend indent queries for `if` blocks (treesitter)
+- Renpy support
 - Link `CLAUDE.md` into the repo
 - Additional `justfile` dev commands
 - Run CI build on macOS and Ubuntu ARM
@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - lazygit: use `nvim-remote` instead of inline Lua functions for file-edit integration
 - home-module: use global packages, enforce empty config
 - skyepkgs: don't rely on overlays
+- markdown: use default formatexpr
 
 ### Fixed
 
