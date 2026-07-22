@@ -59,7 +59,7 @@
     splitkeep = "screen"; # keep visible text stable when splitting
 
     termguicolors = true; # enable 24-bit RGB colors
-    conceallevel = 1; # hide concealed text (e.g. markdown syntax characters)
+    conceallevel = 0; # hide concealed text (e.g. markdown syntax characters)
     wrap = true; # enable "soft" line wrapping
 
     virtualedit = "block"; # allow cursor past end of line in visual block mode
@@ -138,4 +138,9 @@
   extraPlugins = with pkgs.vimPlugins; [
     nvim-sops
   ];
+
+  ftplugin.markdown.localOpts = {
+    formatexpr = "";
+    textwidth = 100;
+  };
 }
