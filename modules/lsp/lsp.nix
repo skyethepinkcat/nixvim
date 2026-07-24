@@ -17,6 +17,13 @@ in
     servers = {
       nixd = {
         enable = true;
+        config.settings.nixd = {
+          diagnostic = {
+            suppress = [
+              "sema-primop-unknown" # workaround for https://github.com/nix-community/nixd/issues/762
+            ];
+          };
+        };
       };
       lua_ls = {
         config = {
