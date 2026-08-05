@@ -43,7 +43,10 @@ in
     treesitter = {
       enable = true;
       highlight.enable = true;
-      indent.enable = true;
+      indent = {
+        enable = true;
+        disable = [ "puppet"];
+      };
       folding.enable = true;
       grammarPackages =
         (builtins.filter (
