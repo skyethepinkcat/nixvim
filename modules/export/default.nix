@@ -18,6 +18,7 @@ in
     japanese-input.enable = mkForce false;
     treesitter.nixGrammars = mkForce false;
     blink-cmp.settings.fuzzy.implementation = "lua";
+    nixmodules.enable = false; # Not much point in nix parsing on systems without nix.
     none-ls.sources = {
       diagnostics = {
         statix.package = null;
