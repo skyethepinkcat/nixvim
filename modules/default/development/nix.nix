@@ -36,7 +36,7 @@ in
   plugins.nixmodules = {
     enable = true;
   };
-  ftKeyList.nix = [
+  ftKeyList.nix = lib.optionals config.plugins.nixmodules.enable [
     {
       key = "<LocalLeader>c";
       action = mkFunc ''
