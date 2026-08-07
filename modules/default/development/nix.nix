@@ -19,7 +19,7 @@ let
     };
     extraConfig = cfg: opts: {
       plugins.nixmodules = {
-      package = lib.mkDefault mypkgs.nixmodules;
+        package = lib.mkDefault mypkgs.nixmodules;
         settings = {
           nix_path = lib.getExe cfg.nix;
           jq_path = lib.getExe cfg.jq;
