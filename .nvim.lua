@@ -26,7 +26,7 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
-local ok, mod = pcall(require, "nix")
+local ok, mod = pcall(require, "nixmodules")
 if ok then
 	mod.output = "nixvimConfigurations.aarch64-darwin.default"
 end

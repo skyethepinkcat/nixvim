@@ -1,40 +1,67 @@
-{ pkgs, lib, utils, ... }:
+{
+  pkgs,
+  lib,
+  utils,
+  inputs,
+  config,
+  ...
+}:
 let
   inherit (utils) mkFunc;
+  mypkgs = inputs.nvim-nixmodules.packages.${pkgs.stdenv.hostPlatform.system};
+  nixmodulesPlugin = lib.nixvim.plugins.mkNeovimPlugin {
+    name = "nixmodules";
+    maintainers = lib.maintainers.skyethepinkcat;
+    package = lib.mkPackageOption mypkgs "nixmodules" { };
+    extraOptions = {
+      nix = lib.mkPackageOption pkgs "nix" { };
+      jq = lib.mkPackageOption pkgs "jq" { };
+    };
+    extraConfig = cfg: opts: {
+      plugins.nixmodules = {
+      package = lib.mkDefault mypkgs.nixmodules;
+        settings = {
+          nix_path = lib.getExe cfg.nix;
+          jq_path = lib.getExe cfg.jq;
+        };
+      };
+    };
+  };
 in
 {
-  extraFiles."lua/nix.lua".source = ./nix.lua;
-  extraConfigLua = ''
-    require('nix').jq_path = "${lib.getExe pkgs.jq}";
+  imports = [
+    nixmodulesPlugin
+  ];
 
-  '';
-
+  plugins.nixmodules = {
+    enable = true;
+  };
   ftKeyList.nix = [
     {
       key = "<LocalLeader>c";
       action = mkFunc ''
-        require('nix').copy_config_path()
+        require('nixmodules').copy_config_path()
       '';
       desc = "Copy the configuration path";
     }
     {
       key = "<LocalLeader>p";
       action = mkFunc ''
-        require('nix').copy_config_path()
+        require('nixmodules').print_config_path()
       '';
       desc = "Display the configuration path";
     }
     {
       key = "<LocalLeader>=";
       action = mkFunc ''
-        require('nix').eval_config()
+        require('nixmodules').eval_config()
       '';
       desc = "Evaluate an option";
     }
     {
       key = "<LocalLeader>s";
       action = mkFunc ''
-        require('nix').set_output(nil)
+        require('nixmodules').set_output(nil)
       '';
       desc = "Set a flake output path";
     }
