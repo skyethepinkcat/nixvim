@@ -26,5 +26,9 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
+local ok, mod = pcall(require, "nix")
+if ok then
+	mod.output = "nixvimConfigurations.aarch64-darwin.default"
+end
 vim.lsp.enable("nixd")
 vim.lsp.enable("lua_ls")
