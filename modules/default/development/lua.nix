@@ -1,8 +1,28 @@
-{ utils, ... }:
+{
+  lib,
+  utils,
+  config,
+  ...
+}:
 let
   inherit (utils) mkFunc;
 in
 {
+  plugins = {
+    blink-cmp.settings.sources = lib.mkIf config.plugins.lazydev.enable {
+      default = lib.mkBefore [ "lazydev" ];
+      providers = {
+        lazydev = {
+          name = "lazydev";
+          module = "lazydev.integrations.blink";
+          score_offset = 100;
+        };
+      };
+    };
+    lazydev = {
+      enable = true;
+    };
+  };
   ftKeyList.lua = [
     {
       desc = "Source Lua File";
