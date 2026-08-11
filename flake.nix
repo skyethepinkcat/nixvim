@@ -14,6 +14,15 @@
       url = "github:nix-community/nixvim/nixos-26.05";
     };
 
+    nvim-nixmodules = {
+      url = "github:skyethepinkcat/nvim-nixmodules";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixvim.follows = "nixvim";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.follows = "nixvim/nixpkgs";
