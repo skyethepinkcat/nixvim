@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   utils,
@@ -7,7 +6,7 @@
   ...
 }:
 let
-  inherit (utils.telescope) openPicker openExtensionPickerWithOptions;
+  inherit (utils.telescope) openPicker;
   inherit (lib.nixvim) mkRaw;
   spkgs = inputs.skyepkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}";
 in
