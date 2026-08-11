@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (utils.telescope) openPicker openPickerWithOptions;
+  inherit (utils.telescope) openPicker openPickerWithOptions openExtensionPickerWithOptions;
 in
 {
   extraPlugins = with pkgs.vimPlugins; [
@@ -19,6 +19,7 @@ in
       "scope"
     ];
     extensions = {
+      manix.enable = true;
       fzf-native = {
         enable = true;
       };
@@ -152,6 +153,17 @@ in
       icon = {
         icon = "";
         hl = "red";
+      };
+    }
+  ];
+  ftKeyList.nix = [
+    {
+      action = openExtensionPickerWithOptions "manix" "manix" "";
+      desc = "Search nix options";
+      key = "<leader>sn";
+      icon = {
+        icon = "";
+        hl = "blue";
       };
     }
   ];
