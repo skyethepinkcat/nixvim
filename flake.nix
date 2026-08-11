@@ -19,6 +19,11 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    nvim-nixmodules = {
+      url = "github:skyethepinkcat/nvim-nixmodules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     japanese-input-nvim = {
       url = "github:skyethepinkcat/japanese-input-nvim";
       inputs = {
