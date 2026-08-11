@@ -10,8 +10,11 @@
   plugins.nvim-tree = {
     enable = true;
     settings = {
-      actions.open_file.window_picker = {
-        enable = false;
+      actions = {
+        change_dir.enable = false;
+        open_file.window_picker = {
+          enable = false;
+        };
       };
       sync_root_with_cwd = true;
       view = {
