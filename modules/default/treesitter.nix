@@ -45,7 +45,7 @@ in
       highlight.enable = true;
       indent = {
         enable = true;
-        disable = [ "puppet"];
+        disable = [ "puppet" ];
       };
       folding.enable = true;
       grammarPackages =

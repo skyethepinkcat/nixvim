@@ -48,3 +48,17 @@ jobs:
 
       - name: Build
         run: nix build .
+  check-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for CHANGELOG.md changes
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip-changelog') }}
+        run: |
+          if ! git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -q '^CHANGELOG\.md$'; then
+            echo "CHANGELOG.md was not updated. Add the 'skip-changelog' label to bypass."
+            exit 1
+          fi
