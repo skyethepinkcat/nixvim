@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - lazydev: allow LuaLS to understand vim modules and other things
 - telescope: added manix picker
 
+### Infrastructure
+- check for changelog update on pull requests
+
 ## [2.1] - 2026-07-21
 
 ### Added
