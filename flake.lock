@@ -163,6 +163,32 @@
         "type": "github"
       }
     },
+    "nvim-nixmodules": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixvim": [
+          "nixvim"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786136236,
+        "narHash": "sha256-9H2Avf2aWZqIo/O2bw13t6yPJXgqAofvxk/8BylT7m8=",
+        "owner": "skyethepinkcat",
+        "repo": "nvim-nixmodules",
+        "rev": "d5466ef8047410a323203b97983a978b004d8906",
+        "type": "github"
+      },
+      "original": {
+        "owner": "skyethepinkcat",
+        "repo": "nvim-nixmodules",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -172,6 +198,7 @@
           "nixpkgs"
         ],
         "nixvim": "nixvim",
+        "nvim-nixmodules": "nvim-nixmodules",
         "skyepkgs": "skyepkgs",
         "treefmt-nix": "treefmt-nix_2"
       }

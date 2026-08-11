@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [2.1] - 2027-07-21
+## [2.2] WIP
+
+### Added
+
+- lazydev: allow LuaLS to understand vim modules and other things
+- telescope: added manix picker
+
+### Infrastructure
+- check for changelog update on pull requests
+- nixmodules: helper keybinds to handle nix module paths and evaluating configured options
+
+## [2.1] - 2026-07-21
 
 ### Added
 
