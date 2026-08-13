@@ -19,7 +19,7 @@
         vim.cmd([[
           syntax include @Ruby syntax/ruby.vim
           syntax region erbTag matchgroup=PreProc start="<%=\?-\?" end="-\?%>" contains=@Ruby containedin=ALL keepend
-          syntax region erbComment matchgroup=PreProc start=+<%#+ end=+%>+ containedin=ALL keepend
+          syntax region Comment matchgroup=Comment start=+<%#+ end=+%>+ contains=Comment containedin=ALL keepend
         ]])
         vim.b.current_syntax = saved
         end
