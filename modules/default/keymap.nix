@@ -1,10 +1,10 @@
 {
   lib,
   config,
-  ...
-}:
+  ... }:
 let
   inherit (config.nvix.mkKey) wKeyObj;
+  inherit (lib.nixvim) mkRaw;
 in
 {
   # Group labels only — no action, must stay as wKeyList
@@ -172,7 +172,7 @@ in
     }
     # Comment
     {
-      action = "gcc";
+      action = mkRaw "require('Comment.api').toggle.linewise.current";
       key = "<leader>/";
       desc = "toggle comment";
       noremap = false;
