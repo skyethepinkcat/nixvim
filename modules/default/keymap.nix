@@ -1,7 +1,8 @@
 {
   lib,
   config,
-  ... }:
+  ...
+}:
 let
   inherit (config.nvix.mkKey) wKeyObj;
   inherit (lib.nixvim) mkRaw;
