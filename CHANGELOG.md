@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - check for changelog update on pull requests
 - nixmodules: helper keybinds to handle nix module paths and evaluating configured options
 
+### Fixed
+- `<Leader>-/` now correctly comments lines.
+
 ## [2.1] - 2026-07-21
 
 ### Added
