@@ -5,6 +5,7 @@
 }:
 let
   inherit (config.nvix.mkKey) wKeyObj;
+  inherit (lib.nixvim) mkRaw;
 in
 {
   # Group labels only — no action, must stay as wKeyList
@@ -172,15 +173,26 @@ in
     }
     # Comment
     {
-      action = "gcc";
+      action = mkRaw ''
+        function()
+          local api = require('Comment.api')
+
+        local esc = vim.api.nvim_replace_termcodes(
+            '<ESC>', true, false, true
+        )
+            vim.api.nvim_feedkeys(esc, 'nx', false)
+            api.toggle.blockwise(vim.fn.visualmode())
+          end
+      '';
       key = "<leader>/";
+      mode = "x";
       desc = "toggle comment";
       noremap = false;
     }
     {
-      action = "gc";
+      action = mkRaw "require('Comment.api').toggle.linewise.current";
       key = "<leader>/";
-      mode = "v";
+      mode = "n";
       desc = "toggle comment";
       noremap = false;
     }
