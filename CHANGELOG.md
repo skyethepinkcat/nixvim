@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - `<Leader>-/` now correctly comments lines.
+- NvimTree: `trash` is now correctly set to darwin trash or trash-cli
 
 ## [2.1] - 2026-07-21
 

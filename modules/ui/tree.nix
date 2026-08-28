@@ -17,6 +17,13 @@
         };
       };
       sync_root_with_cwd = true;
+      trash =
+        let
+          trash-cmd = if pkgs.stdenv.hostPlatform.isDarwin then "trash" else (lib.getExe pkgs.trash-cli);
+        in
+        {
+          cmd = "trash";
+        };
       view = {
         relativenumber = true;
         float = {
@@ -126,12 +133,6 @@
       '';
     }
   ];
-  extraPackagesAfter = lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) (
-    with pkgs;
-    [
-      trash-cli
-    ]
-  );
   dependencies = {
     fd.enable = true;
     ripgrep.enable = true;
