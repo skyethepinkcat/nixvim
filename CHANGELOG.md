@@ -11,10 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - lazydev: allow LuaLS to understand vim modules and other things
 - telescope: added manix picker
 - eruby: Use basic syntax highlighting on *.erb files.
+- nixmodules: helper keybinds to handle nix module paths and evaluating configured options
 
 ### Infrastructure
 - check for changelog update on pull requests
-- nixmodules: helper keybinds to handle nix module paths and evaluating configured options
 
 ### Fixed
 - `<Leader>-/` now correctly comments lines.
