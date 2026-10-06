@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 - `<Leader>-/` now correctly comments lines.
 - NvimTree: `trash` is now correctly set to darwin trash or trash-cli
+- LazyGit: fixed `authorColors` name in hierarchy (by @jannapps 10/6/26)
 
 ## [2.1] - 2026-07-21
 

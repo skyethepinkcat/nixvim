@@ -32,9 +32,9 @@ let
             markedBaseCommitBgColor = [ "#f9e2af" ];
             unstagedChangesColor = [ "#f38ba8" ];
             defaultFgColor = [ "#cdd6f4" ];
-          };
-          authorColors = {
-            "*" = "#b4befe";
+            authorColors = {
+              "*" = "#b4befe";
+            };
           };
         };
       }
