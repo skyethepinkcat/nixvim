@@ -32,10 +32,17 @@ let
             markedBaseCommitBgColor = [ "#f9e2af" ];
             unstagedChangesColor = [ "#f38ba8" ];
             defaultFgColor = [ "#cdd6f4" ];
-            authorColors = {
-              "*" = "#b4befe";
-            };
+            authorColors =
+              lib.mkIf (lib.compareVersions config.dependencies.lazygit.package.version "0.66" >= 0)
+                {
+                  "*" = "#b4befe";
+                };
           };
+          authorColors =
+            lib.mkIf (lib.compareVersions config.dependencies.lazygit.package.version "0.66" < 0)
+              {
+                "*" = "#b4befe";
+              };
         };
       }
     )
