@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - telescope: added manix picker
 - eruby: Use basic syntax highlighting on *.erb files.
 - nixmodules: helper keybinds to handle nix module paths and evaluating configured options
+- LazyGit: allow user configuration by swapping from variable to module option.
 
 ### Infrastructure
 - check for changelog update on pull requests
