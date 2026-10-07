@@ -49,6 +49,12 @@ jobs:
       - name: Build
         run: nix build .
   claude:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v7
         with:
