@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -9,6 +8,7 @@ let
   inherit (config.nvix) icons;
   inherit (config.nvix.mkKey) wKeyObj;
   lazygit_pkg = config.dependencies.lazygit.package;
+  lazygit_new_version = lib.versionAtLeast lazygit_pkg.version "0.66";
 in
 {
 
@@ -37,13 +37,13 @@ in
             unstagedChangesColor = [ "#f38ba8" ];
             defaultFgColor = [ "#cdd6f4" ];
           }
-          // lib.optionalAttrs (lib.compareVersions lazygit_pkg.version "0.66" >= 0) {
+          // lib.optionalAttrs lazygit_new_version {
             authorColors = {
               "*" = "#b4befe";
             };
           };
         }
-        // lib.optionalAttrs (lib.compareVersions lazygit_pkg.version "0.66" < 0) {
+        // lib.optionalAttrs lazygit_new_version {
           authorColors = {
             "*" = "#b4befe";
           };
