@@ -43,7 +43,7 @@ in
             };
           };
         }
-        // lib.optionalAttrs lazygit_new_version {
+        // lib.optionalAttrs (!lazygit_new_version) {
           authorColors = {
             "*" = "#b4befe";
           };
