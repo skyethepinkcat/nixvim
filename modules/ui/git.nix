@@ -8,10 +8,14 @@ let
   inherit (lib.nixvim) mkRaw;
   inherit (config.nvix) icons;
   inherit (config.nvix.mkKey) wKeyObj;
+  lazygit_pkg = config.dependencies.lazygit.package;
+in
+{
 
-  lazygit_config = lib.toString (
-    pkgs.writeText "config.yaml" (
-      lib.strings.toJSON {
+  plugins = {
+    lazygit = {
+      enable = true;
+      configuration = {
         os = {
           editPreset = "nvim-remote";
         };
@@ -32,25 +36,18 @@ let
             markedBaseCommitBgColor = [ "#f9e2af" ];
             unstagedChangesColor = [ "#f38ba8" ];
             defaultFgColor = [ "#cdd6f4" ];
+          }
+          // lib.optionalAttrs (lib.compareVersions lazygit_pkg.version "0.66" >= 0) {
             authorColors = {
               "*" = "#b4befe";
             };
           };
+        }
+        // lib.optionalAttrs (lib.compareVersions lazygit_pkg.version "0.66" < 0) {
+          authorColors = {
+            "*" = "#b4befe";
+          };
         };
-      }
-    )
-  );
-in
-{
-
-  extraFiles."lazygit.yaml".source = lazygit_config;
-
-  plugins = {
-    lazygit = {
-      enable = true;
-      settings = {
-        config_file_path = config.extraFiles."lazygit.yaml".finalSource;
-        use_custom_config_file_path = 1;
       };
     };
     gitsigns = {
