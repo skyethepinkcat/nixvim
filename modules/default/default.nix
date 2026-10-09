@@ -135,6 +135,7 @@
       '';
     }
   ];
+  plugins.abolish.enable = true;
   extraPlugins = with pkgs.vimPlugins; [
     nvim-sops
   ];
