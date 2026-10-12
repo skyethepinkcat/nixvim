@@ -2,6 +2,7 @@ name: check
 
 on:
   pull_request:
+  push:
 
 jobs:
   fmt:
@@ -52,6 +53,7 @@ jobs:
         run: nix build .
   claude:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     permissions:
       contents: read
       pull-requests: write
@@ -86,6 +88,7 @@ jobs:
 
   check-changelog:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v7
         with:
