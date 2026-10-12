@@ -27,13 +27,12 @@
       lazygit_config_file = pkgs.writeText "config.yaml" (
         lib.strings.toJSON config.plugins.lazygit.configuration
       );
+      cfg = config.plugins.lazygit;
     in
-    {
-      extraFiles."lazygit.yaml".source =
-        lib.mkIf (config.plugins.lazygit.configuration != null)
-          "${lazygit_config_file}";
+    lib.mkIf cfg.enable {
+      extraFiles."lazygit.yaml".source = lib.mkIf (cfg.configuration != null) "${lazygit_config_file}";
 
-      plugins.lazygit.settings = lib.mkIf (config.plugins.lazygit.configuration != null) {
+      plugins.lazygit.settings = lib.mkIf (cfg.configuration != null) {
         config_file_path = config.extraFiles."lazygit.yaml".finalSource;
         use_custom_config_file_path = 1;
       };
