@@ -14,11 +14,12 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-26.05
 
-      - uses: cachix/cachix-action@v17
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
         with:
-          name: skyethepinkcat
-          # If you chose API tokens for write access OR if you have a private cache
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          endpoint: "https://nix-cache.skyenet.online"
+          cache: "skyenet"
+          token: ${{ secrets.ATTIC_AUTH_TOKEN }}
 
       - name: Check nixfmt
         run: nix run nixpkgs#nixfmt -- --check $(find . -name "*.nix" -not -path "./.git/*")
@@ -40,11 +41,12 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-26.05
 
-      - uses: cachix/cachix-action@v17
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
         with:
-          name: skyethepinkcat
-          # If you chose API tokens for write access OR if you have a private cache
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          endpoint: "https://nix-cache.skyenet.online"
+          cache: "skyenet"
+          token: ${{ secrets.ATTIC_AUTH_TOKEN }}
 
       - name: Build
         run: nix build .

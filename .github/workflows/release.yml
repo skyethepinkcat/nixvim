@@ -23,6 +23,13 @@ jobs:
           name: skyethepinkcat
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: "https://nix-cache.skyenet.online"
+          cache: "skyenet"
+          token: ${{ secrets.ATTIC_AUTH_TOKEN }}
+
       - name: Build
         run: nix build . --no-link
 
