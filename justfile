@@ -3,4 +3,4 @@ build:
 run:
   nix run path:.
 cache:
-  attic push skyenet $(nix build . --no-link --print-out-paths)
+  nix-fast-build --attic-cache skyenet -f .#packages.$(nix eval --raw --impure --expr builtins.currentSystem) --push-build-closure

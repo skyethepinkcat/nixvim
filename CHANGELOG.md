@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - nixmodules: helper keybinds to handle nix module paths and evaluating configured options
 - LazyGit: allow user configuration by swapping from variable to module option.
 
+### Changed
+
+- scratch: No longer a regular package, since it is only used for dev purposes.
+
 ### Infrastructure
 - check for changelog update on pull requests
 

@@ -13,6 +13,7 @@
           nixfmt
           lua-language-server
           just
+          nix-fast-build
         ];
       };
     };

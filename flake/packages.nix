@@ -38,13 +38,14 @@
           ];
           extraSpecialArgs = { inherit inputs; };
         };
-        scratch = {
-          inherit system;
-          modules = with mods; [
-            scratch
-          ];
-          extraSpecialArgs = { inherit inputs; };
-        };
+        # Uncomment to allow the scratch packages to be built
+        # scratch = {
+        #   inherit system;
+        #   modules = with mods; [
+        #     scratch
+        #   ];
+        #   extraSpecialArgs = { inherit inputs; };
+        # };
         simple = {
           inherit system;
           modules = with mods; [
